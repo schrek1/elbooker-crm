@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-Host Mode</actionName>
+            <displayName>Host Mode</displayName>
+            <goals>
+                <goal>gwt:run</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-Code Server</actionName>
+            <displayName>Code Server</displayName>
+            <goals>
+                <goal>gwt:run-codeserver</goal>
+            </goals>
+        </action>
+    </actions>
