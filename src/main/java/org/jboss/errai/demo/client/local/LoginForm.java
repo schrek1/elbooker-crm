@@ -25,7 +25,7 @@ import org.jboss.errai.demo.client.shared.LoginVerifyService;
  *
  * @author ondra
  */
-@EntryPoint
+
 @Page(role = DefaultPage.class)
 @Templated("LoginForm.html#container")
 public class LoginForm extends Composite{

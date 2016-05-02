@@ -4,5 +4,8 @@
   <scan>
     <!-- These exclusions were added by Errai to avoid deploying client-side classes to the server -->
     <!-- End of Errai exclusions -->
+
+    <!-- These exclusions were added by Errai to avoid deploying client-side classes to the server -->
+    <!-- End of Errai exclusions -->
   </scan>
 </beans>
