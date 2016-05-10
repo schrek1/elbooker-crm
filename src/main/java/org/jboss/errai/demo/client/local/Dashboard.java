@@ -5,6 +5,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.inject.Inject;
 import javax.persistence.PostLoad;
+import org.jboss.errai.demo.client.shared.Company;
 import org.jboss.errai.ui.nav.client.local.DefaultPage;
 import org.jboss.errai.ui.nav.client.local.Page;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
@@ -23,7 +24,8 @@ public class Dashboard extends Composite{
  private void postLoad(){
    Window.alert("vitej jone");
 
-   
+   Company firma = new Company();
+
  }
 
 
