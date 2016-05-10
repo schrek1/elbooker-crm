@@ -6,7 +6,7 @@ import org.jboss.errai.demo.client.shared.UserAccount;
  *
  * @author ondra
  */
-public class DataSource{
+public class UsersDAO{
    public VerifyResponse getUserByName(String userName){
     if(userName.equals("admin")){
       return new VerifyResponse(VerifyResponse.Status.ACCOUNT_FOUND, new UserAccount("admin", "1234"));

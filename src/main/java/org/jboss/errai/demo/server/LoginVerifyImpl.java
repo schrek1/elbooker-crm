@@ -15,7 +15,7 @@ import org.jboss.errai.demo.client.shared.LoginVerifyService;
 public class LoginVerifyImpl implements LoginVerifyService{
 
 
-  private DataSource dataSource = new DataSource();
+  private UsersDAO dataSource = new UsersDAO();
 
   @Override
   public LoginResponse authentication(UserAccount recieveUserAccount){

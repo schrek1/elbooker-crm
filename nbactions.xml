@@ -6,12 +6,19 @@
             <goals>
                 <goal>gwt:run</goal>
             </goals>
+            <properties>
+                <runTarget>index.html</runTarget>
+            </properties>
         </action>
         <action>
             <actionName>CUSTOM-Code Server</actionName>
             <displayName>Code Server</displayName>
             <goals>
-                <goal>gwt:run-codeserver</goal>
+                <goal>gwt:run-codeserve</goal>
+                
+                
+                
+                
             </goals>
         </action>
     </actions>
