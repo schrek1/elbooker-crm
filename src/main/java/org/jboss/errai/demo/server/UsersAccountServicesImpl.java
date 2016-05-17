@@ -1,19 +1,28 @@
 package org.jboss.errai.demo.server;
 
+import com.google.gwt.core.shared.GWT;
+import java.io.Serializable;
+import javax.ejb.Stateful;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import org.jboss.errai.bus.server.annotations.Service;
 import org.jboss.errai.demo.client.shared.UserAccount;
 import org.jboss.errai.demo.client.shared.LoginResponse;
-import org.jboss.errai.demo.client.shared.LoginVerifyService;
+import org.jboss.errai.demo.client.shared.UsersAccountServices;
 
 /**
+ * Class which make implementation of all Users Account Services.
  *
  * @author ondra
  */
-@ApplicationScoped
 @Service
-public class LoginVerifyImpl implements LoginVerifyService{
+public class UsersAccountServicesImpl implements UsersAccountServices, Serializable{
 
+  private static final long serialVersionUID = 1L;
 
   private UsersDAO dataSource = new UsersDAO();
 
@@ -33,5 +42,18 @@ public class LoginVerifyImpl implements LoginVerifyService{
       return new LoginResponse(LoginResponse.Response.USER_BAD, "spatny uzivtelsky ucet");
     }
   }
+
+  public static long getSerialVersionUID(){
+    return serialVersionUID;
+  }
+
+  public UsersDAO getDataSource(){
+    return dataSource;
+  }
+
+  public void setDataSource(UsersDAO dataSource){
+    this.dataSource = dataSource;
+  }
+
 
 }

@@ -5,20 +5,37 @@
             <displayName>Host Mode</displayName>
             <goals>
                 <goal>gwt:run</goal>
+                
+                
             </goals>
             <properties>
                 <runTarget>index.html</runTarget>
+                
+                
             </properties>
         </action>
         <action>
             <actionName>CUSTOM-Code Server</actionName>
             <displayName>Code Server</displayName>
             <goals>
-                <goal>gwt:run-codeserve</goal>
+                <goal>process-classes</goal>
+                <goal>gwt:run-codeserver</goal>
+                
+                
                 
                 
                 
                 
             </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-Debug Mode</actionName>
+            <displayName>Debug Mode</displayName>
+            <goals>
+                <goal>gwt:debug</goal>
+            </goals>
+            <properties>
+                <superDevMode>false</superDevMode>
+            </properties>
         </action>
     </actions>

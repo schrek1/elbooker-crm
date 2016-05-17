@@ -1,7 +1,15 @@
 package org.jboss.errai.demo.client.shared;
 
+import org.jboss.errai.common.client.api.annotations.Portable;
+import org.jboss.errai.databinding.client.api.Bindable;
 
-class PhoneNumber {
+@Portable
+@Bindable
+public class PhoneNumber{
+
+  public PhoneNumber(){
+
+  }
 
   private String countryPrefix;
   private String number;

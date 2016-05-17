@@ -1,7 +1,15 @@
 package org.jboss.errai.demo.client.shared;
 
+import org.jboss.errai.common.client.api.annotations.Portable;
+import org.jboss.errai.databinding.client.api.Bindable;
 
-class Billing {
+@Portable
+@Bindable
+public class BillingInfo{
+
+  public BillingInfo(){
+
+  }
 
   private String idNum;
   private String vatNum;

@@ -2,10 +2,17 @@ package org.jboss.errai.demo.client.local;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.DivElement;
+import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.TextBox;
 import javax.inject.Inject;
@@ -21,15 +28,17 @@ import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.Model;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
-import org.jboss.errai.demo.client.shared.LoginVerifyService;
+import org.jboss.errai.ioc.client.api.AfterInitialization;
+import org.jboss.errai.ui.nav.client.local.PageShowing;
 import org.jboss.errai.ui.nav.client.local.TransitionAnchor;
 import org.jboss.errai.ui.nav.client.local.TransitionTo;
+import org.jboss.errai.ui.shared.api.annotations.SinkNative;
+import org.jboss.errai.demo.client.shared.UsersAccountServices;
 
 /**
  *
  * @author ondra
  */
-
 @Page(role = DefaultPage.class)
 @Templated("LoginForm.html#container")
 public class LoginForm extends Composite{
@@ -69,24 +78,18 @@ public class LoginForm extends Composite{
   private HTML loginWarn;
 
   @Inject
-  private Caller<LoginVerifyService> loginVerify;
+  private Caller<UsersAccountServices> loginVerify;
 
   @Inject
   private TransitionTo<Dashboard> anchorDashboard;
 
   @EventHandler("login")
-  private void onLoginClick(ClickEvent ce){
-    GWT.log("Event vyvolan");
+  private void loginClickHandler(ClickEvent ce){
     this.login.setFocus(false);
-    
-    this.addStyleName("class");
-
     if(this.isFormFilled()){
-      GWT.log("volani login verify");
       this.loginVerify.call(new RemoteCallback<LoginResponse>(){
         @Override
         public void callback(LoginResponse response){
-          //Window.alert(response.toString());
           if(response.toString().contains("ALL_OK")){
             loginWarn.setVisible(false);
             anchorDashboard.go();
@@ -95,8 +98,6 @@ public class LoginForm extends Composite{
           }
         }
       }).authentication(loginRequest);
-    }else{
-      GWT.log("nevyplneny vsechny udaje");
     }
     this.makeColredEmpty();
   }
@@ -125,7 +126,6 @@ public class LoginForm extends Composite{
     outDiv.getElement().setAttribute("class", classAtribute);
     return empty;
   }
-
 
   private boolean isFormFilled(){
     if(this.username.getText().isEmpty() || this.password.getText().isEmpty()){

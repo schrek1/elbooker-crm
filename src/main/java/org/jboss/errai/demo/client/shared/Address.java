@@ -1,6 +1,10 @@
 package org.jboss.errai.demo.client.shared;
 
+import org.jboss.errai.common.client.api.annotations.Portable;
+import org.jboss.errai.databinding.client.api.Bindable;
 
+@Portable
+@Bindable
 public class Address {
 
   private String country;

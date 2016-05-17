@@ -1,14 +1,20 @@
 package org.jboss.errai.demo.client.shared;
 
 import java.util.HashMap;
+import org.jboss.errai.common.client.api.annotations.Portable;
+import org.jboss.errai.databinding.client.api.Bindable;
 
-
-class ContactPerson {
+@Portable
+@Bindable
+public class ContactPerson {
 
   private String name;
   private String surname;
   private PhoneNumber phone;
   private HashMap<String, String> comments;
+
+  public ContactPerson(){
+  }
 
   public String getName(){
     return name;
