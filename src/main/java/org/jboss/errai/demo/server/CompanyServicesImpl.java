@@ -11,7 +11,7 @@ import org.jboss.errai.demo.client.shared.CompanyServices;
 @Service
 public class CompanyServicesImpl implements CompanyServices{
 
-  private CompanyDAO companyDAO = new CompanyDAO();
+  private final CompanyDAO companyDAO = new CompanyDAO();
 
   @Override
   public List<Company> listOfCompany(){

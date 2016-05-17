@@ -2,6 +2,7 @@ package org.jboss.errai.demo.client.local;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.DivElement;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -34,12 +35,13 @@ import org.jboss.errai.ui.nav.client.local.TransitionAnchor;
 import org.jboss.errai.ui.nav.client.local.TransitionTo;
 import org.jboss.errai.ui.shared.api.annotations.SinkNative;
 import org.jboss.errai.demo.client.shared.UsersAccountServices;
+import org.jboss.errai.ui.nav.client.local.api.LoginPage;
 
 /**
  *
  * @author ondra
  */
-@Page(role = DefaultPage.class)
+@Page(role = LoginPage.class)
 @Templated("LoginForm.html#container")
 public class LoginForm extends Composite{
 
@@ -82,6 +84,14 @@ public class LoginForm extends Composite{
 
   @Inject
   private TransitionTo<Dashboard> anchorDashboard;
+
+
+  @PageShowing
+  private void pageShowing()
+  {
+    Document.get().getElementById("navBar").removeFromParent();
+    Document.get().getElementById("loginInfo").removeFromParent();
+  }
 
   @EventHandler("login")
   private void loginClickHandler(ClickEvent ce){
