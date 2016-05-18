@@ -5,6 +5,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.inject.Inject;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -28,7 +29,6 @@ import org.jboss.errai.demo.client.shared.CompanyServices;
  */
 @Page(role = DefaultPage.class)
 @Templated
-@Dependent
 public class Dashboard extends Composite{
 
   @Inject
@@ -50,6 +50,7 @@ public class Dashboard extends Composite{
 
   @PostConstruct
   private void postConstruct(){
+    Document.get().getElementById("wrapper").removeAllChildren();
     this.setVisible(false);
     Document.get().getElementById("wrapper").appendChild(this.topBar.getTopBar());
     Document.get().getElementById("wrapper").appendChild(this.navBar.getNavBar());

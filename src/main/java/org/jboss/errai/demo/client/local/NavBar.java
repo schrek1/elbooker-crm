@@ -10,7 +10,6 @@ import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 
 @Templated("NavBar.html#navBar")
-@ViewScoped
 public class NavBar extends Composite{
 
   @DataField

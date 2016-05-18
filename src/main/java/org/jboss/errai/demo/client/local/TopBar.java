@@ -11,7 +11,6 @@ import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 
 @Templated("TopBar.html#topBar")
-@ViewScoped
 public class TopBar extends Composite{
 
   @DataField

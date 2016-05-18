@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
@@ -45,7 +46,6 @@ import org.jboss.errai.ui.nav.client.local.api.LoginPage;
  */
 @Page(role = LoginPage.class)
 @Templated("LoginForm.html#container")
-@Dependent
 public class LoginForm extends Composite{
 
   @Inject
@@ -93,6 +93,7 @@ public class LoginForm extends Composite{
 
   @PageShowing
   private void pageShowing(){
+    Document.get().getElementById("wrapper").removeAllChildren();
     Document.get().getElementById("wrapper").appendChild(this.topBar.getTopBar());
     Document.get().getElementById("loginInfo").removeFromParent();
   }
