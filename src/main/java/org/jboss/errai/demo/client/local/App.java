@@ -24,6 +24,7 @@ import org.jboss.errai.ioc.client.api.EntryPoint;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Node;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
@@ -52,9 +53,9 @@ public class App {
 
   @PostConstruct
   public void init() {
-    Element wrapper = Document.get().getElementById("wrapper");
-    wrapper.appendChild(this.topBar.getTopBar());
-    wrapper.appendChild(this.navBar.getNavBar());
+//    Element wrapper = Document.get().getElementById("wrapper");
+//    wrapper.appendChild(this.topBar.getTopBar());
+//    wrapper.appendChild(this.navBar.getNavBar());
   }
 
 }

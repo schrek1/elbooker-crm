@@ -16,6 +16,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.TextBox;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import org.jboss.errai.common.client.api.Caller;
 import org.jboss.errai.common.client.api.RemoteCallback;
@@ -43,6 +45,7 @@ import org.jboss.errai.ui.nav.client.local.api.LoginPage;
  */
 @Page(role = LoginPage.class)
 @Templated("LoginForm.html#container")
+@Dependent
 public class LoginForm extends Composite{
 
   @Inject
@@ -83,13 +86,14 @@ public class LoginForm extends Composite{
   private Caller<UsersAccountServices> loginVerify;
 
   @Inject
+  private TopBar topBar;
+
+  @Inject
   private TransitionTo<Dashboard> anchorDashboard;
 
-
   @PageShowing
-  private void pageShowing()
-  {
-    Document.get().getElementById("navBar").removeFromParent();
+  private void pageShowing(){
+    Document.get().getElementById("wrapper").appendChild(this.topBar.getTopBar());
     Document.get().getElementById("loginInfo").removeFromParent();
   }
 
