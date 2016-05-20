@@ -30,7 +30,7 @@ import org.jboss.errai.ui.shared.api.annotations.Templated;
 
 @Templated("Dashboard.html#company")
 public class CompanyItemWidget extends Composite implements HasModel<Company>{
-
+  
   // nabinduje poskytnutou instanci modelu vsem polozkam anotovanym bound
   @Inject
   @AutoBound
