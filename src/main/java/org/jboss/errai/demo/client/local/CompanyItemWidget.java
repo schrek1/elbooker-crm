@@ -1,9 +1,15 @@
 package org.jboss.errai.demo.client.local;
 
+import com.google.gwt.dom.client.DivElement;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.MouseEvent;
+import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.i18n.client.LocaleInfo;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
@@ -13,13 +19,18 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import org.jboss.errai.common.client.api.Caller;
+import org.jboss.errai.common.client.api.RemoteCallback;
 import org.jboss.errai.databinding.client.api.DataBinder;
 import org.jboss.errai.databinding.client.api.PropertyChangeEvent;
 import org.jboss.errai.databinding.client.api.PropertyChangeHandler;
 import org.jboss.errai.demo.client.shared.Company;
+import org.jboss.errai.demo.client.shared.CompanyServices;
+import org.jboss.errai.demo.client.shared.ContactPerson;
 import org.jboss.errai.ui.client.widget.HasModel;
 import org.jboss.errai.ui.client.widget.ValueImage;
 import org.jboss.errai.ui.shared.api.annotations.AutoBound;
@@ -30,11 +41,14 @@ import org.jboss.errai.ui.shared.api.annotations.Templated;
 
 @Templated("Dashboard.html#company")
 public class CompanyItemWidget extends Composite implements HasModel<Company>{
-  
+
   // nabinduje poskytnutou instanci modelu vsem polozkam anotovanym bound
   @Inject
   @AutoBound
   private DataBinder<Company> company;
+
+  @Inject
+  private Caller<CompanyServices> companyCaller;
 
   // You can also choose to instantiate your own widgets. Injection is not
   // required. In case of Element, direct injection is not supported.
@@ -59,6 +73,9 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
   @DataField
   private final Button removeBut = new Button();
 
+  private Element editPopUp = Document.get().getElementById("editPopUp");
+  private Element infoTr = Document.get().getElementById("infoTr");
+
   @Override
   public Company getModel(){
     return company.getModel();
@@ -71,29 +88,22 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
 
   @EventHandler("infoBut")
   private void infoButClick(ClickEvent ce){
-    DialogBox dialogBox = new DialogBox(true,true);
-    dialogBox.setGlassStyleName("PopupPanel-GlassStyle");
-    dialogBox.setGlassEnabled(true);
+    this.infoTr.getStyle().setDisplay(Display.NONE);
+    Element parentTR = this.infoBut.getParent().getParent().getElement();
+    Element nextTr = parentTR.getNextSiblingElement();
 
-    dialogBox.setAnimationEnabled(true);
-    dialogBox.setText("Detail firmy");
-
-    FlowPanel panel = new FlowPanel();
-    panel.add(new Button("button"));
-    panel.add(new Button("button"));
-    panel.add(new Button("button"));
-    panel.setSize("500px", "300px");
-    dialogBox.add(panel);
-
-    dialogBox.center();
-    dialogBox.show();
-
-    this.infoBut.setFocus(false);
+    if(nextTr == null || !nextTr.isOrHasChild(this.infoTr)){ // v nextTR muze byt null => zalezi na poradi testu!!
+      Document.get().getElementById("companyTable").insertAfter(this.infoTr, parentTR);
+      this.infoBut.setFocus(false);
+      this.fillInfo();
+    }else{
+      parentTR.getNextSiblingElement().removeFromParent();
+    }
   }
 
   @EventHandler("editBut")
   private void editButClick(ClickEvent ce){
-    Window.alert("info");
+    this.editPopUp.getStyle().setDisplay(Display.INLINE);
     this.editBut.setFocus(false);
   }
 
@@ -101,6 +111,18 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
   private void removeButClick(ClickEvent ce){
     Window.alert("remove");
     this.removeBut.setFocus(false);
+  }
+
+  private void fillInfo(){
+    int companyID = this.company.getModel().getId();
+    this.companyCaller.call(new RemoteCallback<Company>(){
+      @Override
+      public void callback(Company response){
+        Document.get().getElementById("iName").setInnerText(response.getName());
+        Document.get().getElementById("iWeb").setInnerText(response.getWeb());
+        infoTr.getStyle().setDisplay(Display.TABLE_ROW);
+      }
+    }).getCompanyById(companyID);
   }
 
 }

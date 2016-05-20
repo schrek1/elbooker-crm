@@ -4,7 +4,6 @@ import org.jboss.errai.common.client.api.annotations.Portable;
 import org.jboss.errai.databinding.client.api.Bindable;
 
 @Portable
-@Bindable
 public class PhoneNumber{
 
   public PhoneNumber(){
@@ -29,5 +28,11 @@ public class PhoneNumber{
   public void setNumber(String number){
     this.number = number;
   }
+
+  @Override
+  public String toString(){
+    return "PhoneNumber{" + "countryPrefix=" + countryPrefix + ", number=" + number + '}';
+  }
+
 
 }

@@ -15,8 +15,8 @@ public class Company{
   private int id;
   private String name;
   private String web;
-  
-//  private ContactPerson contactPerson;
+
+  private ContactPerson contactPerson;
 //  private PhoneNumber phone;
 //  private Address address;
 //  private BillingInfo billingInfo;
@@ -49,9 +49,20 @@ public class Company{
     this.web = web;
   }
 
+  public ContactPerson getContactPerson(){
+    return contactPerson;
+  }
+
+  public void setContactPerson(ContactPerson contactPerson){
+    this.contactPerson = contactPerson;
+  }
+
   @Override
   public String toString(){
-    return "Company{" + "id=" + id + ", name=" + name + ", web=" + web + '}';
+    return "Company{" + "id=" + id + ", name=" + name + ", web=" + web + ", contactPerson=" + contactPerson + '}';
   }
+
+
+ 
 
 }

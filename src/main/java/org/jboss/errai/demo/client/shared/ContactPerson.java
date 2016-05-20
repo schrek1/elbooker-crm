@@ -5,7 +5,6 @@ import org.jboss.errai.common.client.api.annotations.Portable;
 import org.jboss.errai.databinding.client.api.Bindable;
 
 @Portable
-@Bindable
 public class ContactPerson {
 
   private String name;
@@ -56,5 +55,12 @@ public class ContactPerson {
   public HashMap<String, String> getAllComments(){
     return this.comments;
   }
+
+  @Override
+  public String toString(){
+    return "ContactPerson{" + "name=" + name + ", surname=" + surname + ", phone=" + phone + ", comments=" + comments + '}';
+  }
+
+
 
 }

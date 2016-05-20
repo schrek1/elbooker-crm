@@ -43,7 +43,7 @@ public class CompanyDAO{
     phone.setCountryPrefix("+420");
     phone.setNumber("987456321");
     contactPerson.setPhone(phone);
-//    company.setContactPerson(contactPerson);
+    company.setContactPerson(contactPerson);
 
     company.setName("elBooker s.r.o");
 
@@ -53,7 +53,7 @@ public class CompanyDAO{
 //    company.setPhone(phone);
 
     company.setWeb("www.elbooker.eu");
-
+    
     companies.add(company);
     // !ADD COMPANY 1
 
@@ -80,7 +80,7 @@ public class CompanyDAO{
     phone.setCountryPrefix("+420");
     phone.setNumber("987456321");
     contactPerson.setPhone(phone);
-//    company.setContactPerson(contactPerson);
+    company.setContactPerson(contactPerson);
 
     company.setName("Firmicka s.r.o");
 
@@ -117,7 +117,7 @@ public class CompanyDAO{
     phone.setCountryPrefix("+420");
     phone.setNumber("987456321");
     contactPerson.setPhone(phone);
-//    company.setContactPerson(contactPerson);
+    company.setContactPerson(contactPerson);
 
     company.setName("Okna a.s.");
 
@@ -154,7 +154,7 @@ public class CompanyDAO{
     phone.setCountryPrefix("+420");
     phone.setNumber("987456321");
     contactPerson.setPhone(phone);
-//    company.setContactPerson(contactPerson);
+    company.setContactPerson(contactPerson);
 
     company.setName("autoopravna s.r.o");
 

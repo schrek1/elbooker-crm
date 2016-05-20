@@ -18,4 +18,15 @@ public class CompanyServicesImpl implements CompanyServices{
     return this.companyDAO.fillCompanies();
   }
 
+  @Override
+  public Company getCompanyById(int id){
+    List<Company> listOfCompany = this.companyDAO.fillCompanies();
+    for(Company company : listOfCompany){
+      if(company.getId() == id){
+        return company;
+      }
+    }
+    return null;
+  }
+
 }

@@ -13,4 +13,5 @@ public interface CompanyServices{
 
   public List<Company> listOfCompany();
 
+  public Company getCompanyById(int id);
 }
