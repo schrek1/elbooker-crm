@@ -73,6 +73,8 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
   @DataField
   private final Button removeBut = new Button();
 
+  private boolean isOpen = false;
+
   private Element editPopUp = Document.get().getElementById("editPopUp");
   private Element infoTr = Document.get().getElementById("infoTr");
 
@@ -92,13 +94,16 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
     Element parentTR = this.infoBut.getParent().getParent().getElement();
     Element nextTr = parentTR.getNextSiblingElement();
 
-    if(nextTr == null || !nextTr.isOrHasChild(this.infoTr)){ // v nextTR muze byt null => zalezi na poradi testu!!
+    if(nextTr == null || !nextTr.isOrHasChild(this.infoTr)){
       Document.get().getElementById("companyTable").insertAfter(this.infoTr, parentTR);
-      this.infoBut.setFocus(false);
       this.fillInfo();
     }else{
-      parentTR.getNextSiblingElement().removeFromParent();
+      this.isOpen = !this.isOpen;
+      if(isOpen){
+        this.infoTr.getStyle().setDisplay(Display.TABLE_ROW);
+      }
     }
+    this.infoBut.setFocus(false);
   }
 
   @EventHandler("editBut")
