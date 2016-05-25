@@ -1,4 +1,4 @@
-package org.jboss.errai.demo.client.shared;
+package org.jboss.errai.demo.client.shared.companyEntity;
 
 import org.jboss.errai.common.client.api.annotations.Portable;
 import org.jboss.errai.databinding.client.api.Bindable;

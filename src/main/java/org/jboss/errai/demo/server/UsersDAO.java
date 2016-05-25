@@ -1,8 +1,14 @@
 package org.jboss.errai.demo.server;
 
+import java.util.Arrays;
+import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Singleton;
+import org.jboss.as.domain.management.security.UserNotFoundException;
+import org.jboss.errai.demo.client.shared.Role;
+import org.jboss.errai.demo.client.shared.User;
 import org.jboss.errai.demo.client.shared.UserAccount;
+
 
 /**
  * Class which make query to JPA DB of users
@@ -32,5 +38,14 @@ public class UsersDAO{
       return new VerifyResponse(VerifyResponse.Status.ACCOUNT_FOUND, new UserAccount("nemo", "nemo"));
     }
     return new VerifyResponse(VerifyResponse.Status.UNKNOW_ACCOUNT, null);
+  }
+
+
+  public User getUserByLogin(String login) throws Exception{
+    if(login.equals("admin"))
+    {
+      return new User("admin", Arrays.asList(new Role("admin")));
+    }
+    throw new Exception();
   }
 }

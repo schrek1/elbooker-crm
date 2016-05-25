@@ -6,11 +6,11 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import org.hibernate.mapping.Collection;
 import org.jboss.errai.bus.server.annotations.Service;
-import org.jboss.errai.demo.client.shared.Address;
-import org.jboss.errai.demo.client.shared.BillingInfo;
-import org.jboss.errai.demo.client.shared.Company;
-import org.jboss.errai.demo.client.shared.ContactPerson;
-import org.jboss.errai.demo.client.shared.PhoneNumber;
+import org.jboss.errai.demo.client.shared.companyEntity.Address;
+import org.jboss.errai.demo.client.shared.companyEntity.BillingInfo;
+import org.jboss.errai.demo.client.shared.companyEntity.Company;
+import org.jboss.errai.demo.client.shared.companyEntity.ContactPerson;
+import org.jboss.errai.demo.client.shared.companyEntity.PhoneNumber;
 import org.jboss.errai.demo.client.shared.CompanyServices;
 
 

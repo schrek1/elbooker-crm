@@ -19,7 +19,7 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import org.jboss.errai.common.client.api.Caller;
 import org.jboss.errai.common.client.api.RemoteCallback;
-import org.jboss.errai.demo.client.shared.Company;
+import org.jboss.errai.demo.client.shared.companyEntity.Company;
 import org.jboss.errai.ui.client.widget.ListWidget;
 import org.jboss.errai.ui.client.widget.Table;
 import org.jboss.errai.ui.nav.client.local.DefaultPage;
@@ -28,6 +28,7 @@ import org.jboss.errai.ui.nav.client.local.PageShown;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 import org.jboss.errai.demo.client.shared.CompanyServices;
+import org.jboss.errai.security.shared.api.annotation.RestrictedAccess;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 
 /**
@@ -36,6 +37,7 @@ import org.jboss.errai.ui.shared.api.annotations.EventHandler;
  */
 @Page(role = DefaultPage.class)
 @Templated
+@RestrictedAccess
 public class Dashboard extends Composite{
 
   @Inject

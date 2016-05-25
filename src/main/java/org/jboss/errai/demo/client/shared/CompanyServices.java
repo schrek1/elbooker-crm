@@ -1,5 +1,6 @@
 package org.jboss.errai.demo.client.shared;
 
+import org.jboss.errai.demo.client.shared.companyEntity.Company;
 import java.util.List;
 import org.jboss.errai.bus.server.annotations.Remote;
 
