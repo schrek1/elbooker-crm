@@ -38,6 +38,7 @@ import org.jboss.errai.ui.nav.client.local.TransitionAnchor;
 import org.jboss.errai.ui.nav.client.local.TransitionTo;
 import org.jboss.errai.ui.shared.api.annotations.SinkNative;
 import org.jboss.errai.demo.client.shared.UsersAccountServices;
+import org.jboss.errai.ui.nav.client.local.PageHiding;
 import org.jboss.errai.ui.nav.client.local.api.LoginPage;
 
 /**
@@ -91,11 +92,17 @@ public class LoginForm extends Composite{
   @Inject
   private TransitionTo<Dashboard> anchorDashboard;
 
+  @Inject
+  private NavBar navBar;
+
   @PageShowing
   private void pageShowing(){
-    Document.get().getElementById("wrapper").removeAllChildren();
-    Document.get().getElementById("wrapper").appendChild(this.topBar.getTopBar());
-    Document.get().getElementById("loginInfo").removeFromParent();
+    this.navBar.setVisible(false);
+  }
+
+  @PageHiding
+  private void pageHiding(){
+    this.navBar.setVisible(true);
   }
 
   @EventHandler("login")

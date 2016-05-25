@@ -27,37 +27,36 @@ import org.jboss.errai.ui.shared.api.annotations.Templated;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.Widget;
+import javax.enterprise.context.ApplicationScoped;
 
-/**
- * This {@link Templated} widget wraps the Errai Navigation
- * {@link Navigation#getContentPanel() content panel} so that the {@link NavBar}
- * is displayed above every {@link Page}.
- */
-@Templated("#body")
-@Dependent
-public class NavigationWrapper {
+@Templated("PageWrapper.html#wrapper")
+@ApplicationScoped
+public class PageWrapper extends Composite{
 
-  @DataField
-  private final Element body = DOM.createDiv();
 
   @Inject
   private Navigation navigation;
 
   @Inject
   @DataField
-  private NavBar navbar;
+  private NavBar navBar;
 
   @Inject
   @DataField
-  private SimplePanel content;
+  private TopBar topBar;
+
+  @Inject
+  @DataField
+  private FlowPanel content;
+
 
   @PostConstruct
   public void clientMain() {
-    content.add(navigation.getContentPanel());
+    this.content.add(this.navigation.getContentPanel());
   }
 
-  public Element getBody() {
-    return body;
-  }
 }

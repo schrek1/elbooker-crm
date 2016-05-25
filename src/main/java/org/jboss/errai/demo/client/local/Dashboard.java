@@ -39,19 +39,16 @@ import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 public class Dashboard extends Composite{
 
   @Inject
-  private App app;
-
-  @Inject
   private Caller<CompanyServices> companyCaller;
 
-  @Inject
-  private TopBar topBar;
-
-  @Inject
-  private NavBar navBar;
-
-  @DataField
-  private Element content = DOM.createDiv();
+//  @Inject
+//  private TopBar topBar;
+//
+//  @Inject
+//  private NavBar navBar;
+//
+//  @DataField
+//  private Element content = DOM.createDiv();
 
   @Inject
   @DataField
@@ -74,9 +71,8 @@ public class Dashboard extends Composite{
 
   @PostConstruct
   private void postConstruct(){
-    this.constructStructure();
+//    this.constructStructure();
     this.hideWindowDiv();
-
   }
 
   @PageShown
@@ -101,7 +97,6 @@ public class Dashboard extends Composite{
   }
 
   private void constructStructure(){
-    this.app.wrapper.remove(this.topBar);
 //    Document.get().getElementById("wrapper").removeAllChildren();
 //    this.setVisible(false);
 //    Document.get().getElementById("wrapper").appendChild(this.topBar.getTopBar());

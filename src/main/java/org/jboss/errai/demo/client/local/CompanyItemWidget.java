@@ -119,7 +119,7 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
     boolean confirm;
     confirm = Window.confirm("Opravdu chcete smzat firmu "+this.name.getInnerText()+"?");
     if(confirm){
-      this.getElement().getStyle().setDisplay(Display.NONE);
+      this.getElement().removeFromParent();
     }
     this.removeBut.setFocus(false);
   }
@@ -131,6 +131,7 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
       public void callback(Company response){
         Document.get().getElementById("iName").setInnerText(response.getName());
         Document.get().getElementById("iWeb").setInnerText(response.getWeb());
+        Document.get().getElementById("iContactPerson").setInnerText(response.getContactPerson().toString());
         infoTr.getStyle().setDisplay(Display.TABLE_ROW);
       }
     }).getCompanyById(companyID);

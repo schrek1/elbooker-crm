@@ -48,24 +48,11 @@ import org.jboss.errai.ui.shared.api.annotations.DataField;
 public class App {
 
   @Inject
-  public NavBar navBar;
-
-  @Inject
-  public  TopBar topBar;
-
-  @DataField
-  @Inject
-  public FlowPanel wrapper;
-
+  private PageWrapper pageWrapper;
 
   @PostConstruct
   public void init() {
-    this.wrapper.add(navBar);
-    RootPanel.get().add();
-
-//    Element wrapper = Document.get().getElementById("wrapper");
-//    wrapper.appendChild(this.topBar.getTopBar());
-//    wrapper.appendChild(this.navBar.getNavBar());
+    RootPanel.get().add(this.pageWrapper);
   }
 
 }
