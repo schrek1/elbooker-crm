@@ -39,6 +39,9 @@ import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 public class Dashboard extends Composite{
 
   @Inject
+  private App app;
+
+  @Inject
   private Caller<CompanyServices> companyCaller;
 
   @Inject
@@ -98,16 +101,17 @@ public class Dashboard extends Composite{
   }
 
   private void constructStructure(){
-    Document.get().getElementById("wrapper").removeAllChildren();
-    this.setVisible(false);
-    Document.get().getElementById("wrapper").appendChild(this.topBar.getTopBar());
-    Document.get().getElementById("wrapper").appendChild(this.navBar.getNavBar());
-    Document.get().getElementById("wrapper").appendChild(this.content);
+    this.app.wrapper.remove(this.topBar);
+//    Document.get().getElementById("wrapper").removeAllChildren();
+//    this.setVisible(false);
+//    Document.get().getElementById("wrapper").appendChild(this.topBar.getTopBar());
+//    Document.get().getElementById("wrapper").appendChild(this.navBar.getNavBar());
+//    Document.get().getElementById("wrapper").appendChild(this.content);
   }
 
   private void hideWindowDiv(){
     this.editPopUp.getStyle().setDisplay(Display.NONE);
     this.infoTr.getStyle().setDisplay(Display.NONE);
   }
-  
+
 }

@@ -16,6 +16,7 @@
 
 package org.jboss.errai.demo.client.local;
 
+import com.google.gwt.dom.client.DivElement;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
@@ -25,8 +26,10 @@ import org.jboss.errai.ioc.client.api.EntryPoint;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Node;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -45,14 +48,21 @@ import org.jboss.errai.ui.shared.api.annotations.DataField;
 public class App {
 
   @Inject
-  private NavBar navBar;
+  public NavBar navBar;
 
   @Inject
-  private TopBar topBar;
+  public  TopBar topBar;
+
+  @DataField
+  @Inject
+  public FlowPanel wrapper;
 
 
   @PostConstruct
   public void init() {
+    this.wrapper.add(navBar);
+    RootPanel.get().add();
+
 //    Element wrapper = Document.get().getElementById("wrapper");
 //    wrapper.appendChild(this.topBar.getTopBar());
 //    wrapper.appendChild(this.navBar.getNavBar());

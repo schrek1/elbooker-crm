@@ -98,11 +98,13 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
       Document.get().getElementById("companyTable").insertAfter(this.infoTr, parentTR);
       this.fillInfo();
     }else{
-      this.isOpen = !this.isOpen;
       if(isOpen){
+        this.infoTr.getStyle().setDisplay(Display.NONE);
+      }else{
         this.infoTr.getStyle().setDisplay(Display.TABLE_ROW);
       }
     }
+    this.isOpen = !this.isOpen;
     this.infoBut.setFocus(false);
   }
 
@@ -114,7 +116,11 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
 
   @EventHandler("removeBut")
   private void removeButClick(ClickEvent ce){
-    Window.alert("remove");
+    boolean confirm;
+    confirm = Window.confirm("Opravdu chcete smzat firmu "+this.name.getInnerText()+"?");
+    if(confirm){
+      this.getElement().getStyle().setDisplay(Display.NONE);
+    }
     this.removeBut.setFocus(false);
   }
 

@@ -119,8 +119,8 @@ public class LoginForm extends Composite{
 
   private void makeColredEmpty(){
     int emptyFields = 0;
-    emptyFields += this.setErrorToEmpty(this.username, this.usernameDiv);
-    emptyFields += this.setErrorToEmpty(this.password, this.passwordDiv);
+    emptyFields += this.setErrorToEmptyField(this.username, this.usernameDiv);
+    emptyFields += this.setErrorToEmptyField(this.password, this.passwordDiv);
 
     if(emptyFields != 0){
       this.emptyWarn.setVisible(true);
@@ -129,7 +129,8 @@ public class LoginForm extends Composite{
     }
   }
 
-  private int setErrorToEmpty(TextBox textBox, HTML outDiv){
+  //TODO refaktor -> parent z textBox
+  private int setErrorToEmptyField(TextBox textBox, HTML outDiv){
     String classAtribute = outDiv.getElement().getAttribute("class");
     int empty = 0;
     if(textBox.getText().isEmpty()){
@@ -149,5 +150,4 @@ public class LoginForm extends Composite{
       return true;
     }
   }
-
 }
