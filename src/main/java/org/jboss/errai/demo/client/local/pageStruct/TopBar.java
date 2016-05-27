@@ -2,38 +2,32 @@ package org.jboss.errai.demo.client.local.pageStruct;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.Node;
-import com.google.gwt.dom.client.SpanElement;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.UIObject;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Dependent;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ViewScoped;
+import javax.enterprise.event.Observes;
+import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;
 import org.jboss.errai.common.client.api.Caller;
-import org.jboss.errai.common.client.api.RemoteCallback;
-import org.jboss.errai.demo.client.local.Dashboard;
 import org.jboss.errai.demo.client.local.LoginForm;
-import org.jboss.errai.demo.client.shared.userEntity.User;
-import org.jboss.errai.ioc.client.api.AfterInitialization;
+import org.jboss.errai.security.shared.api.identity.User;
+import org.jboss.errai.security.shared.event.LoggedInEvent;
+import org.jboss.errai.security.shared.event.LoggedOutEvent;
 import org.jboss.errai.security.shared.service.AuthenticationService;
 import org.jboss.errai.ui.nav.client.local.PageShowing;
-import org.jboss.errai.ui.nav.client.local.PageShown;
 import org.jboss.errai.ui.nav.client.local.TransitionTo;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 
 @Templated("TopBar.html#topBar")
-@RequestScoped
+@ApplicationScoped
 public class TopBar extends Composite{
 
   @Inject
@@ -46,9 +40,8 @@ public class TopBar extends Composite{
   @Inject
   private TransitionTo<LoginForm> anchorToLoginForm;
 
-//  @Inject
-//  @DataField
-//  private HTMLPanel loginInfo;
+  @DataField
+  private Element loginInfo = DOM.createDiv();
 
   @DataField
   private Element usernameSpan = DOM.createSpan();
@@ -57,18 +50,19 @@ public class TopBar extends Composite{
   private Element groupSpan = DOM.createSpan();
 
 
-  @AfterInitialization
-  private void afterInit(){
-    this.authCaller.call(new RemoteCallback<User>() {
-      @Override
-      public void callback(User logedUser){
-        Window.alert(logedUser.toString());
-        TopBar.this.usernameSpan.setInnerText(logedUser.getIdentifier());
-        TopBar.this.groupSpan.setInnerText(logedUser.getGroups().toString());
+  private void onLoggedIn(@Observes LoggedInEvent le){
+    this.refreshLoginInfo(le.getUser());
+    this.setVisibleLoginInfo(true);
+  }
 
-      }
-    }).getUser();
+  private void onLoggedOut(@Observes LoggedOutEvent le){
+    this.refreshLoginInfo(User.ANONYMOUS);
+    this.setVisibleLoginInfo(false);
+  }
 
+  private void refreshLoginInfo(User user){
+    TopBar.this.usernameSpan.setInnerText(user.getIdentifier());
+    TopBar.this.groupSpan.setInnerText(user.getGroups().toString());
   }
 
   @EventHandler("logoutButton")
@@ -77,8 +71,12 @@ public class TopBar extends Composite{
     this.anchorToLoginForm.go();
   }
 
-//  public void setVisibleLoginInfo(boolean visible){
-//    this.loginInfo.setVisible(visible);
-//  }
+  public void setVisibleLoginInfo(boolean visible){
+    if(visible)
+      this.loginInfo.getStyle().setDisplay(Style.Display.INLINE);
+    else
+      this.loginInfo.getStyle().setDisplay(Style.Display.NONE);
+
+  }
 
 }

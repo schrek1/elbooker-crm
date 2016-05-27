@@ -1,12 +1,10 @@
 package org.jboss.errai.demo.server;
 
-import com.google.gwt.core.client.GWT;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import org.jboss.errai.bus.server.annotations.Service;
 import org.jboss.errai.security.shared.api.identity.User;
 import org.jboss.errai.security.shared.exception.AuthenticationException;
-import org.jboss.errai.security.shared.exception.UnauthenticatedException;
 import org.jboss.errai.security.shared.service.AuthenticationService;
 import org.jboss.weld.servlet.SessionHolder;
 
@@ -24,15 +22,14 @@ public class AuthenticationImpl implements AuthenticationService{
       recieveUWP = this.udSource.getUserByLogin(username);
     }catch(Exception ex){
       throw new AuthenticationException();
-//      return User.ANONYMOUS;
     }
 
     if(recieveUWP.getPasswordHash().equals(password)){
+      System.err.println(recieveUWP.getRoles().toString());
       SessionHolder.getSessionIfExists().setAttribute("logedUser", recieveUWP.makeUserWithoutPassword());
       return recieveUWP.makeUserWithoutPassword();
     }else{
       throw new AuthenticationException();
-//      return User.ANONYMOUS;
     }
   }
 

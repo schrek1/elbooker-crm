@@ -7,7 +7,6 @@ import org.jboss.errai.security.shared.api.Role;
 public class UserWithPass extends User{
 
   public UserWithPass(){
-  
   }
 
   private String passwordHash;

@@ -3,6 +3,7 @@ package org.jboss.errai.demo.client.local;
 import org.jboss.errai.demo.client.local.pageStruct.TopBar;
 import org.jboss.errai.demo.client.local.pageStruct.NavBar;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
