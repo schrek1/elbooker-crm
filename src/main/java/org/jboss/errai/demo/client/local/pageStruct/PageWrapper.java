@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.jboss.errai.demo.client.local;
+package org.jboss.errai.demo.client.local.pageStruct;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
@@ -32,6 +32,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 
 @Templated("PageWrapper.html#wrapper")
 @ApplicationScoped

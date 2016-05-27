@@ -5,6 +5,8 @@
 <module rename-to="app">
   <inherits name="org.jboss.errai.enterprise.All" />
   <inherits name="org.jboss.errai.ui.Cordova" />
+  <inherits name="org.jboss.errai.security.Security" />
+
 
   <set-property name="user.agent" value="safari"/>
   <extend-property name='locale' values='cs'/>

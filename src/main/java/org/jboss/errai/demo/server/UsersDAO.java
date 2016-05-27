@@ -1,51 +1,35 @@
 package org.jboss.errai.demo.server;
 
 import java.util.Arrays;
-import java.util.List;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Singleton;
-import org.jboss.as.domain.management.security.UserNotFoundException;
-import org.jboss.errai.demo.client.shared.Role;
-import org.jboss.errai.demo.client.shared.User;
-import org.jboss.errai.demo.client.shared.UserAccount;
-
+import javassist.NotFoundException;
+import org.jboss.errai.demo.client.shared.userEntity.Role;
+import org.jboss.errai.demo.client.shared.userEntity.User;
+import org.jboss.errai.demo.client.shared.userEntity.UsersRole;
 
 /**
- * Class which make query to JPA DB of users
- * Class is singleton
+ * Class which make query to JPA DB of users Class is singleton
+ *
  * @author ondra
  */
 public class UsersDAO{
 
-  /**
-   * connect to JPA DB of users and make query
-   *
-   * @param userName username what we want find
-   *
-   * @return VerifyResponse, if user not found, method return response with
-   *         queryStatus: UNKNOW_ACCOUNT, and userAccount: null
-   *
-   *
-   */
-  public VerifyResponse getUserByName(String userName){
-    if(userName.equals("admin")){
-      return new VerifyResponse(VerifyResponse.Status.ACCOUNT_FOUND, new UserAccount("admin", "1234"));
+  public UserWithPass getUserByLogin(String login) throws Exception{
+    UserWithPass uwp;
+
+    if(login.equals("admin")){
+      uwp = new UserWithPass("admin", Arrays.asList(new Role(UsersRole.ADMIN)), "1234");
+      return uwp;
     }
-    if(userName.equals("ondra")){
-      return new VerifyResponse(VerifyResponse.Status.ACCOUNT_FOUND, new UserAccount("ondra", "4321"));
+    if(login.equals("ondra")){
+      uwp = new UserWithPass("ondra", Arrays.asList(new Role(UsersRole.USER)), "4321");
+      return uwp;
     }
-    if(userName.equals("nemo")){
-      return new VerifyResponse(VerifyResponse.Status.ACCOUNT_FOUND, new UserAccount("nemo", "nemo"));
+    if(login.equals("firma")){
+      uwp = new UserWithPass("firma", Arrays.asList(new Role(UsersRole.COMPANY)), "firma1");
+      return uwp;
     }
-    return new VerifyResponse(VerifyResponse.Status.UNKNOW_ACCOUNT, null);
+
+    throw new Exception("user not found");
   }
 
-
-  public User getUserByLogin(String login) throws Exception{
-    if(login.equals("admin"))
-    {
-      return new User("admin", Arrays.asList(new Role("admin")));
-    }
-    throw new Exception();
-  }
 }

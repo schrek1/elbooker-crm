@@ -1,4 +1,4 @@
-package org.jboss.errai.demo.client.shared;
+package org.jboss.errai.demo.client.shared.services;
 
 import org.jboss.errai.demo.client.shared.companyEntity.Company;
 import java.util.List;

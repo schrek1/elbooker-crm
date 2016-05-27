@@ -27,7 +27,7 @@ import org.jboss.errai.ui.nav.client.local.Page;
 import org.jboss.errai.ui.nav.client.local.PageShown;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
-import org.jboss.errai.demo.client.shared.CompanyServices;
+import org.jboss.errai.demo.client.shared.services.CompanyServices;
 import org.jboss.errai.security.shared.api.annotation.RestrictedAccess;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 

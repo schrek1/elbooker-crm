@@ -1,43 +1,26 @@
 package org.jboss.errai.demo.client.local;
 
-import com.google.gwt.core.shared.GWT;
-import com.google.gwt.dom.client.DivElement;
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.NativeEvent;
+import org.jboss.errai.demo.client.local.pageStruct.TopBar;
+import org.jboss.errai.demo.client.local.pageStruct.NavBar;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
-import javax.enterprise.context.Dependent;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import org.jboss.errai.bus.client.api.messaging.Message;
 import org.jboss.errai.common.client.api.Caller;
+import org.jboss.errai.common.client.api.ErrorCallback;
 import org.jboss.errai.common.client.api.RemoteCallback;
-import org.jboss.errai.demo.client.shared.UserAccount;
-import org.jboss.errai.demo.client.shared.LoginResponse;
-import org.jboss.errai.ioc.client.api.EntryPoint;
-import org.jboss.errai.ui.nav.client.local.DefaultPage;
 import org.jboss.errai.ui.nav.client.local.Page;
-import org.jboss.errai.ui.shared.api.annotations.Bound;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
-import org.jboss.errai.ui.shared.api.annotations.Model;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
-import org.jboss.errai.ioc.client.api.AfterInitialization;
 import org.jboss.errai.ui.nav.client.local.PageShowing;
-import org.jboss.errai.ui.nav.client.local.TransitionAnchor;
 import org.jboss.errai.ui.nav.client.local.TransitionTo;
-import org.jboss.errai.ui.shared.api.annotations.SinkNative;
-import org.jboss.errai.demo.client.shared.UsersAccountServices;
+import org.jboss.errai.demo.client.shared.userEntity.User;
+import org.jboss.errai.security.shared.exception.AuthenticationException;
+import org.jboss.errai.security.shared.service.AuthenticationService;
 import org.jboss.errai.ui.nav.client.local.PageHiding;
 import org.jboss.errai.ui.nav.client.local.api.LoginPage;
 
@@ -50,16 +33,13 @@ import org.jboss.errai.ui.nav.client.local.api.LoginPage;
 public class LoginForm extends Composite{
 
   @Inject
-  @Model
-  private UserAccount loginRequest;
+  private User user;
 
   @Inject
-  @Bound
   @DataField
   private TextBox password;
 
   @Inject
-  @Bound
   @DataField
   private TextBox username;
 
@@ -84,7 +64,7 @@ public class LoginForm extends Composite{
   private HTML loginWarn;
 
   @Inject
-  private Caller<UsersAccountServices> loginVerify;
+  private Caller<AuthenticationService> authCaller;
 
   @Inject
   private TopBar topBar;
@@ -109,17 +89,21 @@ public class LoginForm extends Composite{
   private void loginClickHandler(ClickEvent ce){
     this.login.setFocus(false);
     if(this.isFormFilled()){
-      this.loginVerify.call(new RemoteCallback<LoginResponse>(){
+      this.authCaller.call(new RemoteCallback<User>(){
         @Override
-        public void callback(LoginResponse response){
-          if(response.toString().contains("ALL_OK")){
+        public void callback(User response){
             loginWarn.setVisible(false);
             anchorDashboard.go();
-          }else{
+        }
+      }, new ErrorCallback<Message>(){
+        @Override
+        public boolean error(Message message, Throwable t){
+          if(t instanceof AuthenticationException){
             loginWarn.setVisible(true);
           }
+          return true;
         }
-      }).authentication(loginRequest);
+      }).login(this.username.getText(), this.password.getText());
     }
     this.makeColredEmpty();
   }

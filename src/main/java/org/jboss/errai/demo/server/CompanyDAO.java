@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Dependent;
 import org.hibernate.mapping.Collection;
 import org.jboss.errai.bus.server.annotations.Service;
 import org.jboss.errai.demo.client.shared.companyEntity.Address;
@@ -11,9 +12,9 @@ import org.jboss.errai.demo.client.shared.companyEntity.BillingInfo;
 import org.jboss.errai.demo.client.shared.companyEntity.Company;
 import org.jboss.errai.demo.client.shared.companyEntity.ContactPerson;
 import org.jboss.errai.demo.client.shared.companyEntity.PhoneNumber;
-import org.jboss.errai.demo.client.shared.CompanyServices;
+import org.jboss.errai.demo.client.shared.services.CompanyServices;
 
-
+@Dependent
 public class CompanyDAO{
 
   //fill dummy company method
@@ -53,7 +54,7 @@ public class CompanyDAO{
 //    company.setPhone(phone);
 
     company.setWeb("www.elbooker.eu");
-    
+
     companies.add(company);
     // !ADD COMPANY 1
 

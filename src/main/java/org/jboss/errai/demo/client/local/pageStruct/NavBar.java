@@ -1,4 +1,4 @@
-package org.jboss.errai.demo.client.local;
+package org.jboss.errai.demo.client.local.pageStruct;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;

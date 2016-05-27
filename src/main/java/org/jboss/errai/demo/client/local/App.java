@@ -16,6 +16,7 @@
 
 package org.jboss.errai.demo.client.local;
 
+import org.jboss.errai.demo.client.local.pageStruct.PageWrapper;
 import com.google.gwt.dom.client.DivElement;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;

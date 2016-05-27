@@ -5,7 +5,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import org.jboss.errai.bus.server.annotations.Service;
 import org.jboss.errai.demo.client.shared.companyEntity.Company;
-import org.jboss.errai.demo.client.shared.CompanyServices;
+import org.jboss.errai.demo.client.shared.services.CompanyServices;
 
 @ApplicationScoped
 @Service
