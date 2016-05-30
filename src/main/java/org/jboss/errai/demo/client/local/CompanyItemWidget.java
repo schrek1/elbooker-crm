@@ -118,7 +118,7 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
   @EventHandler("removeBut")
   private void removeButClick(ClickEvent ce){
     boolean confirm;
-    confirm = Window.confirm("Opravdu chcete smzat firmu "+this.name.getInnerText()+"?");
+    confirm = Window.confirm("Opravdu chcete smazat firmu "+this.name.getInnerText()+"?");
     if(confirm){
       this.getElement().removeFromParent();
       this.infoTr.getStyle().setDisplay(Display.NONE);

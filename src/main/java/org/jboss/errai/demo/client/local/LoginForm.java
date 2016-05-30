@@ -7,11 +7,14 @@ import com.google.gwt.dom.client.Style;
 import org.jboss.errai.demo.client.local.pageStruct.TopBar;
 import org.jboss.errai.demo.client.local.pageStruct.NavBar;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.inject.Key;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.jboss.errai.bus.client.api.messaging.Message;
@@ -88,6 +91,20 @@ public class LoginForm extends Composite{
     this.navBar.setVisible(true);
   }
 
+  @EventHandler("username")
+  private void onLoginBoxHitEnter(KeyPressEvent kpe){
+    if(kpe.getCharCode() == KeyCodes.KEY_ENTER){
+      this.loginClickHandler(null);
+    }
+  }
+
+  @EventHandler("password")
+  private void onPassBoxHitEnter(KeyPressEvent kpe){
+     if(kpe.getCharCode() == KeyCodes.KEY_ENTER){
+      this.loginClickHandler(null);
+    }
+  }
+
   @EventHandler("login")
   private void loginClickHandler(ClickEvent ce){
     this.login.setFocus(false);
@@ -95,8 +112,8 @@ public class LoginForm extends Composite{
       this.authCaller.call(new RemoteCallback<User>(){
         @Override
         public void callback(User response){
-            loginWarn.setVisible(false);
-            anchorDashboard.go();
+          loginWarn.setVisible(false);
+          anchorDashboard.go();
         }
       }, new ErrorCallback<Message>(){
         @Override

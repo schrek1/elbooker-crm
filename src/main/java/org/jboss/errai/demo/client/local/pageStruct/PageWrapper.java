@@ -55,7 +55,6 @@ public class PageWrapper extends Composite{
   @DataField
   private FlowPanel content;
 
-
   @PostConstruct
   public void clientMain() {
     this.navBar.setVisible(false);
