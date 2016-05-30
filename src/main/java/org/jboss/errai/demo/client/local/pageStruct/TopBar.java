@@ -6,11 +6,7 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.UIObject;
-import javax.annotation.PostConstruct;
+import java.util.Iterator;
 import javax.enterprise.event.Observes;
 import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;
@@ -20,7 +16,6 @@ import org.jboss.errai.security.shared.api.identity.User;
 import org.jboss.errai.security.shared.event.LoggedInEvent;
 import org.jboss.errai.security.shared.event.LoggedOutEvent;
 import org.jboss.errai.security.shared.service.AuthenticationService;
-import org.jboss.errai.ui.nav.client.local.PageShowing;
 import org.jboss.errai.ui.nav.client.local.TransitionTo;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
@@ -47,8 +42,7 @@ public class TopBar extends Composite{
   private Element usernameSpan = DOM.createSpan();
 
   @DataField
-  private Element groupSpan = DOM.createSpan();
-
+  private Element rolesSpan = DOM.createSpan();
 
   private void onLoggedIn(@Observes LoggedInEvent le){
     this.refreshLoginInfo(le.getUser());
@@ -62,7 +56,8 @@ public class TopBar extends Composite{
 
   private void refreshLoginInfo(User user){
     TopBar.this.usernameSpan.setInnerText(user.getIdentifier());
-    TopBar.this.groupSpan.setInnerText(user.getGroups().toString());
+    Iterator iter = user.getRoles().iterator();
+    TopBar.this.rolesSpan.setInnerText(iter.next().toString());
   }
 
   @EventHandler("logoutButton")
@@ -72,10 +67,11 @@ public class TopBar extends Composite{
   }
 
   public void setVisibleLoginInfo(boolean visible){
-    if(visible)
+    if(visible){
       this.loginInfo.getStyle().setDisplay(Style.Display.INLINE);
-    else
+    }else{
       this.loginInfo.getStyle().setDisplay(Style.Display.NONE);
+    }
 
   }
 

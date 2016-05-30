@@ -101,6 +101,7 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
       if(isOpen){
         this.infoTr.getStyle().setDisplay(Display.NONE);
       }else{
+        this.fillInfo();
         this.infoTr.getStyle().setDisplay(Display.TABLE_ROW);
       }
     }
@@ -120,6 +121,7 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
     confirm = Window.confirm("Opravdu chcete smzat firmu "+this.name.getInnerText()+"?");
     if(confirm){
       this.getElement().removeFromParent();
+      this.infoTr.getStyle().setDisplay(Display.NONE);
     }
     this.removeBut.setFocus(false);
   }

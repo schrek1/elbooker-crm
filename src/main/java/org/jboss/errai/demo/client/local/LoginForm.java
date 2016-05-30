@@ -1,5 +1,9 @@
 package org.jboss.errai.demo.client.local;
 
+import com.google.gwt.dom.client.DivElement;
+import com.google.gwt.dom.client.Node;
+import com.google.gwt.dom.client.NodeList;
+import com.google.gwt.dom.client.Style;
 import org.jboss.errai.demo.client.local.pageStruct.TopBar;
 import org.jboss.errai.demo.client.local.pageStruct.NavBar;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -8,6 +12,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.TextBox;
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.jboss.errai.bus.client.api.messaging.Message;
 import org.jboss.errai.common.client.api.Caller;
@@ -32,9 +37,6 @@ import org.jboss.errai.ui.nav.client.local.api.LoginPage;
 @Page(role = LoginPage.class)
 @Templated("LoginForm.html#container")
 public class LoginForm extends Composite{
-
-  @Inject
-  private User user;
 
   @Inject
   @DataField

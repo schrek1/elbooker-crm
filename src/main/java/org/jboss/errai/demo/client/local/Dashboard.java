@@ -43,15 +43,6 @@ public class Dashboard extends Composite{
   @Inject
   private Caller<CompanyServices> companyCaller;
 
-//  @Inject
-//  private TopBar topBar;
-//
-//  @Inject
-//  private NavBar navBar;
-//
-//  @DataField
-//  private Element content = DOM.createDiv();
-
   @Inject
   @DataField
   @Table(root = "tbody")
@@ -73,7 +64,6 @@ public class Dashboard extends Composite{
 
   @PostConstruct
   private void postConstruct(){
-//    this.constructStructure();
     this.hideWindowDiv();
   }
 
@@ -96,14 +86,6 @@ public class Dashboard extends Composite{
   @EventHandler("editPopCloseBut")
   private void editCloseButClick(ClickEvent ce){
     this.editPopUp.getStyle().setDisplay(Display.NONE);
-  }
-
-  private void constructStructure(){
-//    Document.get().getElementById("wrapper").removeAllChildren();
-//    this.setVisible(false);
-//    Document.get().getElementById("wrapper").appendChild(this.topBar.getTopBar());
-//    Document.get().getElementById("wrapper").appendChild(this.navBar.getNavBar());
-//    Document.get().getElementById("wrapper").appendChild(this.content);
   }
 
   private void hideWindowDiv(){

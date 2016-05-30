@@ -1,5 +1,6 @@
 package org.jboss.errai.demo.server;
 
+import com.google.gwt.core.shared.GWT;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import org.jboss.errai.bus.server.annotations.Service;
@@ -7,6 +8,7 @@ import org.jboss.errai.security.shared.api.identity.User;
 import org.jboss.errai.security.shared.exception.AuthenticationException;
 import org.jboss.errai.security.shared.service.AuthenticationService;
 import org.jboss.weld.servlet.SessionHolder;
+import org.slf4j.Logger;
 
 @Service
 public class AuthenticationImpl implements AuthenticationService{
@@ -25,9 +27,9 @@ public class AuthenticationImpl implements AuthenticationService{
     }
 
     if(recieveUWP.getPasswordHash().equals(password)){
-      System.err.println(recieveUWP.getRoles().toString());
-      SessionHolder.getSessionIfExists().setAttribute("logedUser", recieveUWP.makeUserWithoutPassword());
-      return recieveUWP.makeUserWithoutPassword();
+      final User plainUser = recieveUWP.makeUserWithoutPassword();
+      SessionHolder.getSessionIfExists().setAttribute("logedUser", plainUser);
+      return plainUser;
     }else{
       throw new AuthenticationException();
     }
@@ -35,7 +37,11 @@ public class AuthenticationImpl implements AuthenticationService{
 
   @Override
   public boolean isLoggedIn(){
-    return SessionHolder.getSessionIfExists().getAttribute("logedUser") == User.ANONYMOUS;
+    if(SessionHolder.getSessionIfExists().getAttribute("logedUser") == User.ANONYMOUS){
+      return false;
+    }else{
+      return true;
+    }
   }
 
   @Override

@@ -58,6 +58,8 @@ public class PageWrapper extends Composite{
 
   @PostConstruct
   public void clientMain() {
+    this.navBar.setVisible(false);
+    this.topBar.setVisibleLoginInfo(false);
     this.content.add(this.navigation.getContentPanel());
   }
 
