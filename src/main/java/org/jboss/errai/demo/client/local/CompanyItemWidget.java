@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -90,18 +91,14 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
 
   @EventHandler("infoBut")
   private void infoButClick(ClickEvent ce){
-
-    this.infoTr.getStyle().setDisplay(Display.NONE);
-    Element parentTR = this.infoBut.getParent().getParent().getElement();
-    Element nextTr = parentTR.getNextSiblingElement();
-
-    if(nextTr == null || !nextTr.isOrHasChild(this.infoTr)){
-      Document.get().getElementById("companyTable").insertAfter(this.infoTr, parentTR);
+    boolean open = this.getElement().getNextSiblingElement() != null && this.getElement().getNextSiblingElement().isOrHasChild(this.infoTr) ;
+    this.infoTr.removeFromParent();
+    if(!open){
+      HTMLPanel panel = (HTMLPanel)this.getParent();
+      panel.getElement().insertAfter(this.infoTr, this.getElement());
       this.fillInfo();
-    }else{
-      this.infoTr.removeFromParent();
     }
-    
+
     this.infoBut.setFocus(false);
   }
 
@@ -115,10 +112,12 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
   private void removeButClick(ClickEvent ce){
     boolean confirm;
 
-    confirm = Window.confirm("Opravdu chcete smazat firmu "+this.name.getInnerText()+"?");
+    confirm = Window.confirm("Opravdu chcete smazat firmu " + this.name.getInnerText() + "?");
     if(confirm){
-      this.getElement().removeFromParent();
-      this.infoTr.getStyle().setDisplay(Display.NONE);
+      if(this.getElement().getNextSiblingElement() != null && this.getElement().getNextSiblingElement().isOrHasChild(this.infoTr) ){
+        this.infoTr.removeFromParent();
+      }
+      this.removeFromParent();
     }
     this.removeBut.setFocus(false);
   }
