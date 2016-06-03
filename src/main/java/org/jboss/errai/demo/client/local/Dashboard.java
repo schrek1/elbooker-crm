@@ -42,8 +42,6 @@ import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 @RestrictedAccess
 public class Dashboard extends Composite{
 
-
-
   @Inject
   private Caller<CompanyServices> companyCaller;
 

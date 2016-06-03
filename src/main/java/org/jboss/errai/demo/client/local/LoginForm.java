@@ -1,10 +1,6 @@
 package org.jboss.errai.demo.client.local;
 
-import com.google.gwt.dom.client.DivElement;
-import com.google.gwt.dom.client.Node;
-import com.google.gwt.dom.client.NodeList;
-import com.google.gwt.dom.client.Style;
-import org.jboss.errai.demo.client.local.pageStruct.TopBar;
+import com.google.gwt.dom.client.Element;
 import org.jboss.errai.demo.client.local.pageStruct.NavBar;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -14,8 +10,6 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.inject.Key;
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.jboss.errai.bus.client.api.messaging.Message;
 import org.jboss.errai.common.client.api.Caller;
@@ -55,14 +49,6 @@ public class LoginForm extends Composite{
 
   @Inject
   @DataField
-  private HTML usernameDiv;
-
-  @Inject
-  @DataField
-  private HTML passwordDiv;
-
-  @Inject
-  @DataField
   private HTML emptyWarn;
 
   @Inject
@@ -73,9 +59,6 @@ public class LoginForm extends Composite{
   private Caller<AuthenticationService> authCaller;
 
   @Inject
-  private TopBar topBar;
-
-  @Inject
   private TransitionTo<Dashboard> anchorDashboard;
 
   @Inject
@@ -83,6 +66,14 @@ public class LoginForm extends Composite{
 
   @PageShowing
   private void pageShowing(){
+    this.authCaller.call(new RemoteCallback<Boolean>(){
+      public void callback(Boolean isLogged){
+        if(isLogged){
+          LoginForm.this.anchorDashboard.go();
+        }
+      }
+    }).isLoggedIn();
+    
     this.navBar.setVisible(false);
   }
 
@@ -100,7 +91,7 @@ public class LoginForm extends Composite{
 
   @EventHandler("password")
   private void onPassBoxHitEnter(KeyPressEvent kpe){
-     if(kpe.getCharCode() == KeyCodes.KEY_ENTER){
+    if(kpe.getCharCode() == KeyCodes.KEY_ENTER){
       this.loginClickHandler(null);
     }
   }
@@ -108,6 +99,7 @@ public class LoginForm extends Composite{
   @EventHandler("login")
   private void loginClickHandler(ClickEvent ce){
     this.login.setFocus(false);
+
     if(this.isFormFilled()){
       this.authCaller.call(new RemoteCallback<User>(){
         @Override
@@ -125,33 +117,31 @@ public class LoginForm extends Composite{
         }
       }).login(this.username.getText(), this.password.getText());
     }
-    this.makeColredEmpty();
+    this.updateFormStyle();
   }
 
-  private void makeColredEmpty(){
+  private void updateFormStyle(){
     int emptyFields = 0;
-    emptyFields += this.setErrorToEmptyField(this.username, this.usernameDiv);
-    emptyFields += this.setErrorToEmptyField(this.password, this.passwordDiv);
 
-    if(emptyFields != 0){
+    emptyFields += this.setColorToEmptyField(this.username);
+    emptyFields += this.setColorToEmptyField(this.password);
+
+    if(emptyFields > 0){
       this.emptyWarn.setVisible(true);
     }else{
       this.emptyWarn.setVisible(false);
     }
   }
 
-  //TODO refaktor -> parent z textBox
-  private int setErrorToEmptyField(TextBox textBox, HTML outDiv){
-    String classAtribute = outDiv.getElement().getAttribute("class");
-    int empty = 0;
-    if(textBox.getText().isEmpty()){
-      classAtribute += (classAtribute.contains("has-error")) ? "" : " has-error";
-      empty = 1;
+  private int setColorToEmptyField(TextBox box){
+    Element parent = box.getElement().getParentElement();
+    if(box.getText().isEmpty()){
+      parent.addClassName("has-error");
+      return 1;
     }else{
-      classAtribute = classAtribute.replace("has-error", "");
+      parent.removeClassName("has-error");
+      return 0;
     }
-    outDiv.getElement().setAttribute("class", classAtribute);
-    return empty;
   }
 
   private boolean isFormFilled(){

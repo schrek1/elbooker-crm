@@ -46,6 +46,7 @@ public class NavBar extends Composite{
   TransitionAnchor<EditAccount> linkAccount;
 
   public NavBar(){
+    //handler pro prirazovani/odebirani class menu itemum
     History.addValueChangeHandler(new ValueChangeHandler<String>(){
       @Override
       public void onValueChange(ValueChangeEvent<String> event){
@@ -58,7 +59,6 @@ public class NavBar extends Composite{
                 ta.addStyleName("active-menu");
               }else{
                 ta.removeStyleName("active-menu");
-//                Window.alert(ta.toPageType().getSimpleName() + "  "+NavBar.this.nav.getCurrentPage().name());
               }
             }
           }
