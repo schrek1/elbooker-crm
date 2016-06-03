@@ -19,6 +19,8 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import org.jboss.errai.common.client.api.Caller;
 import org.jboss.errai.common.client.api.RemoteCallback;
+import org.jboss.errai.demo.client.local.pageStruct.NavBar;
+import org.jboss.errai.demo.client.local.pageStruct.PagesEnum;
 import org.jboss.errai.demo.client.shared.companyEntity.Company;
 import org.jboss.errai.ui.client.widget.ListWidget;
 import org.jboss.errai.ui.client.widget.Table;
@@ -39,6 +41,8 @@ import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 @Templated
 @RestrictedAccess
 public class Dashboard extends Composite{
+
+
 
   @Inject
   private Caller<CompanyServices> companyCaller;
@@ -75,6 +79,7 @@ public class Dashboard extends Composite{
         companyTable.setItems(response);
       }
     }).listOfCompany();
+
   }
 
   @EventHandler("editPopXBut")

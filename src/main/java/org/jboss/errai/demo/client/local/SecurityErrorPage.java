@@ -13,17 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.jboss.errai.demo.client.local;
 
 import com.google.gwt.user.client.ui.Composite;
+import javax.inject.Inject;
+import org.jboss.errai.security.shared.api.annotation.RestrictedAccess;
 import org.jboss.errai.security.shared.api.identity.User;
 import org.jboss.errai.security.shared.exception.UnauthorizedException;
 import org.jboss.errai.ui.nav.client.local.Page;
+import org.jboss.errai.ui.nav.client.local.TransitionAnchor;
 import org.jboss.errai.ui.nav.client.local.api.SecurityError;
+import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 
 @Page(role = SecurityError.class)
 @Templated
 public class SecurityErrorPage extends Composite{
+
+  @Inject
+  @DataField
+  @RestrictedAccess
+  TransitionAnchor<Dashboard> goToDash;
 }
