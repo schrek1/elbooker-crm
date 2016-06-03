@@ -30,12 +30,12 @@ public class CompanyDAO{
     address.setPostalCode("58601");
     address.setStreet("Brezinova 32");
     address.setTown("Jihlava");
-//    company.setAddress(address);
+    company.setAddress(address);
 
     BillingInfo billing = new BillingInfo();
     billing.setIdNum("123456789");
     billing.setVatNum("CZ46789321");
-//    company.setBillingInfo(billing);
+    company.setBillingInfo(billing);
 
     ContactPerson contactPerson = new ContactPerson();
     contactPerson.setName("Jan");
@@ -51,7 +51,7 @@ public class CompanyDAO{
     phone = new PhoneNumber();
     phone.setCountryPrefix("+420");
     phone.setNumber("321598746");
-//    company.setPhone(phone);
+    company.setPhone(phone);
 
     company.setWeb("www.elbooker.eu");
 
@@ -67,12 +67,12 @@ public class CompanyDAO{
     address.setPostalCode("48796");
     address.setStreet("Na Pankraci 1");
     address.setTown("Praha");
-//    company.setAddress(address);
+    company.setAddress(address);
 
     billing = new BillingInfo();
     billing.setIdNum("123456789");
     billing.setVatNum("CZ46789321");
-//    company.setBillingInfo(billing);
+    company.setBillingInfo(billing);
 
     contactPerson = new ContactPerson();
     contactPerson.setName("Petr");
@@ -88,7 +88,7 @@ public class CompanyDAO{
     phone = new PhoneNumber();
     phone.setCountryPrefix("+420");
     phone.setNumber("321598746");
-//    company.setPhone(phone);
+    company.setPhone(phone);
 
     company.setWeb("www.firmicka.com");
 
@@ -104,12 +104,12 @@ public class CompanyDAO{
     address.setPostalCode("58601");
     address.setStreet("Vysoka 20");
     address.setTown("Brno");
-//    company.setAddress(address);
+    company.setAddress(address);
 
     billing = new BillingInfo();
     billing.setIdNum("123456789");
     billing.setVatNum("CZ46789321");
-//    company.setBillingInfo(billing);
+    company.setBillingInfo(billing);
 
     contactPerson = new ContactPerson();
     contactPerson.setName("Pavel");
@@ -125,7 +125,7 @@ public class CompanyDAO{
     phone = new PhoneNumber();
     phone.setCountryPrefix("+420");
     phone.setNumber("321598746");
-//    company.setPhone(phone);
+    company.setPhone(phone);
 
     company.setWeb("www.okna.com");
 
@@ -141,12 +141,12 @@ public class CompanyDAO{
     address.setPostalCode("58601");
     address.setStreet("Lipova 32");
     address.setTown("Jihlava");
-//    company.setAddress(address);
+    company.setAddress(address);
 
     billing = new BillingInfo();
     billing.setIdNum("123456789");
     billing.setVatNum("CZ46789321");
-//    company.setBillingInfo(billing);
+    company.setBillingInfo(billing);
 
     contactPerson = new ContactPerson();
     contactPerson.setName("Karel");
@@ -162,7 +162,7 @@ public class CompanyDAO{
     phone = new PhoneNumber();
     phone.setCountryPrefix("+420");
     phone.setNumber("321598746");
-//    company.setPhone(phone);
+    company.setPhone(phone);
 
     company.setWeb("www.auto-opravna.cz");
 

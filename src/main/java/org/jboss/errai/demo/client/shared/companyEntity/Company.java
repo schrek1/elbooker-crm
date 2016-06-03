@@ -17,9 +17,9 @@ public class Company{
   private String web;
 
   private ContactPerson contactPerson;
-//  private PhoneNumber phone;
-//  private Address address;
-//  private BillingInfo billingInfo;
+  private PhoneNumber phone;
+  private Address address;
+  private BillingInfo billingInfo;
 
 
   public Company(){
@@ -49,6 +49,30 @@ public class Company{
     this.web = web;
   }
 
+  public PhoneNumber getPhone(){
+    return phone;
+  }
+
+  public Address getAddress(){
+    return address;
+  }
+
+  public BillingInfo getBillingInfo(){
+    return billingInfo;
+  }
+
+  public void setPhone(PhoneNumber phone){
+    this.phone = phone;
+  }
+
+  public void setAddress(Address address){
+    this.address = address;
+  }
+
+  public void setBillingInfo(BillingInfo billingInfo){
+    this.billingInfo = billingInfo;
+  }
+
   public ContactPerson getContactPerson(){
     return contactPerson;
   }
@@ -63,6 +87,6 @@ public class Company{
   }
 
 
- 
+
 
 }

@@ -45,4 +45,11 @@ public class Address {
     this.town = town;
   }
 
+  @Override
+  public String toString(){
+    return "Address{" + "country=" + country + ", street=" + street + ", postalCode=" + postalCode + ", town=" + town + '}';
+  }
+
+  
+
 }

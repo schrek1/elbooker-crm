@@ -90,6 +90,7 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
 
   @EventHandler("infoBut")
   private void infoButClick(ClickEvent ce){
+
     this.infoTr.getStyle().setDisplay(Display.NONE);
     Element parentTR = this.infoBut.getParent().getParent().getElement();
     Element nextTr = parentTR.getNextSiblingElement();
@@ -98,14 +99,9 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
       Document.get().getElementById("companyTable").insertAfter(this.infoTr, parentTR);
       this.fillInfo();
     }else{
-      if(isOpen){
-        this.infoTr.getStyle().setDisplay(Display.NONE);
-      }else{
-        this.fillInfo();
-        this.infoTr.getStyle().setDisplay(Display.TABLE_ROW);
-      }
+      this.infoTr.removeFromParent();
     }
-    this.isOpen = !this.isOpen;
+    
     this.infoBut.setFocus(false);
   }
 
@@ -118,7 +114,7 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
   @EventHandler("removeBut")
   private void removeButClick(ClickEvent ce){
     boolean confirm;
-    
+
     confirm = Window.confirm("Opravdu chcete smazat firmu "+this.name.getInnerText()+"?");
     if(confirm){
       this.getElement().removeFromParent();
@@ -135,6 +131,9 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
         Document.get().getElementById("iName").setInnerText(response.getName());
         Document.get().getElementById("iWeb").setInnerText(response.getWeb());
         Document.get().getElementById("iContactPerson").setInnerText(response.getContactPerson().toString());
+        Document.get().getElementById("iPhone").setInnerText(response.getPhone().toString());
+        Document.get().getElementById("iAddress").setInnerText(response.getAddress().toString());
+        Document.get().getElementById("iBillingInfo").setInnerText(response.getBillingInfo().toString());
         infoTr.getStyle().setDisplay(Display.TABLE_ROW);
       }
     }).getCompanyById(companyID);

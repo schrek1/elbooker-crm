@@ -30,4 +30,11 @@ public class BillingInfo{
     this.vatNum = vatNum;
   }
 
+  @Override
+  public String toString(){
+    return "BillingInfo{" + "idNum=" + idNum + ", vatNum=" + vatNum + '}';
+  }
+
+  
+
 }
