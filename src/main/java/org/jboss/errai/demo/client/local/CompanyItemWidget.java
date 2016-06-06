@@ -79,7 +79,7 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
   @DataField
   private final Button removeBut = new Button();
 
-  private final Element loadingContainer = Document.get().getElementById("loadingContainer");
+  private final Element loadingInfo = Document.get().getElementById("loadingInfo");
 
   private Element editPopUp = Document.get().getElementById("editPopUp");
 
@@ -87,6 +87,9 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
 
   private Element infoDiv = Document.get().getElementById("infoDiv");
 
+  private Element loadingEdit = Document.get().getElementById("loadingEdit");
+
+  private Element editForm = Document.get().getElementById("editForm");
 
   @Override
   public Company getModel(){
@@ -103,7 +106,7 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
     boolean isOpen = this.getElement().getNextSiblingElement() != null && this.getElement().getNextSiblingElement().isOrHasChild(this.infoTr);
     this.infoTr.removeFromParent();
     if(!isOpen){
-      this.setLoading(true);
+      this.setLoadingInTable(true);
       HTMLPanel panel = (HTMLPanel)this.getParent();
       panel.getElement().insertAfter(this.infoTr, this.getElement());
       this.fillInfo();
@@ -113,6 +116,8 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
 
   @EventHandler("editBut")
   private void editButClick(ClickEvent ce){
+    this.setLoadingInEditPop(true);
+    this.fillEditInputs();
     this.editPopUp.getStyle().setDisplay(Display.INLINE);
     this.editBut.setFocus(false);
   }
@@ -154,20 +159,61 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
         Document.get().getElementById("ibIC").setInnerText(bi.getIdNum());
         Document.get().getElementById("ibDIC").setInnerText(bi.getVatNum());
 
-        setLoading(false);
+        setLoadingInTable(false);
       }
     }).getCompanyById(companyID);
   }
 
-  private void setLoading(boolean loading){
+  private void fillEditInputs(){
+    int companyID = this.company.getModel().getId();
+    this.companyCaller.call(new RemoteCallback<Company>(){
+      @Override
+      public void callback(Company response){
+
+        Document.get().getElementById("inputCName").setAttribute("value", response.getName());
+        Document.get().getElementById("inputCWeb").setAttribute("value", response.getWeb());
+        Document.get().getElementById("inputCPhonePrefix").setAttribute("value", response.getPhone().getCountryPrefix());
+        Document.get().getElementById("inputCPhoneNumber").setAttribute("value", response.getPhone().getNumber());
+
+        Address adr = response.getAddress();
+        Document.get().getElementById("inputCStreet").setAttribute("value",adr.getStreet());
+        Document.get().getElementById("inputCTown").setAttribute("value",adr.getTown());
+        Document.get().getElementById("inputCPostalCode").setAttribute("value",adr.getPostalCode());
+        Document.get().getElementById("inputCCountry").setAttribute("value",adr.getCountry());
+
+        ContactPerson cp = response.getContactPerson();
+        Document.get().getElementById("inputCPName").setAttribute("value",cp.getName());
+        Document.get().getElementById("inputCPSurename").setAttribute("value",cp.getSurname());
+        Document.get().getElementById("inputCPPhonePrefix").setAttribute("value",cp.getPhone().getCountryPrefix());
+        Document.get().getElementById("inputCPPhoneNumber").setAttribute("value",cp.getPhone().getNumber());
+
+        BillingInfo bi = response.getBillingInfo();
+        Document.get().getElementById("inputIC").setAttribute("value",bi.getIdNum());
+        Document.get().getElementById("inputDIC").setAttribute("value",bi.getVatNum());
+
+        setLoadingInEditPop(false);
+      }
+    }).getCompanyById(companyID);
+  }
+
+  private void setLoadingInTable(boolean loading){
     if(loading){
-      this.loadingContainer.getStyle().setDisplay(Display.BLOCK);
+      this.loadingInfo.getStyle().setDisplay(Display.BLOCK);
       this.infoDiv.getStyle().setDisplay(Display.NONE);
     }else{
-      this.loadingContainer.getStyle().setDisplay(Display.NONE);
+      this.loadingInfo.getStyle().setDisplay(Display.NONE);
       this.infoDiv.getStyle().setDisplay(Display.BLOCK);
       this.infoTr.getStyle().setDisplay(Display.TABLE_ROW);
     }
   }
 
+  private void setLoadingInEditPop(boolean loading){
+    if(loading){
+      this.loadingEdit.getStyle().setDisplay(Display.BLOCK);
+      this.editForm.getStyle().setDisplay(Display.NONE);
+    }else{
+      this.loadingEdit.getStyle().setDisplay(Display.NONE);
+      this.editForm.getStyle().setDisplay(Display.BLOCK);
+    }
+  }
 }

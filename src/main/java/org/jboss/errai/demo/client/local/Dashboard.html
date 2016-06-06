@@ -50,33 +50,46 @@
     </div>
 
     <div class="modal fade in" id="editPopUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: block;"><div class="modal-backdrop fade in"></div>
-      <div class="modal-dialog">
+      <div class="modal-dialog" style="margin-top: 6%;">
         <div class="modal-content">
           <div class="modal-header">
             <button id="editPopXBut" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title" id="myModalLabel">Upravit firmu <span></span></h4>
+            <h2 class="modal-title" id="myModalLabel">Upravit firmu <span></span></h2 >
           </div>
           <div class="modal-body">
-            <form>
+            <form id="editForm">
               <fieldset>
                 <legend>Kontaktní informace firmy</legend>
-                Firma: <input type="text"><br>
-                Web: <input type="text"><br>
-                Telefon firmy: <input type="text" maxlength="4" size="4"> <input type="text" maxlength="9" size="9">
+                <label for="inputCName">Firma: </label><input id="inputCName" type="text"><br>
+                <label for="inputCWeb">Web: </label><input id="inputCWeb" type="text"><br>
+                <label for="inputCPhonePrefix">Telefon firmy: </label><input id="inputCPhonePrefix" type="text" maxlength="4" size="4"> <input id="inputCPhoneNumber" type="text" maxlength="9" size="9"><br />
+                <label for="inputCStreet">Ulice: </label><input id="inputCStreet" type="text"><br>
+                <label for="inputCTown">Město: </label><input id="inputCTown" type="text"><br>
+                <label for="inputCPostalCode">PSČ: </label><input id="inputCPostalCode" type="text"><br>
+                <label for="inputCCountry">Stát: </label><input id="inputCCountry" type="text"><br>
               </fieldset>
               <br />
               <fieldset>
                 <legend>Kontaktní osoba</legend>
-                Jméno: <input type="text"><br>
-                Příjmení: <input type="text"><br>
-                Telefon: <input type="text" maxlength="4" size="4"> <input type="text" maxlength="9" size="9">
+                <label for="inputCPName">Jméno: </label><input id="inputCPName" type="text"><br>
+                <label for="inputCPSurename">Příjmení: </label><input id="inputCPSurename" type="text"><br>
+                <label for="inputCPPhonePrefix">Telefon: </label><input id="inputCPPhonePrefix" type="text" maxlength="4" size="4"> <input  id="inputCPPhoneNumber" type="text" maxlength="9" size="9">
+              </fieldset>
+              <br />
+              <fieldset>
+                <legend>Účetní údaje</legend>
+                <label for="inputIC">IČ: </label><input id="inputIC" type="text"><br>
+                <label for="inputDIC">DIČ: </label><input id="inputDIC"  type="text"><br>
               </fieldset>
 
             </form>
+            <div id="loadingEdit" class="container" style="width: 50%; display: none">
+              <img src="assets/img/loading.gif" class="img-responsive center-block" alt="loading animation">
+            </div>
           </div>
           <div class="modal-footer">
-            <button  id="editPopCloseBut" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button  id="editPopCloseBut" type="button" class="btn btn-warning" data-dismiss="modal" > <i class="glyphicon glyphicon-remove" style="padding-right: 5px"> </i> Zrušit úpravy</button>
+            <button type="button" class="btn btn-primary"> <i class="glyphicon glyphicon-ok" style="padding-right: 5px"> </i> Uložit změny</button>
           </div>
         </div>
       </div>
@@ -107,12 +120,13 @@
 
 
               <div id="BillingInfo">
+                <b>Účetní údaje </b><br>
                 <b>IČ: </b><span id="ibIC"></span><br>
                 <b>DIČ: </b><span id="ibDIC"></span>
               </div>
             </div>
 
-            <div id="loadingContainer" class="container" style="width: 50%; display: none">
+            <div id="loadingInfo" class="container" style="width: 50%; display: none">
               <img src="assets/img/loading.gif" class="img-responsive center-block" alt="loading animation">
             </div>
 

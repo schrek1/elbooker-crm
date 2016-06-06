@@ -15,6 +15,7 @@ import org.jboss.errai.bus.client.api.messaging.Message;
 import org.jboss.errai.common.client.api.Caller;
 import org.jboss.errai.common.client.api.ErrorCallback;
 import org.jboss.errai.common.client.api.RemoteCallback;
+import org.jboss.errai.demo.client.local.pageStruct.TopBar;
 import org.jboss.errai.ui.nav.client.local.Page;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
@@ -64,6 +65,9 @@ public class LoginForm extends Composite{
   @Inject
   private NavBar navBar;
 
+  @Inject
+  private TopBar topBar;
+
   @PageShowing
   private void pageShowing(){
     this.authCaller.call(new RemoteCallback<Boolean>(){
@@ -73,13 +77,14 @@ public class LoginForm extends Composite{
         }
       }
     }).isLoggedIn();
-    
     this.navBar.setVisible(false);
+    this.topBar.setVisibleLoginInfo(false);
   }
 
   @PageHiding
   private void pageHiding(){
     this.navBar.setVisible(true);
+    this.topBar.setVisibleLoginInfo(true);
   }
 
   @EventHandler("username")

@@ -83,7 +83,6 @@ public class Dashboard extends Composite{
   @EventHandler("editPopXBut")
   private void editXButClick(ClickEvent ce){
     this.editPopUp.getStyle().setDisplay(Display.NONE);
-
   }
 
   @EventHandler("editPopCloseBut")
