@@ -57,16 +57,31 @@
             <h2 class="modal-title" id="myModalLabel">Upravit firmu <span></span></h2 >
           </div>
           <div class="modal-body">
-            <form id="editForm">
+            <form id="editForm" class="form-horizontal" role="form">
               <fieldset>
                 <legend>Kontaktní informace firmy</legend>
-                <label for="inputCName">Firma: </label><input id="inputCName" type="text"><br>
-                <label for="inputCWeb">Web: </label><input id="inputCWeb" type="text"><br>
-                <label for="inputCPhonePrefix">Telefon firmy: </label><input id="inputCPhonePrefix" type="text" maxlength="4" size="4"> <input id="inputCPhoneNumber" type="text" maxlength="9" size="9"><br />
-                <label for="inputCStreet">Ulice: </label><input id="inputCStreet" type="text"><br>
-                <label for="inputCTown">Město: </label><input id="inputCTown" type="text"><br>
-                <label for="inputCPostalCode">PSČ: </label><input id="inputCPostalCode" type="text"><br>
-                <label for="inputCCountry">Stát: </label><input id="inputCCountry" type="text"><br>
+                <div class="form-group row">
+                  <label for="inputCName" class="col-sm-1 control-label">Firma </label>
+                  <div class="col-sm-4"><input id="inputCName" class="form-control" type="text"></div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputCWeb">Web: </label><input id="inputCWeb" type="text"><br>
+                </div>
+                <div class="form-group row">
+                  <label for="inputCPhonePrefix">Telefon firmy: </label><input id="inputCPhonePrefix" type="text" maxlength="4" size="4"> <input id="inputCPhoneNumber" type="text" maxlength="9" size="9"><br />
+                </div>
+                <div class="form-group row">
+                  <label for="inputCStreet">Ulice: </label><input id="inputCStreet" type="text"><br>
+                </div>
+                <div class="form-group row">
+                  <label for="inputCTown">Město: </label><input id="inputCTown" type="text"><br>
+                </div>
+                <div class="form-group row">
+                  <label for="inputCPostalCode">PSČ: </label><input id="inputCPostalCode" type="text"><br>
+                </div>
+                <div class="form-group row">
+                  <label for="inputCCountry">Stát: </label><input id="inputCCountry" type="text"><br>
+                </div>
               </fieldset>
               <br />
               <fieldset>

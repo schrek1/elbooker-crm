@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -90,6 +91,7 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
   private Element loadingEdit = Document.get().getElementById("loadingEdit");
 
   private Element editForm = Document.get().getElementById("editForm");
+
 
   @Override
   public Company getModel(){
@@ -169,7 +171,6 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
     this.companyCaller.call(new RemoteCallback<Company>(){
       @Override
       public void callback(Company response){
-
         Document.get().getElementById("inputCName").setAttribute("value", response.getName());
         Document.get().getElementById("inputCWeb").setAttribute("value", response.getWeb());
         Document.get().getElementById("inputCPhonePrefix").setAttribute("value", response.getPhone().getCountryPrefix());
