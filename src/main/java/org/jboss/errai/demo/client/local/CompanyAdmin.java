@@ -8,7 +8,7 @@ import org.jboss.errai.ui.shared.api.annotations.Templated;
 
 @Page
 @Templated
-@RestrictedAccess(roles = "COMPANY")
+@RestrictedAccess
 public class CompanyAdmin extends Composite{
 
 }

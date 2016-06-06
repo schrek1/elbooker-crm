@@ -14,13 +14,6 @@ public class Role extends RoleImpl{
 
   @Override
   public boolean equals(Object o){
-//    if(this == o){
-//      return true;
-//    }
-//    if(!(o instanceof Role)){
-//      return false;
-//    }
-
     Role role = (Role)o;
     return this.getName().equals(role.getName());
   }

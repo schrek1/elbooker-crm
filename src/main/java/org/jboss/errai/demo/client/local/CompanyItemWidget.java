@@ -1,5 +1,6 @@
 package org.jboss.errai.demo.client.local;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
@@ -21,6 +22,8 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -29,6 +32,8 @@ import org.jboss.errai.common.client.api.RemoteCallback;
 import org.jboss.errai.databinding.client.api.DataBinder;
 import org.jboss.errai.databinding.client.api.PropertyChangeEvent;
 import org.jboss.errai.databinding.client.api.PropertyChangeHandler;
+import org.jboss.errai.demo.client.shared.companyEntity.Address;
+import org.jboss.errai.demo.client.shared.companyEntity.BillingInfo;
 import org.jboss.errai.demo.client.shared.companyEntity.Company;
 import org.jboss.errai.demo.client.shared.services.CompanyServices;
 import org.jboss.errai.demo.client.shared.companyEntity.ContactPerson;
@@ -74,10 +79,14 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
   @DataField
   private final Button removeBut = new Button();
 
-  private boolean isOpen = false;
+  private final Element loadingContainer = Document.get().getElementById("loadingContainer");
 
   private Element editPopUp = Document.get().getElementById("editPopUp");
+
   private Element infoTr = Document.get().getElementById("infoTr");
+
+  private Element infoDiv = Document.get().getElementById("infoDiv");
+
 
   @Override
   public Company getModel(){
@@ -91,14 +100,14 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
 
   @EventHandler("infoBut")
   private void infoButClick(ClickEvent ce){
-    boolean open = this.getElement().getNextSiblingElement() != null && this.getElement().getNextSiblingElement().isOrHasChild(this.infoTr) ;
+    boolean isOpen = this.getElement().getNextSiblingElement() != null && this.getElement().getNextSiblingElement().isOrHasChild(this.infoTr);
     this.infoTr.removeFromParent();
-    if(!open){
+    if(!isOpen){
+      this.setLoading(true);
       HTMLPanel panel = (HTMLPanel)this.getParent();
       panel.getElement().insertAfter(this.infoTr, this.getElement());
       this.fillInfo();
     }
-
     this.infoBut.setFocus(false);
   }
 
@@ -111,10 +120,9 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
   @EventHandler("removeBut")
   private void removeButClick(ClickEvent ce){
     boolean confirm;
-
     confirm = Window.confirm("Opravdu chcete smazat firmu " + this.name.getInnerText() + "?");
     if(confirm){
-      if(this.getElement().getNextSiblingElement() != null && this.getElement().getNextSiblingElement().isOrHasChild(this.infoTr) ){
+      if(this.getElement().getNextSiblingElement() != null && this.getElement().getNextSiblingElement().isOrHasChild(this.infoTr)){
         this.infoTr.removeFromParent();
       }
       this.removeFromParent();
@@ -127,15 +135,39 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
     this.companyCaller.call(new RemoteCallback<Company>(){
       @Override
       public void callback(Company response){
+
         Document.get().getElementById("iName").setInnerText(response.getName());
         Document.get().getElementById("iWeb").setInnerText(response.getWeb());
-        Document.get().getElementById("iContactPerson").setInnerText(response.getContactPerson().toString());
-        Document.get().getElementById("iPhone").setInnerText(response.getPhone().toString());
-        Document.get().getElementById("iAddress").setInnerText(response.getAddress().toString());
-        Document.get().getElementById("iBillingInfo").setInnerText(response.getBillingInfo().toString());
-        infoTr.getStyle().setDisplay(Display.TABLE_ROW);
+        Document.get().getElementById("iPhone").setInnerText(response.getPhone().getCountryPrefix() + " " + response.getPhone().getNumber());
+
+        Address adr = response.getAddress();
+        Document.get().getElementById("iaStreet").setInnerText(adr.getStreet());
+        Document.get().getElementById("iaTown").setInnerText(adr.getTown());
+        Document.get().getElementById("iaPostalCode").setInnerText(adr.getPostalCode());
+        Document.get().getElementById("iaCountry").setInnerText(adr.getCountry());
+
+        ContactPerson cp = response.getContactPerson();
+        Document.get().getElementById("icpName").setInnerText(cp.getName() + " " + cp.getSurname());
+        Document.get().getElementById("icpPhone").setInnerText(cp.getPhone().getCountryPrefix() + " " + cp.getPhone().getNumber());
+
+        BillingInfo bi = response.getBillingInfo();
+        Document.get().getElementById("ibIC").setInnerText(bi.getIdNum());
+        Document.get().getElementById("ibDIC").setInnerText(bi.getVatNum());
+
+        setLoading(false);
       }
     }).getCompanyById(companyID);
+  }
+
+  private void setLoading(boolean loading){
+    if(loading){
+      this.loadingContainer.getStyle().setDisplay(Display.BLOCK);
+      this.infoDiv.getStyle().setDisplay(Display.NONE);
+    }else{
+      this.loadingContainer.getStyle().setDisplay(Display.NONE);
+      this.infoDiv.getStyle().setDisplay(Display.BLOCK);
+      this.infoTr.getStyle().setDisplay(Display.TABLE_ROW);
+    }
   }
 
 }

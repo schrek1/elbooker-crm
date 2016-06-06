@@ -17,15 +17,11 @@ public class UsersDAO{
     UserWithPass uwp;
 
     if(login.equals("admin")){
-      uwp = new UserWithPass("admin", Arrays.asList(new Role(UsersRole.ADMIN)), "1234");
-      return uwp;
-    }
-    if(login.equals("ondra")){
-      uwp = new UserWithPass("ondra", Arrays.asList(new Role(UsersRole.USER)), "4321");
+      uwp = new UserWithPass("admin", Arrays.asList(new Role(UsersRole.ADMIN)), "1");
       return uwp;
     }
     if(login.equals("firma")){
-      uwp = new UserWithPass("firma", Arrays.asList(new Role(UsersRole.COMPANY)), "firma1");
+      uwp = new UserWithPass("firma", Arrays.asList(new Role(UsersRole.COMPANY)), "2");
       return uwp;
     }
 

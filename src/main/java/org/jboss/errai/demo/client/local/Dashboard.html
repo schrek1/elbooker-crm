@@ -58,12 +58,20 @@
           </div>
           <div class="modal-body">
             <form>
-              <label>Název firmy</label>
-              <input data-field="companyIn" type="text"><br>
-              <label>web</label>
-              <input data-field="webIn" type="text"><br>
-              <label>Kontaktní osoba</label>
-              <input data-field="companyIn" type="text">
+              <fieldset>
+                <legend>Kontaktní informace firmy</legend>
+                Firma: <input type="text"><br>
+                Web: <input type="text"><br>
+                Telefon firmy: <input type="text" maxlength="4" size="4"> <input type="text" maxlength="9" size="9">
+              </fieldset>
+              <br />
+              <fieldset>
+                <legend>Kontaktní osoba</legend>
+                Jméno: <input type="text"><br>
+                Příjmení: <input type="text"><br>
+                Telefon: <input type="text" maxlength="4" size="4"> <input type="text" maxlength="9" size="9">
+              </fieldset>
+
             </form>
           </div>
           <div class="modal-footer">
@@ -77,21 +85,37 @@
     <table style="display: none">
       <tr id="infoTr" style="background-color: white">
         <td colspan="4" style="background-color: white !important">
-          <div style="width: 95%">
-            <div id="infoDiv" style="margin:  3%; background-color:white;">
-              <b>Firma: </b><span id="iName"></span><br>
-              <b>Web: </b><span id="iWeb"></span><br>
-              <b>Kontaktni osoba </b><br>
-              <div id="iContactPerson">
+          <div id="infoContainer" style="width: 95%">
+            <div id="infoDiv" style="margin: 3%; background-color:white;">
+
+              <div id="CompanyDetails">
+                <b>Firma: </b><span id="iName"></span><br>
+                <b>Web: </b><span id="iWeb"></span><br>
+                <b>Telefon firmy: </b><span id="iPhone"></span><br>
+                <div id="CompanyAddress">
+                  <b>Adresa: </b><br>
+                  <span id="iaStreet"></span>, <span id="iaTown"></span><br />
+                  <span id="iaPostalCode"></span> <span id="iaCountry"></span>
+                </div>
+              </div>
+
+              <div id="ContactPerson">
+                <b>Kontaktni osoba </b><br>
                 <b>jméno: </b><span id="icpName"></span><br>
                 <b>telefon: </b><span id="icpPhone"></span><br>
               </div>
-              <div id="iPhone">
-                <b>Telefon firmy: </b><span id="iName"></span><br>
+
+
+              <div id="BillingInfo">
+                <b>IČ: </b><span id="ibIC"></span><br>
+                <b>DIČ: </b><span id="ibDIC"></span>
               </div>
-              <div id="iAddress"></div>
-              <div id="iBillingInfo"></div>
             </div>
+
+            <div id="loadingContainer" class="container" style="width: 50%; display: none">
+              <img src="assets/img/loading.gif" class="img-responsive center-block" alt="loading animation">
+            </div>
+
           </div>
         </td>
       </tr>

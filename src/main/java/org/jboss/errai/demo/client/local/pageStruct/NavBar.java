@@ -27,7 +27,7 @@ public class NavBar extends Composite{
 
   @Inject
   @DataField
-  @RestrictedAccess(roles = { "USER"})
+  @RestrictedAccess
   TransitionAnchor<Dashboard> linkDashboard;
 
   @Inject
@@ -37,7 +37,7 @@ public class NavBar extends Composite{
 
   @Inject
   @DataField
-  @RestrictedAccess(roles = "COMPANY")
+  @RestrictedAccess
   TransitionAnchor<CompanyAdmin> linkCompany;
 
   @Inject

@@ -4,5 +4,5 @@ import org.jboss.errai.common.client.api.annotations.Portable;
 
 @Portable
 public enum UsersRole{
-  COMPANY, USER, ADMIN;
+  COMPANY, ADMIN;
 }
