@@ -51,18 +51,7 @@ public class Dashboard extends Composite{
   private ListWidget<Company, CompanyItemWidget> companyTable;
 
   @DataField
-  private Element editPopUp = DOM.createDiv();
-
-  @DataField
   private Element infoTr = DOM.createTR();
-
-  @Inject
-  @DataField
-  private Button editPopCloseBut;
-
-  @Inject
-  @DataField
-  private Button editPopXBut;
 
   @PostConstruct
   private void postConstruct(){
@@ -80,18 +69,7 @@ public class Dashboard extends Composite{
 
   }
 
-  @EventHandler("editPopXBut")
-  private void editXButClick(ClickEvent ce){
-    this.editPopUp.getStyle().setDisplay(Display.NONE);
-  }
-
-  @EventHandler("editPopCloseBut")
-  private void editCloseButClick(ClickEvent ce){
-    this.editPopUp.getStyle().setDisplay(Display.NONE);
-  }
-
   private void hideWindowDiv(){
-    this.editPopUp.getStyle().setDisplay(Display.NONE);
     this.infoTr.getStyle().setDisplay(Display.NONE);
   }
 

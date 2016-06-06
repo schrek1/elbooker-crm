@@ -5,34 +5,35 @@ import org.jboss.errai.common.client.api.annotations.Portable;
 import org.jboss.errai.databinding.client.api.Bindable;
 
 @Portable
+@Bindable
 public class ContactPerson {
 
-  private String name;
-  private String surname;
+  private String firstname;
+  private String surename;
   private PhoneNumber phone;
   private HashMap<String, String> comments;
 
   public ContactPerson(){
   }
 
-  public String getName(){
-    return name;
+  public String getFirstname(){
+    return firstname;
   }
 
   public String getSurname(){
-    return surname;
+    return surename;
   }
 
   public PhoneNumber getPhone(){
     return phone;
   }
 
-  public void setName(String name){
-    this.name = name;
+  public void setFirstname(String name){
+    this.firstname = name;
   }
 
   public void setSurname(String surname){
-    this.surname = surname;
+    this.surename = surname;
   }
 
   public void setPhone(PhoneNumber phone){
@@ -58,9 +59,7 @@ public class ContactPerson {
 
   @Override
   public String toString(){
-    return "ContactPerson{" + "name=" + name + ", surname=" + surname + ", phone=" + phone + ", comments=" + comments + '}';
+    return "ContactPerson{" + "firstname=" + firstname + ", surename=" + surename + ", phone=" + phone + ", comments=" + comments + '}';
   }
-
-
 
 }

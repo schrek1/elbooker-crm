@@ -1,0 +1,60 @@
+<div class="modal fade in" id="editPopUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: block;"><div class="modal-backdrop fade in"></div>
+  <div class="modal-dialog" style="margin-top: 6%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button id="editPopXBut" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h2 class="modal-title" id="myModalLabel">Upravit firmu <span></span></h2 >
+      </div>
+      <div class="modal-body">
+        <form id="editForm" class="form-horizontal" role="form">
+          <fieldset>
+            <legend>Kontaktní informace firmy</legend>
+            <div class="form-group row">
+              <label for="inputCName" class="col-sm-1 control-label">Firma </label>
+              <div class="col-sm-4"><input id="inputCName" class="form-control" type="text"></div>
+            </div>
+            <div class="form-group row">
+              <label for="inputCWeb">Web: </label><input id="inputCWeb" type="text"><br>
+            </div>
+            <div class="form-group row">
+              <label for="inputCPhonePrefix">Telefon firmy: </label><input id="inputCPhonePrefix" type="text" maxlength="4" size="4"> <input id="inputCPhoneNumber" type="text" maxlength="9" size="9"><br />
+            </div>
+            <div class="form-group row">
+              <label for="inputCStreet">Ulice: </label><input id="inputCStreet" type="text"><br>
+            </div>
+            <div class="form-group row">
+              <label for="inputCTown">Město: </label><input id="inputCTown" type="text"><br>
+            </div>
+            <div class="form-group row">
+              <label for="inputCPostalCode">PSČ: </label><input id="inputCPostalCode" type="text"><br>
+            </div>
+            <div class="form-group row">
+              <label for="inputCCountry">Stát: </label><input id="inputCCountry" type="text"><br>
+            </div>
+          </fieldset>
+          <br />
+          <fieldset>
+            <legend>Kontaktní osoba</legend>
+            <label for="inputCPName">Jméno: </label><input id="inputCPName" type="text"><br>
+            <label for="inputCPSurename">Příjmení: </label><input id="inputCPSurename" type="text"><br>
+            <label for="inputCPPhonePrefix">Telefon: </label><input id="inputCPPhonePrefix" type="text" maxlength="4" size="4"> <input  id="inputCPPhoneNumber" type="text" maxlength="9" size="9">
+          </fieldset>
+          <br />
+          <fieldset>
+            <legend>Účetní údaje</legend>
+            <label for="inputIC">IČ: </label><input id="inputIC" type="text"><br>
+            <label for="inputDIC">DIČ: </label><input id="inputDIC"  type="text"><br>
+          </fieldset>
+
+        </form>
+        <div id="loadingEdit" class="container" style="width: 50%; display: none">
+          <img src="assets/img/loading.gif" class="img-responsive center-block" alt="loading animation">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button  id="editPopCloseBut" type="button" class="btn btn-warning" data-dismiss="modal" > <i class="glyphicon glyphicon-remove" style="padding-right: 5px"> </i> Zrušit úpravy</button>
+        <button type="button" class="btn btn-primary"> <i class="glyphicon glyphicon-ok" style="padding-right: 5px"> </i> Uložit změny</button>
+      </div>
+    </div>
+  </div>
+</div>
