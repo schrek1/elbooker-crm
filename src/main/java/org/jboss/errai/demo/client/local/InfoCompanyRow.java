@@ -27,67 +27,51 @@ public class InfoCompanyRow extends Composite{
   private Element web = DOM.createSpan();
 
   @DataField
-  @Bound("contactPerson.firstname")
+  @Bound(property = "phone.countryPrefix")
+  private Element countryPrefix = DOM.createSpan();
+
+  @DataField
+  @Bound(property = "phone.number")
+  private Element phoneNumber = DOM.createSpan();
+
+  @DataField
+  @Bound(property = "contactPerson.firstname")
   private Element firstname = DOM.createSpan();
 
   @DataField
-  @Bound("contactPerson.surename")
+  @Bound(property = "contactPerson.surename")
   private Element surename = DOM.createSpan();
 
   @DataField
-  @Bound
-  private Element Name = DOM.createSpan();
+  @Bound(property = "contactPerson.phone.countryPrefix")
+  private Element CPcountryPrefix = DOM.createSpan();
 
   @DataField
-  @Bound
-  private Element Name = DOM.createSpan();
+  @Bound(property = "contactPerson.phone.number")
+  private Element CPphoneNumber = DOM.createSpan();
 
   @DataField
-  @Bound
-  private Element Name = DOM.createSpan();
+  @Bound(property = "address.street")
+  private Element street = DOM.createSpan();
 
   @DataField
-  @Bound
-  private Element Name = DOM.createSpan();
+  @Bound(property = "address.town")
+  private Element town = DOM.createSpan();
 
   @DataField
-  @Bound
-  private Element Name = DOM.createSpan();
+  @Bound(property = "address.postalCode")
+  private Element postalCode = DOM.createSpan();
 
   @DataField
-  @Bound
-  private Element Name = DOM.createSpan();
+  @Bound(property = "address.country")
+  private Element country = DOM.createSpan();
 
   @DataField
-  @Bound
-  private Element Name = DOM.createSpan();
+  @Bound(property = "billingInfo.idNum")
+  private Element ic = DOM.createSpan();
 
-  private void fillInfo(){
-    int companyID = this.company.getModel().getId();
-    this.companyCaller.call(new RemoteCallback<Company>(){
-      @Override
-      public void callback(Company response){
+  @DataField
+  @Bound(property = "billingInfo.vatNum")
+  private Element dic = DOM.createSpan();
 
-        Document.get().getElementById("iName").setInnerText(response.getName());
-        Document.get().getElementById("iWeb").setInnerText(response.getWeb());
-        Document.get().getElementById("iPhone").setInnerText(response.getPhone().getCountryPrefix() + " " + response.getPhone().getNumber());
-
-        Address adr = response.getAddress();
-        Document.get().getElementById("iaStreet").setInnerText(adr.getStreet());
-        Document.get().getElementById("iaTown").setInnerText(adr.getTown());
-        Document.get().getElementById("iaPostalCode").setInnerText(adr.getPostalCode());
-        Document.get().getElementById("iaCountry").setInnerText(adr.getCountry());
-
-        ContactPerson cp = response.getContactPerson();
-        Document.get().getElementById("icpName").setInnerText(cp.getName() + " " + cp.getSurname());
-        Document.get().getElementById("icpPhone").setInnerText(cp.getPhone().getCountryPrefix() + " " + cp.getPhone().getNumber());
-
-        BillingInfo bi = response.getBillingInfo();
-        Document.get().getElementById("ibIC").setInnerText(bi.getIdNum());
-        Document.get().getElementById("ibDIC").setInnerText(bi.getVatNum());
-
-        setLoadingInTable(false);
-      }
-    }).getCompanyById(companyID);
-  }
 }

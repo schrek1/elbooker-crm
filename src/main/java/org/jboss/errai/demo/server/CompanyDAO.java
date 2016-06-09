@@ -38,7 +38,7 @@ public class CompanyDAO{
     company.setBillingInfo(billing);
 
     ContactPerson contactPerson = new ContactPerson();
-    contactPerson.setName("Jan");
+    contactPerson.setFirstname("Jan");
     contactPerson.setSurname("Novak");
     PhoneNumber phone = new PhoneNumber();
     phone.setCountryPrefix("+420");
@@ -75,7 +75,7 @@ public class CompanyDAO{
     company.setBillingInfo(billing);
 
     contactPerson = new ContactPerson();
-    contactPerson.setName("Petr");
+    contactPerson.setFirstname("Petr");
     contactPerson.setSurname("Knize");
     phone = new PhoneNumber();
     phone.setCountryPrefix("+420");
@@ -112,7 +112,7 @@ public class CompanyDAO{
     company.setBillingInfo(billing);
 
     contactPerson = new ContactPerson();
-    contactPerson.setName("Pavel");
+    contactPerson.setFirstname("Pavel");
     contactPerson.setSurname("Benes");
     phone = new PhoneNumber();
     phone.setCountryPrefix("+420");
@@ -149,7 +149,7 @@ public class CompanyDAO{
     company.setBillingInfo(billing);
 
     contactPerson = new ContactPerson();
-    contactPerson.setName("Karel");
+    contactPerson.setFirstname("Karel");
     contactPerson.setSurname("Simonedes");
     phone = new PhoneNumber();
     phone.setCountryPrefix("+420");
