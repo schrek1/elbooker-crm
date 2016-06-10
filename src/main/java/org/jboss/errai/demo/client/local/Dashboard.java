@@ -50,14 +50,6 @@ public class Dashboard extends Composite{
   @Table(root = "tbody")
   private ListWidget<Company, CompanyItemWidget> companyTable;
 
-  @DataField
-  private Element infoTr = DOM.createTR();
-
-  @PostConstruct
-  private void postConstruct(){
-    this.hideWindowDiv();
-  }
-
   @PageShown
   private void sync(){
     companyCaller.call(new RemoteCallback<List<Company>>(){
@@ -68,9 +60,4 @@ public class Dashboard extends Composite{
     }).listOfCompany();
 
   }
-
-  private void hideWindowDiv(){
-    this.infoTr.getStyle().setDisplay(Display.NONE);
-  }
-
 }

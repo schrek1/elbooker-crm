@@ -1,45 +1,24 @@
 package org.jboss.errai.demo.client.local;
 
-import com.google.gwt.core.shared.GWT;
-import com.google.gwt.dom.client.DivElement;
-import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.Style;
-import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.MouseEvent;
-import com.google.gwt.event.dom.client.MouseOverEvent;
-import com.google.gwt.i18n.client.LocaleInfo;
-import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import org.jboss.errai.common.client.api.Caller;
 import org.jboss.errai.common.client.api.RemoteCallback;
 import org.jboss.errai.databinding.client.api.DataBinder;
-import org.jboss.errai.databinding.client.api.PropertyChangeEvent;
-import org.jboss.errai.databinding.client.api.PropertyChangeHandler;
-import org.jboss.errai.demo.client.shared.companyEntity.Address;
-import org.jboss.errai.demo.client.shared.companyEntity.BillingInfo;
 import org.jboss.errai.demo.client.shared.companyEntity.Company;
-import org.jboss.errai.demo.client.shared.services.CompanyServices;
-import org.jboss.errai.demo.client.shared.companyEntity.ContactPerson;
+import org.jboss.errai.demo.client.shared.userEntity.Role;
+import org.jboss.errai.demo.client.shared.userEntity.User;
+import org.jboss.errai.demo.client.shared.userEntity.UsersRole;
+import org.jboss.errai.security.shared.api.annotation.RestrictedAccess;
+import org.jboss.errai.security.shared.service.AuthenticationService;
 import org.jboss.errai.ui.client.widget.HasModel;
-import org.jboss.errai.ui.client.widget.ValueImage;
 import org.jboss.errai.ui.shared.api.annotations.AutoBound;
 import org.jboss.errai.ui.shared.api.annotations.Bound;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
@@ -55,13 +34,11 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
   private DataBinder<Company> company;
 
   @Inject
-  private InfoCompanyRow infoRow;
+  private InfoCompanyRow infoTableRow;
 
   @Inject
-  private Caller<CompanyServices> companyCaller;
+  private EditCompanyPopup editPopUp;
 
-  // You can also choose to instantiate your own widgets. Injection is not
-  // required. In case of Element, direct injection is not supported.
   @Bound
   @DataField
   private final Element id = DOM.createTD();
@@ -83,18 +60,8 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
   @DataField
   private final Button removeBut = new Button();
 
-  private final Element loadingInfo = Document.get().getElementById("loadingInfo");
-
-  private Element editPopUp = Document.get().getElementById("editPopUp");
-
-  private Element infoTr = Document.get().getElementById("infoTr");
-
-  private Element infoDiv = Document.get().getElementById("infoDiv");
-
-
-
-  private Element editForm = Document.get().getElementById("editForm");
-
+  @Inject
+  private Caller<AuthenticationService> authCaller;
 
   @Override
   public Company getModel(){
@@ -106,91 +73,55 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
     company.setModel(model);
   }
 
+  @PostConstruct
+  private void init(){
+    authCaller.call(new RemoteCallback<User>(){
+      @Override
+      public void callback(User user){
+        Role companyRole = new Role(UsersRole.COMPANY);
+        if(user.getRoles().contains(companyRole)){
+          removeBut.getElement().removeFromParent();
+          if(!company.getModel().haveAccess(user)){
+            getElement().removeFromParent();
+          }
+        }
+      }
+    }).getUser();
+  }
+
   @EventHandler("infoBut")
-  private void infoButClick(ClickEvent ce){
-    boolean isOpen = this.getElement().getNextSiblingElement() != null && this.getElement().getNextSiblingElement().isOrHasChild(this.infoTr);
-    this.infoTr.removeFromParent();
+  private void infoButClick(ClickEvent ce
+  ){
+    boolean isOpen = this.getElement().getNextSiblingElement() != null && this.getElement().getNextSiblingElement().isOrHasChild(this.infoTableRow.getElement());
+    this.infoTableRow.getElement().removeFromParent();
     if(!isOpen){
-      this.setLoadingInTable(true);
       HTMLPanel panel = (HTMLPanel)this.getParent();
-      panel.getElement().insertAfter(this.infoTr, this.getElement());
-      this.fillInfo();
+      panel.getElement().insertAfter(this.infoTableRow.getElement(), this.getElement());
     }
     this.infoBut.setFocus(false);
   }
 
   @EventHandler("editBut")
-  private void editButClick(ClickEvent ce){
-    this.setLoadingInEditPop(true);
-    this.fillEditInputs();
-    this.editPopUp.getStyle().setDisplay(Display.INLINE);
+  private void editButClick(ClickEvent ce
+  ){
+    Element innerDiv = DOM.getElementById("page-inner");
+    this.editPopUp.setVisible(true);
+    innerDiv.appendChild(this.editPopUp.getElement());
     this.editBut.setFocus(false);
   }
 
   @EventHandler("removeBut")
-  private void removeButClick(ClickEvent ce){
+  private void removeButClick(ClickEvent ce
+  ){
     boolean confirm;
     confirm = Window.confirm("Opravdu chcete smazat firmu " + this.name.getInnerText() + "?");
     if(confirm){
-      if(this.getElement().getNextSiblingElement() != null && this.getElement().getNextSiblingElement().isOrHasChild(this.infoTr)){
-        this.infoTr.removeFromParent();
+      if(this.getElement().getNextSiblingElement() != null && this.getElement().getNextSiblingElement().isOrHasChild(this.infoTableRow.getElement())){
+        this.infoTableRow.getElement().removeFromParent();
       }
       this.removeFromParent();
     }
     this.removeBut.setFocus(false);
   }
 
-
-
-  private void fillEditInputs(){
-    int companyID = this.company.getModel().getId();
-    this.companyCaller.call(new RemoteCallback<Company>(){
-      @Override
-      public void callback(Company response){
-        Document.get().getElementById("inputCName").setAttribute("value", response.getName());
-        Document.get().getElementById("inputCWeb").setAttribute("value", response.getWeb());
-        Document.get().getElementById("inputCPhonePrefix").setAttribute("value", response.getPhone().getCountryPrefix());
-        Document.get().getElementById("inputCPhoneNumber").setAttribute("value", response.getPhone().getNumber());
-
-        Address adr = response.getAddress();
-        Document.get().getElementById("inputCStreet").setAttribute("value",adr.getStreet());
-        Document.get().getElementById("inputCTown").setAttribute("value",adr.getTown());
-        Document.get().getElementById("inputCPostalCode").setAttribute("value",adr.getPostalCode());
-        Document.get().getElementById("inputCCountry").setAttribute("value",adr.getCountry());
-
-        ContactPerson cp = response.getContactPerson();
-        Document.get().getElementById("inputCPName").setAttribute("value",cp.getName());
-        Document.get().getElementById("inputCPSurename").setAttribute("value",cp.getSurname());
-        Document.get().getElementById("inputCPPhonePrefix").setAttribute("value",cp.getPhone().getCountryPrefix());
-        Document.get().getElementById("inputCPPhoneNumber").setAttribute("value",cp.getPhone().getNumber());
-
-        BillingInfo bi = response.getBillingInfo();
-        Document.get().getElementById("inputIC").setAttribute("value",bi.getIdNum());
-        Document.get().getElementById("inputDIC").setAttribute("value",bi.getVatNum());
-
-        setLoadingInEditPop(false);
-      }
-    }).getCompanyById(companyID);
-  }
-
-  private void setLoadingInTable(boolean loading){
-    if(loading){
-      this.loadingInfo.getStyle().setDisplay(Display.BLOCK);
-      this.infoDiv.getStyle().setDisplay(Display.NONE);
-    }else{
-      this.loadingInfo.getStyle().setDisplay(Display.NONE);
-      this.infoDiv.getStyle().setDisplay(Display.BLOCK);
-      this.infoTr.getStyle().setDisplay(Display.TABLE_ROW);
-    }
-  }
-
-  private void setLoadingInEditPop(boolean loading){
-    if(loading){
-      this.loadingEdit.getStyle().setDisplay(Display.BLOCK);
-      this.editForm.getStyle().setDisplay(Display.NONE);
-    }else{
-      this.loadingEdit.getStyle().setDisplay(Display.NONE);
-      this.editForm.getStyle().setDisplay(Display.BLOCK);
-    }
-  }
 }

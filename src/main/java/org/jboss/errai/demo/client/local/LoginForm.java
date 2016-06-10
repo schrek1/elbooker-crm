@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.TextBox;
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.jboss.errai.bus.client.api.messaging.Message;
 import org.jboss.errai.common.client.api.Caller;
@@ -23,6 +24,7 @@ import org.jboss.errai.ui.shared.api.annotations.Templated;
 import org.jboss.errai.ui.nav.client.local.PageShowing;
 import org.jboss.errai.ui.nav.client.local.TransitionTo;
 import org.jboss.errai.demo.client.shared.userEntity.User;
+import org.jboss.errai.ioc.client.api.AfterInitialization;
 import org.jboss.errai.security.shared.exception.AuthenticationException;
 import org.jboss.errai.security.shared.service.AuthenticationService;
 import org.jboss.errai.ui.nav.client.local.PageHiding;
@@ -68,8 +70,10 @@ public class LoginForm extends Composite{
   @Inject
   private TopBar topBar;
 
-  @PageShowing
-  private void pageShowing(){
+  @PostConstruct
+  private void init(){
+    this.navBar.setVisible(false);
+    this.topBar.setVisible(false);
     this.authCaller.call(new RemoteCallback<Boolean>(){
       public void callback(Boolean isLogged){
         if(isLogged){
@@ -77,8 +81,6 @@ public class LoginForm extends Composite{
         }
       }
     }).isLoggedIn();
-    this.navBar.setVisible(false);
-    this.topBar.setVisibleLoginInfo(false);
   }
 
   @PageHiding

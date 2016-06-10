@@ -21,7 +21,7 @@ public class AuthenticationImpl implements AuthenticationService{
     UserWithPass recieveUWP;
 
     try{//null pointer
-      recieveUWP = this.udSource.getUserByLogin(username);
+      recieveUWP = this.udSource.getUserWPByLogin(username);
     }catch(Exception ex){
       throw new AuthenticationException();
     }

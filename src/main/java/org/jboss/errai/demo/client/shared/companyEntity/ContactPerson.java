@@ -20,7 +20,7 @@ public class ContactPerson {
     return firstname;
   }
 
-  public String getSurname(){
+  public String getSurename(){
     return surename;
   }
 
@@ -32,8 +32,8 @@ public class ContactPerson {
     this.firstname = name;
   }
 
-  public void setSurname(String surname){
-    this.surename = surname;
+  public void setSurename(String surename){
+    this.surename = surename;
   }
 
   public void setPhone(PhoneNumber phone){

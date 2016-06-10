@@ -1,8 +1,11 @@
 package org.jboss.errai.demo.client.shared.companyEntity;
 
-import java.util.HashMap;
+import com.google.gwt.core.client.GWT;
+import java.util.ArrayList;
+import java.util.List;
 import org.jboss.errai.common.client.api.annotations.Portable;
 import org.jboss.errai.databinding.client.api.Bindable;
+import org.jboss.errai.demo.client.shared.userEntity.User;
 
 /**
  *
@@ -21,6 +24,7 @@ public class Company{
   private Address address;
   private BillingInfo billingInfo;
 
+  private List<User> authorizedUsers = new ArrayList<User>();
 
   public Company(){
   }
@@ -81,9 +85,40 @@ public class Company{
     this.contactPerson = contactPerson;
   }
 
+  public void addAccess(User user){
+    if(!this.authorizedUsers.contains(user)){
+      this.authorizedUsers.add(user);
+      System.err.println(this.authorizedUsers.toString());
+    }else{
+      GWT.log("NOT ADD!");
+    }
+  }
+
+  public void removeAccess(User user){
+    if(!this.authorizedUsers.contains(user)){
+      this.authorizedUsers.remove(user);
+    }else{
+      throw new RuntimeException("user not found");
+    }
+  }
+
+  public boolean haveAccess(User user){
+    GWT.log("parameter user>"+user.toString());
+    GWT.log("authorized users>"+this.authorizedUsers.toString());
+    GWT.log("company entity>"+this.toString());
+    for(User authorizedUser : this.authorizedUsers){
+      GWT.log(authorizedUser.toString());
+      if(authorizedUser.getIdentifier().equals(user.getIdentifier())){
+        return true;
+      }
+    }
+    return false;
+  }
+
   @Override
   public String toString(){
-    return "Company{" + "id=" + id + ", name=" + name + ", web=" + web + ", contactPerson=" + contactPerson + ", phone=" + phone + ", address=" + address + ", billingInfo=" + billingInfo + '}';
+    return "Company{" + "id=" + id + ", name=" + name + ", web=" + web + ", contactPerson=" + contactPerson + ", phone=" + phone + ", address=" + address + ", billingInfo=" + billingInfo + ", authorizedUsers=" + authorizedUsers + '}';
   }
+
 
 }

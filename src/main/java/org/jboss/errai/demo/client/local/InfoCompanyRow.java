@@ -3,6 +3,7 @@ package org.jboss.errai.demo.client.local;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import org.jboss.errai.databinding.client.api.DataBinder;
 import org.jboss.errai.demo.client.shared.companyEntity.Company;
@@ -11,7 +12,8 @@ import org.jboss.errai.ui.shared.api.annotations.Bound;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 
-@Templated
+@Templated("InfoCompanyRow.html#infoTr")
+@ApplicationScoped
 public class InfoCompanyRow extends Composite{
 
   @Inject

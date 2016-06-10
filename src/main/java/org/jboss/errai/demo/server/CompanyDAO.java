@@ -1,10 +1,14 @@
 package org.jboss.errai.demo.server;
 
+import com.google.gwt.core.shared.GWT;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
 import org.hibernate.mapping.Collection;
 import org.jboss.errai.bus.server.annotations.Service;
 import org.jboss.errai.demo.client.shared.companyEntity.Address;
@@ -13,13 +17,16 @@ import org.jboss.errai.demo.client.shared.companyEntity.Company;
 import org.jboss.errai.demo.client.shared.companyEntity.ContactPerson;
 import org.jboss.errai.demo.client.shared.companyEntity.PhoneNumber;
 import org.jboss.errai.demo.client.shared.services.CompanyServices;
+import org.jboss.errai.demo.client.shared.userEntity.User;
 
-@Dependent
+@ApplicationScoped
 public class CompanyDAO{
+
+  private UsersDAO usersDAO = new UsersDAO();
 
   //fill dummy company method
   public List<Company> fillCompanies(){
-
+    List<User> userList = this.usersDAO.getListOfUsersNP();
     List<Company> companies = new ArrayList<Company>();
     Company company = new Company();
 
@@ -39,7 +46,7 @@ public class CompanyDAO{
 
     ContactPerson contactPerson = new ContactPerson();
     contactPerson.setFirstname("Jan");
-    contactPerson.setSurname("Novak");
+    contactPerson.setSurename("Novak");
     PhoneNumber phone = new PhoneNumber();
     phone.setCountryPrefix("+420");
     phone.setNumber("987456321");
@@ -54,6 +61,9 @@ public class CompanyDAO{
     company.setPhone(phone);
 
     company.setWeb("www.elbooker.eu");
+
+    company.addAccess(userList.get(1));
+    company.addAccess(userList.get(2));
 
     companies.add(company);
     // !ADD COMPANY 1
@@ -76,7 +86,7 @@ public class CompanyDAO{
 
     contactPerson = new ContactPerson();
     contactPerson.setFirstname("Petr");
-    contactPerson.setSurname("Knize");
+    contactPerson.setSurename("Knize");
     phone = new PhoneNumber();
     phone.setCountryPrefix("+420");
     phone.setNumber("987456321");
@@ -91,6 +101,8 @@ public class CompanyDAO{
     company.setPhone(phone);
 
     company.setWeb("www.firmicka.com");
+
+    company.addAccess(userList.get(1));
 
     companies.add(company);
     // !ADD COMPANY 2
@@ -113,7 +125,7 @@ public class CompanyDAO{
 
     contactPerson = new ContactPerson();
     contactPerson.setFirstname("Pavel");
-    contactPerson.setSurname("Benes");
+    contactPerson.setSurename("Benes");
     phone = new PhoneNumber();
     phone.setCountryPrefix("+420");
     phone.setNumber("987456321");
@@ -128,6 +140,8 @@ public class CompanyDAO{
     company.setPhone(phone);
 
     company.setWeb("www.okna.com");
+
+    company.addAccess(userList.get(2));
 
     companies.add(company);
     // !ADD COMPANY 3
@@ -150,7 +164,7 @@ public class CompanyDAO{
 
     contactPerson = new ContactPerson();
     contactPerson.setFirstname("Karel");
-    contactPerson.setSurname("Simonedes");
+    contactPerson.setSurename("Simonedes");
     phone = new PhoneNumber();
     phone.setCountryPrefix("+420");
     phone.setNumber("987456321");
