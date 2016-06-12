@@ -1,21 +1,75 @@
 <div data-field="content" id="page-wrapper" >
-  <div  id="page-inner">
-    <div class="row">
-      <div class="col-md-12">
-        <h2>Editace uživatelů</h2>
-      </div>
-    </div>
-    <div>
-      <div class="form-group ">
-        <div class="col-sm-3">
-          <label for="usernames">Select list:</label>
-          <select size="10" class="form-control" id="usernames">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-          </select>
+        <div  id="page-inner">
+          <div class="container-fluid ">
+            <div class="row">
+              <div class="col-md-12">
+                <h2>Uživatelé systému</h2>
+              </div>
+            </div>
+            <hr />
+            <div class="col-lg-8" style="//min-width: 450px;">
+              <div class="panel panel-default">
+                <div class="panel-heading">Správa uživatelů</div>
+                <div class="panel-body" style="padding: 30px 30px 5px 30px">
+                  <div class="row">
+
+                    <div class="col-lg-6 col-sm-12" style="min-width: 185px;">
+                      <div class="panel" style="margin-bottom: 0px;">
+                        <label for="usernames">Seznam uživatelů</label>
+                        <select size="10" class="form-control" id="usernames">
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                        </select>
+                      </div>
+                      <br />
+                      <div class="panel pull-right">
+                        <button id="addButton" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Přidat uživatele"><i class="glyphicon glyphicon-plus"></i></button>
+                      </div>
+
+                    </div>
+                    <div class="col-lg-6 col-sm-12" style="min-width: 370px;">
+                      <div class="panel well well-sm">
+                        <div class="panel-body">
+                          <div class="input-group">
+                            <span class="input-group-addon" style="min-width:110px; text-align: left;">login</span>
+                            <input type="text" class="form-control" placeholder="username">
+                          </div>
+                          <br />
+                          <div class="input-group">
+                            <span class="input-group-addon" style="min-width:110px; text-align: left;">nove heslo</span>
+                            <input type="text" class="form-control" placeholder="nove heslo">
+                          </div>
+                          <br />
+                          <div class="input-group">
+                            <span class="input-group-addon" style="min-width:110px; text-align: left;">kotrola hesla</span>
+                            <input type="text" class="form-control" placeholder="kotrola hesla">
+                          </div>
+                          <br />
+                          <div class="input-group">
+                            <span class="input-group-addon" style="min-width:110px; text-align: left;">skupina</span>
+                            <select class="form-control" id="sel1">
+                              <option>administrátor</option>
+                              <option>frima</option>
+                            </select>
+                          </div>
+                          <br />
+                          <br />
+                          <div class="input-group pull-right">
+                            <div class="btn-toolbar">
+                              <button id="addButton" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Smazat uživatele"><i class="glyphicon glyphicon-trash" style="padding-right: 5px"></i>  Smazat účet</button>
+                              <button id="addButton" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom" title="Upravit uživatele"><i class="glyphicon glyphicon-pencil" style="padding-right: 5px"></i>  Uložit změny</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>

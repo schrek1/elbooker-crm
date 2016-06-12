@@ -15,6 +15,13 @@
 body {
     font-family: 'Open Sans', sans-serif;
 }
+
+.v-align {
+    float: none;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .errai-restricted-access-style{
   display: none!important;
 }

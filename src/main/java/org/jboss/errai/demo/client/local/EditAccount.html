@@ -1,27 +1,39 @@
 <div data-field="content" id="page-wrapper" >
   <div  id="page-inner">
-    <div class="row">
-      <div class="col-md-12">
-        <h2>Editace uživatelského účtu</h2>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Editace uživatelského účtu</h2>
+        </div>
       </div>
-    </div>
-    <div>
-      <h3>změna hesla</h3>
-      <form role="form" onsubmit="false">
-        <div class="form-group">
-          <label for="password">nové heslo:</label>
-          <input type="password" class="form-control" id="password">
+      <hr />
+      <div class="row">
+        <div class="col-md-4 col-sm-4" style="min-width: 360px; max-width: 410px">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              změna hesla
+            </div>
+            <div class="panel-body" style="padding-top: 35px">
+              <div class="input-group">
+                <span class="input-group-addon" style="min-width:120px; text-align:left;">nové heslo</span>
+                <input type="password" class="form-control" id="password">
+              </div>
+              <br />
+              <div class="input-group">
+                <span class="input-group-addon" style="min-width:120px; text-align:left;">kontrola hesla</span>
+                <input type="password" class="form-control" id="check">
+              </div>
+              <br />
+              <div class="input-group">
+                <span class="input-group-addon" style="min-width:120px; text-align:left;">původní heslo</span>
+                <input type="password" class="form-control" id="old">
+              </div>
+              <br />
+              <button type="submit" class="btn btn-primary pull-right">Potvrdit</button>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="check">nové heslo:</label>
-          <input type="password" class="form-control" id="check">
-        </div>
-        <div class="form-group">
-          <label for="old">původní heslo:</label>
-          <input type="password" class="form-control" id="old">
-        </div>
-        <button type="submit" class="btn btn-default">Potvrdit</button>
-      </form>
+      </div>
     </div>
   </div>
 </div>
