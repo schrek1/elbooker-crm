@@ -88,7 +88,6 @@ public class Company{
   public void addAccess(User user){
     if(!this.authorizedUsers.contains(user)){
       this.authorizedUsers.add(user);
-      System.err.println(this.authorizedUsers.toString());
     }else{
       GWT.log("NOT ADD!");
     }

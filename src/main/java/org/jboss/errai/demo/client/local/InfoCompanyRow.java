@@ -7,6 +7,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import org.jboss.errai.databinding.client.api.DataBinder;
 import org.jboss.errai.demo.client.shared.companyEntity.Company;
+import org.jboss.errai.ui.client.widget.HasModel;
 import org.jboss.errai.ui.shared.api.annotations.AutoBound;
 import org.jboss.errai.ui.shared.api.annotations.Bound;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
@@ -14,11 +15,11 @@ import org.jboss.errai.ui.shared.api.annotations.Templated;
 
 @Templated("InfoCompanyRow.html#infoTr")
 @ApplicationScoped
-public class InfoCompanyRow extends Composite{
+public class InfoCompanyRow extends Composite implements HasModel<Company>{
 
   @Inject
   @AutoBound
-  DataBinder<Company> company;
+  private DataBinder<Company> company;
 
   @DataField
   @Bound
@@ -75,5 +76,15 @@ public class InfoCompanyRow extends Composite{
   @DataField
   @Bound(property = "billingInfo.vatNum")
   private Element dic = DOM.createSpan();
+
+  @Override
+  public Company getModel(){
+    return company.getModel();
+  }
+
+  @Override
+  public void setModel(Company model){
+    company.setModel(model);
+  }
 
 }

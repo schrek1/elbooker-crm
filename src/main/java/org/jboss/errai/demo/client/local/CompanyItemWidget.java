@@ -1,5 +1,6 @@
 package org.jboss.errai.demo.client.local;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.DOM;
@@ -75,44 +76,33 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
 
   @PostConstruct
   private void init(){
-    authCaller.call(new RemoteCallback<User>(){
-      @Override
-      public void callback(User user){
-        Role companyRole = new Role(UsersRole.COMPANY);
-        if(user.getRoles().contains(companyRole)){
-          removeBut.getElement().removeFromParent();
-          if(!company.getModel().haveAccess(user)){
-            getElement().removeFromParent();
-          }
-        }
-      }
-    }).getUser();
+  }
+
+  public void removeRemoveBut(){
+    this.removeBut.getElement().removeFromParent();
   }
 
   @EventHandler("infoBut")
-  private void infoButClick(ClickEvent ce
-  ){
+  private void infoButClick(ClickEvent ce){
     boolean isOpen = this.getElement().getNextSiblingElement() != null && this.getElement().getNextSiblingElement().isOrHasChild(this.infoTableRow.getElement());
     this.infoTableRow.getElement().removeFromParent();
     if(!isOpen){
       HTMLPanel panel = (HTMLPanel)this.getParent();
       panel.getElement().insertAfter(this.infoTableRow.getElement(), this.getElement());
+      this.infoTableRow.setModel(this.getModel());
     }
     this.infoBut.setFocus(false);
   }
 
   @EventHandler("editBut")
-  private void editButClick(ClickEvent ce
-  ){
-    Element innerDiv = DOM.getElementById("page-inner");
+  private void editButClick(ClickEvent ce){
+    this.editPopUp.setModel(this.getModel());
     this.editPopUp.setVisible(true);
-    innerDiv.appendChild(this.editPopUp.getElement());
     this.editBut.setFocus(false);
   }
 
   @EventHandler("removeBut")
-  private void removeButClick(ClickEvent ce
-  ){
+  private void removeButClick(ClickEvent ce){
     boolean confirm;
     confirm = Window.confirm("Opravdu chcete smazat firmu " + this.name.getInnerText() + "?");
     if(confirm){

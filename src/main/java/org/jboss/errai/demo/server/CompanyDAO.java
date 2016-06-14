@@ -27,6 +27,7 @@ public class CompanyDAO{
   //fill dummy company method
   public List<Company> fillCompanies(){
     List<User> userList = this.usersDAO.getListOfUsersNP();
+    
     List<Company> companies = new ArrayList<Company>();
     Company company = new Company();
 

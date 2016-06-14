@@ -3,26 +3,30 @@ package org.jboss.errai.demo.client.local;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.inject.Inject;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Dependent;
+import javax.faces.bean.ViewScoped;
 import org.jboss.errai.databinding.client.api.DataBinder;
 import org.jboss.errai.demo.client.shared.companyEntity.Company;
+import org.jboss.errai.ui.client.widget.HasModel;
 import org.jboss.errai.ui.shared.api.annotations.AutoBound;
 import org.jboss.errai.ui.shared.api.annotations.Bound;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 
-@Templated
+@Templated("#editPopUp")
 @ApplicationScoped
-public class EditCompanyPopup extends Composite{
+public class EditCompanyPopup extends Composite implements HasModel<Company>{
 
   @Inject
   @AutoBound
-  DataBinder<Company> company;
+  private DataBinder<Company> company;
 
   @Inject
   @DataField
@@ -115,7 +119,6 @@ public class EditCompanyPopup extends Composite{
   private void closeModal(){
     GWT.log("log:handler");
     this.setVisible(false);
-    this.getElement().removeFromParent();
   }
 
   @Override
@@ -127,4 +130,15 @@ public class EditCompanyPopup extends Composite{
       this.getElement().getStyle().setDisplay(Style.Display.NONE);
     }
   }
+
+  @Override
+  public Company getModel(){
+    return company.getModel();
+  }
+
+  @Override
+  public void setModel(Company model){
+    company.setModel(model);
+  }
+  
 }

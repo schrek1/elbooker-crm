@@ -18,7 +18,6 @@ public class UsersDAO implements UserServices{
 
   public UserWithPass getUserWPByLogin(String login) throws Exception{
     UserWithPass uwp;
-
     if(login.equals("admin")){
       uwp = new UserWithPass("admin", Arrays.asList(new Role(UsersRole.ADMIN)), "1");
       return uwp;
