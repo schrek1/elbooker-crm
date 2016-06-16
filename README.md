@@ -1,0 +1,2 @@
+# elbooker-crm
+EXAMPLE PROJECT OF SIMPLE CRM IN ERRAI
