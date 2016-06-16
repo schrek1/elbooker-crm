@@ -12,7 +12,11 @@ import org.jboss.errai.bus.server.annotations.Remote;
 @Remote
 public interface CompanyServices{
 
-  public List<Company> listOfCompany();
+  public List<Company> getListOfCompanies();
 
   public Company getCompanyById(int id);
+
+  public boolean removeCompayById(int id);
+
+  public boolean editCompany(Company editCompany, int id);
 }

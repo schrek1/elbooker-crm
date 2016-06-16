@@ -7,6 +7,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Button;
 import java.util.Iterator;
+import javax.enterprise.context.Dependent;
 import javax.enterprise.event.Observes;
 import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;

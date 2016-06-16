@@ -63,6 +63,10 @@ public class Dashboard extends Composite{
   @Table(root = "tbody")
   private ListWidget<Company, CompanyItemWidget> companyTable;
 
+  @PostConstruct
+  private void init(){
+  }
+
   @PageShowing
   private void sync(){
     companyCaller.call(new RemoteCallback<List<Company>>(){
@@ -71,7 +75,7 @@ public class Dashboard extends Composite{
         companyTable.setItems(response);
         removeNotAccessible();
       }
-    }).listOfCompany();
+    }).getListOfCompanies();
     this.editPopUp.setVisible(false);
   }
 

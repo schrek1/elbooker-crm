@@ -1,173 +1,98 @@
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Errai - Tutorial</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
+<div class="modal fade in" id="editPopUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+  <div class="modal-backdrop fade in"></div>
+  <div class="modal-dialog" style="margin-top: 25px;">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" id="editPopXBut" data-dismiss="modal">&times;</button>
+        <h2 class="modal-title">Upravit firmu</h2>
+      </div>
+      <div class="modal-body" >
+        <div class="row">
+          <form role="form" class="col-xs-10 col-xs-offset-1">
 
-    <!-- BOOTSTRAP TEMPLATE STYLES-->
+            <fieldset class="scheduler-border">
+              <legend class="scheduler-border">Kontaktní informace firmy</legend>
 
+              <div class="input-group">
+                <span class="input-group-addon" style="min-width:110px; text-align: left;">název</span>
+                <input type="text" id="inputCName" class="form-control" placeholder="název firmy">
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon" style="min-width:110px; text-align: left;">web</span>
+                <input type="text" id="inputCWeb" class="form-control" placeholder="web">
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon" style="min-width:110px; text-align: left;">telefon</span>
+                <input type="text" id="inputCPhonePrefix"  maxlength="4" class="form-control" placeholder="predvolba" />
+                <span class="input-group-btn" style="width:0px;"></span>
+                <input type="text" id="inputCPhoneNumber"  maxlength="9" class="form-control" placeholder="cislo" />
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon" style="min-width:110px; text-align: left;">ulice</span>
+                <input type="text"  id="inputCStreet" class="form-control" placeholder="ulice">
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon" style="min-width:110px; text-align: left;">město</span>
+                <input type="text" id="inputCTown" class="form-control" placeholder="město">
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon" style="min-width:110px; text-align: left;">PSČ</span>
+                <input type="text" id="inputCPostalCode" class="form-control" placeholder="PSČ">
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon" style="min-width:110px; text-align: left;">stát</span>
+                <input type="text" id="inputCCountry" class="form-control" placeholder="stát">
+              </div>
 
-    <link href="assets/css/bootstrap.css" rel="stylesheet" />
-    <!-- FONTAWESOME STYLES-->
-    <link href="assets/css/font-awesome.css" rel="stylesheet" />
-    <!-- MORRIS CHART STYLES-->
-    <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
-    <!-- CUSTOM STYLES-->
-    <link href="assets/css/custom.css" rel="stylesheet" />
+            </fieldset>
 
+            <br />
 
-    <!-- GOOGLE FONTS-->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-    <link href='http://fonts.googleapis.com/css?family=Gudea:400,700' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+            <fieldset class="scheduler-border">
+              <legend class="scheduler-border">Kontaktní osoba</legend>
 
+              <div class="input-group">
+                <span class="input-group-addon" style="min-width:110px; text-align: left;">jméno</span>
+                <input type="text" id="inputCPName" class="form-control" placeholder="jméno">
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon" style="min-width:110px; text-align: left;">příjmení</span>
+                <input type="text" id="inputCPSurename" class="form-control" placeholder="příjmení">
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon" style="min-width:110px; text-align: left;">telefon</span>
+                <input type="text" id="inputCPPhonePrefix"  maxlength="4" class="form-control" placeholder="predvolba" />
+                <span class="input-group-btn" style="width:0px;"></span>
+                <input type="text" id="inputCPPhoneNumber"  maxlength="9" class="form-control" placeholder="cislo" />
+              </div>
 
+            </fieldset>
 
-    <!--/BOOTSTRAP TEMPLATE STYLES-->
+            <br />
 
+            <fieldset class="scheduler-border">
+              <legend class="scheduler-border">Účetní údaje</legend>
 
-    <link rel="shortcut icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="favicon.ico">
+              <div class="input-group">
+                <span class="input-group-addon" style="min-width:110px; text-align: left;">IČ</span>
+                <input type="text" id="inputIC" class="form-control" placeholder="IČ">
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon" style="min-width:110px; text-align: left;">DIČ</span>
+                <input type="text" id="inputDIC" class="form-control" placeholder="DIČ">
+              </div>
 
-    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+            </fieldset>
 
-    <script type="text/javascript" language="javascript" src="app/app.nocache.js"></script>
-  </head>
-
-  <body>
-
-    <iframe src="javascript:''" id="__gwt_historyFrame" style="width: 0; height: 0; border: 0"></iframe>
-
-    <script src="assets/js/bootstrap.min.js"></script>
-
-
-    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-    <!-- JQUERY SCRIPTS -->
-    <script src="assets/js/jquery-1.10.2.js"></script>
-    <!-- BOOTSTRAP SCRIPTS -->
-    <script src="assets/js/bootstrap.min.js"></script>
-    <!-- METISMENU SCRIPTS -->
-    <script src="assets/js/jquery.metisMenu.js"></script>
-    <!-- MORRIS CHART SCRIPTS -->
-    <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
-    <script src="assets/js/morris/morris.js"></script>
-    <!-- CUSTOM SCRIPTS -->
-    <script src="assets/js/custom.js"></script>
-
-    <div class="modal fade in" id="editPopUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
-      <div class="modal-backdrop fade in"></div>
-      <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" id="editPopXBut" data-dismiss="modal">&times;</button>
-            <h2 class="modal-title">Upravit firmu</h2>
-          </div>
-          <div class="modal-body" >
-            <div class="row">
-              <form role="form" class="col-xs-10 col-xs-offset-1">
-
-
-                <fieldset class="scheduler-border">
-                  <legend class="scheduler-border">Kontaktní informace firmy</legend>
-
-                  <div class="input-group">
-                    <span class="input-group-addon" style="min-width:110px; text-align: left;">název</span>
-                    <input type="text" id="inputCName" class="form-control" placeholder="název firmy">
-                  </div>
-                  <br/>
-                  <div class="input-group">
-                    <span class="input-group-addon" style="min-width:110px; text-align: left;">web</span>
-                    <input type="text" id="inputCWeb" class="form-control" placeholder="web">
-                  </div>
-                  <br/>
-                  <div class="input-group">
-                    <span class="input-group-addon" style="min-width:110px; text-align: left;">telefon</span>
-                    <input type="text" id="inputCPhonePrefix"  maxlength="4" class="form-control" placeholder="predvolba" />
-                    <span class="input-group-btn" style="width:0px;"></span>
-                    <input type="text" id="inputCPhoneNumber"  maxlength="9" class="form-control" placeholder="cislo" />
-                  </div>
-                  <br/>
-                  <div class="input-group">
-                    <span class="input-group-addon" style="min-width:110px; text-align: left;">ulice</span>
-                    <input type="text"  id="inputCStreet" class="form-control" placeholder="ulice">
-                  </div>
-                  <br/>
-                  <div class="input-group">
-                    <span class="input-group-addon" style="min-width:110px; text-align: left;">město</span>
-                    <input type="text" id="inputCTown" class="form-control" placeholder="město">
-                  </div>
-                  <br/>
-                  <div class="input-group">
-                    <span class="input-group-addon" style="min-width:110px; text-align: left;">PSČ</span>
-                    <input type="text" id="inputCPostalCode" class="form-control" placeholder="PSČ">
-                  </div>
-                  <br/>
-                  <div class="input-group">
-                    <span class="input-group-addon" style="min-width:110px; text-align: left;">stát</span>
-                    <input type="text" id="inputCCountry" class="form-control" placeholder="stát">
-                  </div>
-
-                </fieldset>
-
-                <br />
-
-                <fieldset class="scheduler-border">
-                  <legend class="scheduler-border">Kontaktní osoba</legend>
-
-                  <div class="input-group">
-                    <span class="input-group-addon" style="min-width:110px; text-align: left;">jméno</span>
-                    <input type="text" id="inputCPName" class="form-control" placeholder="jméno">
-                  </div>
-                  <br/>
-                  <div class="input-group">
-                    <span class="input-group-addon" style="min-width:110px; text-align: left;">příjmení</span>
-                    <input type="text" id="inputCPSurename" class="form-control" placeholder="příjmení">
-                  </div>
-                  <br/>
-                  <div class="input-group">
-                    <span class="input-group-addon" style="min-width:110px; text-align: left;">telefon</span>
-                    <input type="text" id="inputCPPhonePrefix"  maxlength="4" class="form-control" placeholder="predvolba" />
-                    <span class="input-group-btn" style="width:0px;"></span>
-                    <input type="text" id="inputCPPhoneNumber"  maxlength="9" class="form-control" placeholder="cislo" />
-                  </div>
-
-                </fieldset>
-
-                <br />
-
-                <fieldset class="scheduler-border">
-                  <legend class="scheduler-border">Účetní údaje</legend>
-
-                  <div class="input-group">
-                    <span class="input-group-addon" style="min-width:110px; text-align: left;">IČ</span>
-                    <input type="text" id="inputIC" class="form-control" placeholder="IČ">
-                  </div>
-                  <br />
-                  <div class="input-group">
-                    <span class="input-group-addon" style="min-width:110px; text-align: left;">DIČ</span>
-                    <input type="text" id="inputDIC" class="form-control" placeholder="DIČ">
-                  </div>
-
-                </fieldset>
-
-              </form>
-            </div>
-          </div>
-          <div class="modal-footer" style="margin-top: 20px">
-            <button  id="editPopCloseBut" type="button" class="btn btn-warning" data-dismiss="modal" > <i class="glyphicon glyphicon-remove" style="padding-right: 5px"> </i> Zrušit úpravy</button>
-            <button type="button" class="btn btn-primary"> <i class="glyphicon glyphicon-ok" style="padding-right: 5px"> </i> Uložit změny</button>
-          </div>
+          </form>
         </div>
       </div>
+      <div class="modal-footer" style="margin-top: 20px">
+        <button  id="editPopCloseBut" type="button" class="btn btn-warning" data-dismiss="modal" > <i class="glyphicon glyphicon-remove" style="padding-right: 5px"> </i> Zrušit úpravy</button>
+        <button type="button" id="saveBut" class="btn btn-primary"> <i class="glyphicon glyphicon-ok" style="padding-right: 5px"> </i> Uložit změny</button>
+      </div>
     </div>
-
-
-  </body>
-</html>
-
+  </div>
+</div>

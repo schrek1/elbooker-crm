@@ -1,5 +1,6 @@
 package org.jboss.errai.demo.server;
 
+import org.jboss.errai.demo.client.shared.userEntity.UserWithPass;
 import com.google.gwt.core.shared.GWT;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -14,14 +15,14 @@ import org.slf4j.Logger;
 public class AuthenticationImpl implements AuthenticationService{
 
   @Inject
-  private UsersDAO udSource;
+  private UsersDAO userDAO;
 
   @Override
   public User login(String username, String password){
     UserWithPass recieveUWP;
 
     try{//null pointer
-      recieveUWP = this.udSource.getUserWPByLogin(username);
+      recieveUWP = this.userDAO.getUserWPByLogin(username);
     }catch(Exception ex){
       throw new AuthenticationException();
     }
@@ -37,11 +38,7 @@ public class AuthenticationImpl implements AuthenticationService{
 
   @Override
   public boolean isLoggedIn(){
-    if(SessionHolder.getSessionIfExists().getAttribute("logedUser") == User.ANONYMOUS){
-      return false;
-    }else{
-      return true;
-    }
+    return SessionHolder.getSessionIfExists().getAttribute("logedUser") != User.ANONYMOUS;
   }
 
   @Override
@@ -54,7 +51,7 @@ public class AuthenticationImpl implements AuthenticationService{
     HttpSession session = SessionHolder.getSessionIfExists();
     if(session != null){
       User usr = (User)session.getAttribute("logedUser");
-      return usr != null ? usr : User.ANONYMOUS;
+      return (usr != null) ? usr : User.ANONYMOUS;
     }
     return User.ANONYMOUS;
   }

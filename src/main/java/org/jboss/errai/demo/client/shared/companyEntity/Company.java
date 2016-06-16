@@ -3,6 +3,8 @@ package org.jboss.errai.demo.client.shared.companyEntity;
 import com.google.gwt.core.client.GWT;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jboss.errai.common.client.api.annotations.Portable;
 import org.jboss.errai.databinding.client.api.Bindable;
 import org.jboss.errai.demo.client.shared.userEntity.User;
@@ -88,8 +90,6 @@ public class Company{
   public void addAccess(User user){
     if(!this.authorizedUsers.contains(user)){
       this.authorizedUsers.add(user);
-    }else{
-      GWT.log("NOT ADD!");
     }
   }
 
@@ -102,11 +102,7 @@ public class Company{
   }
 
   public boolean haveAccess(User user){
-    GWT.log("parameter user>"+user.toString());
-    GWT.log("authorized users>"+this.authorizedUsers.toString());
-    GWT.log("company entity>"+this.toString());
     for(User authorizedUser : this.authorizedUsers){
-      GWT.log(authorizedUser.toString());
       if(authorizedUser.getIdentifier().equals(user.getIdentifier())){
         return true;
       }
@@ -118,6 +114,5 @@ public class Company{
   public String toString(){
     return "Company{" + "id=" + id + ", name=" + name + ", web=" + web + ", contactPerson=" + contactPerson + ", phone=" + phone + ", address=" + address + ", billingInfo=" + billingInfo + ", authorizedUsers=" + authorizedUsers + '}';
   }
-
 
 }

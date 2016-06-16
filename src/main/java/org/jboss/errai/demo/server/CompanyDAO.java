@@ -22,12 +22,14 @@ import org.jboss.errai.demo.client.shared.userEntity.User;
 @ApplicationScoped
 public class CompanyDAO{
 
-  private UsersDAO usersDAO = new UsersDAO();
+  @Inject
+  private UsersDAO usersDAO;
 
-  //fill dummy company method
+  //TODO dodělat napojeni na DB a plnění z DB
   public List<Company> fillCompanies(){
     List<User> userList = this.usersDAO.getListOfUsersNP();
-    
+
+    //fill dummy company method
     List<Company> companies = new ArrayList<Company>();
     Company company = new Company();
 
@@ -185,6 +187,16 @@ public class CompanyDAO{
     // !ADD COMPANY 4
 
     return companies;
+  }
+
+  //TODO doplnit kod na odstranovani firmy z DB
+  public boolean removeCompany(int id){
+    return false;
+  }
+
+  //TODO dodelat update Company
+  public boolean updateCompany(Company editCompany, int id){
+    return false;
   }
 
 }

@@ -11,10 +11,11 @@ import org.jboss.errai.demo.client.shared.services.CompanyServices;
 @Service
 public class CompanyServicesImpl implements CompanyServices{
 
-  private final CompanyDAO companyDAO = new CompanyDAO();
+  @Inject
+  private CompanyDAO companyDAO;
 
   @Override
-  public List<Company> listOfCompany(){
+  public List<Company> getListOfCompanies(){
     return this.companyDAO.fillCompanies();
   }
 
@@ -27,6 +28,18 @@ public class CompanyServicesImpl implements CompanyServices{
       }
     }
     return null;
+  }
+
+  @Override
+  public boolean removeCompayById(int id){
+    System.err.println("!remove>" + id);
+    return true;
+  }
+
+  @Override
+  public boolean editCompany(Company editCompany, int id){
+    System.err.println("!update>" + id + " " + editCompany.toString());
+    return false;
   }
 
 }

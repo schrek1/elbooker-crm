@@ -1,4 +1,4 @@
-package org.jboss.errai.demo.server;
+package org.jboss.errai.demo.client.shared.userEntity;
 
 import java.util.Collection;
 import org.jboss.errai.common.client.api.annotations.MapsTo;

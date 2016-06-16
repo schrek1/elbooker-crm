@@ -16,6 +16,11 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+#editPopUp  .input-group{
+  margin-bottom: 5px;
+
+}
+
 .v-align {
     float: none;
     display: inline-block;

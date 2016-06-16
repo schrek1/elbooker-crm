@@ -11,13 +11,18 @@ import com.google.inject.Inject;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Dependent;
 import javax.faces.bean.ViewScoped;
+import org.jboss.errai.common.client.api.Caller;
+import org.jboss.errai.common.client.api.RemoteCallback;
 import org.jboss.errai.databinding.client.api.DataBinder;
+import org.jboss.errai.databinding.client.api.InitialState;
 import org.jboss.errai.demo.client.shared.companyEntity.Company;
+import org.jboss.errai.demo.client.shared.services.CompanyServices;
 import org.jboss.errai.ui.client.widget.HasModel;
 import org.jboss.errai.ui.shared.api.annotations.AutoBound;
 import org.jboss.errai.ui.shared.api.annotations.Bound;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
+import org.jboss.errai.ui.shared.api.annotations.Model;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 
 @Templated("#editPopUp")
@@ -106,6 +111,13 @@ public class EditCompanyPopup extends Composite implements HasModel<Company>{
   @DataField
   private Button editPopXBut;
 
+  @Inject
+  @DataField
+  private Button saveBut;
+
+  @Inject
+  private Caller<CompanyServices> companyCaller;
+
   @EventHandler("editPopXBut")
   private void editXButClick(ClickEvent ce){
     this.closeModal();
@@ -116,14 +128,22 @@ public class EditCompanyPopup extends Composite implements HasModel<Company>{
     this.closeModal();
   }
 
+  @EventHandler("saveBut")
+  private void submitButClick(ClickEvent ce){
+    this.companyCaller.call(new RemoteCallback<Boolean>(){
+      @Override
+      public void callback(Boolean response){
+      }
+    }).editCompany(this.company.getModel(), this.getModel().getId());
+    this.setVisible(false);
+  }
+
   private void closeModal(){
-    GWT.log("log:handler");
     this.setVisible(false);
   }
 
   @Override
   public void setVisible(boolean visible){
-    GWT.log("log:setVisible");
     if(visible){
       this.getElement().getStyle().setDisplay(Style.Display.BLOCK);
     }else{
@@ -133,12 +153,12 @@ public class EditCompanyPopup extends Composite implements HasModel<Company>{
 
   @Override
   public Company getModel(){
-    return company.getModel();
+    return this.company.getModel();
   }
 
   @Override
   public void setModel(Company model){
-    company.setModel(model);
+    this.company.setModel(model);
   }
-  
+
 }

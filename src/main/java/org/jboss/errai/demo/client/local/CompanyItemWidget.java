@@ -1,6 +1,5 @@
 package org.jboss.errai.demo.client.local;
 
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.DOM;
@@ -8,17 +7,15 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.jboss.errai.common.client.api.Caller;
 import org.jboss.errai.common.client.api.RemoteCallback;
+
 import org.jboss.errai.databinding.client.api.DataBinder;
 import org.jboss.errai.demo.client.shared.companyEntity.Company;
-import org.jboss.errai.demo.client.shared.userEntity.Role;
-import org.jboss.errai.demo.client.shared.userEntity.User;
-import org.jboss.errai.demo.client.shared.userEntity.UsersRole;
-import org.jboss.errai.security.shared.api.annotation.RestrictedAccess;
-import org.jboss.errai.security.shared.service.AuthenticationService;
+import org.jboss.errai.demo.client.shared.services.CompanyServices;
 import org.jboss.errai.ui.client.widget.HasModel;
 import org.jboss.errai.ui.shared.api.annotations.AutoBound;
 import org.jboss.errai.ui.shared.api.annotations.Bound;
@@ -62,7 +59,7 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
   private final Button removeBut = new Button();
 
   @Inject
-  private Caller<AuthenticationService> authCaller;
+  private Caller<CompanyServices> companyCaller;
 
   @Override
   public Company getModel(){
@@ -76,6 +73,7 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
 
   @PostConstruct
   private void init(){
+    
   }
 
   public void removeRemoveBut(){
@@ -96,22 +94,39 @@ public class CompanyItemWidget extends Composite implements HasModel<Company>{
 
   @EventHandler("editBut")
   private void editButClick(ClickEvent ce){
+    this.showPopup();
+    this.editBut.setFocus(false);
+  }
+
+  private void showPopup(){
     this.editPopUp.setModel(this.getModel());
     this.editPopUp.setVisible(true);
-    this.editBut.setFocus(false);
   }
 
   @EventHandler("removeBut")
   private void removeButClick(ClickEvent ce){
-    boolean confirm;
-    confirm = Window.confirm("Opravdu chcete smazat firmu " + this.name.getInnerText() + "?");
+    boolean confirm = Window.confirm("Opravdu chcete smazat firmu " + this.name.getInnerText() + "?");
     if(confirm){
-      if(this.getElement().getNextSiblingElement() != null && this.getElement().getNextSiblingElement().isOrHasChild(this.infoTableRow.getElement())){
-        this.infoTableRow.getElement().removeFromParent();
-      }
-      this.removeFromParent();
+      this.closeInfoRow();
+      this.callRemoveCompany();
     }
     this.removeBut.setFocus(false);
   }
+
+  private void closeInfoRow(){
+    if(this.getElement().getNextSiblingElement() != null && this.getElement().getNextSiblingElement().isOrHasChild(this.infoTableRow.getElement())){
+      this.infoTableRow.getElement().removeFromParent();
+    }
+  }
+
+  private void callRemoveCompany() throws NumberFormatException{
+    this.companyCaller.call(new RemoteCallback<Boolean>(){
+      @Override
+      public void callback(Boolean response){
+
+      }
+    }).removeCompayById(this.getModel().getId());
+  }
+
 
 }

@@ -1,9 +1,11 @@
 package org.jboss.errai.demo.server;
 
+import org.jboss.errai.demo.client.shared.userEntity.UserWithPass;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javassist.NotFoundException;
+import javax.enterprise.context.ApplicationScoped;
 import org.jboss.errai.demo.client.shared.services.UserServices;
 import org.jboss.errai.demo.client.shared.userEntity.Role;
 import org.jboss.errai.demo.client.shared.userEntity.User;
@@ -14,6 +16,7 @@ import org.jboss.errai.demo.client.shared.userEntity.UsersRole;
  *
  * @author ondra
  */
+@ApplicationScoped
 public class UsersDAO implements UserServices{
 
   public UserWithPass getUserWPByLogin(String login) throws Exception{

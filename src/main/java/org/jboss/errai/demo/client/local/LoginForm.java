@@ -1,6 +1,7 @@
 package org.jboss.errai.demo.client.local;
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Style;
 import org.jboss.errai.demo.client.local.pageStruct.NavBar;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -74,6 +75,10 @@ public class LoginForm extends Composite{
   private void init(){
     this.navBar.setVisible(false);
     this.topBar.setVisible(false);
+  }
+
+  @PageShowing
+  private void pageShowing(){
     this.authCaller.call(new RemoteCallback<Boolean>(){
       public void callback(Boolean isLogged){
         if(isLogged){
@@ -135,6 +140,7 @@ public class LoginForm extends Composite{
 
     if(emptyFields > 0){
       this.emptyWarn.setVisible(true);
+      this.loginWarn.setVisible(false);
     }else{
       this.emptyWarn.setVisible(false);
     }
