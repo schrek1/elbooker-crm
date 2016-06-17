@@ -31,6 +31,7 @@ public class UsersDAO{
       this.dataSource.add(new UserWithPass("admin", Arrays.asList(new Role(UsersRole.ADMIN)), "1"));
       this.dataSource.add(new UserWithPass("firma", Arrays.asList(new Role(UsersRole.COMPANY)), "2"));
       this.dataSource.add(new UserWithPass("company", Arrays.asList(new Role(UsersRole.COMPANY)), "3"));
+      this.dataSource.add(new UserWithPass("sekretarka", Arrays.asList(new Role(UsersRole.ADMIN)), "4"));
     }
     return this.dataSource;
   }

@@ -9,7 +9,7 @@ import org.jboss.errai.common.client.api.annotations.Portable;
 
 @Portable
 public enum UsersRole{
-  COMPANY("firma"), ADMIN("administrátor");
+ ADMIN("administrátor"), COMPANY("firma");
 
   private String nameOfRole;
 
@@ -21,11 +21,12 @@ public enum UsersRole{
     return this.nameOfRole;
   }
 
-  public static List<String> getAllRoles(){
-    List<String> roleNames = new ArrayList<String>();
-    for(UsersRole role : Arrays.asList(UsersRole.values())){
-      roleNames.add(role.getNameOfRole());
-    }
-    return roleNames;
-  }
+
+//  public static List<String> getAllRoles(){
+//    List<String> roleNames = new ArrayList<String>();
+//    for(UsersRole role : Arrays.asList(UsersRole.values())){
+//      roleNames.add(role.getNameOfRole());
+//    }
+//    return roleNames;
+//  }
 }
