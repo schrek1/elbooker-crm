@@ -1,5 +1,7 @@
 package org.jboss.errai.demo.client.shared.userEntity;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.jboss.errai.common.client.api.annotations.MapsTo;
 import org.jboss.errai.common.client.api.annotations.Portable;
 import org.jboss.errai.security.shared.api.RequiredRolesProvider;
@@ -22,7 +24,5 @@ public class Role extends RoleImpl{
   public String getName(){
     return super.getName(); //To change body of generated methods, choose Tools | Templates.
   }
-
-
-
+ 
 }

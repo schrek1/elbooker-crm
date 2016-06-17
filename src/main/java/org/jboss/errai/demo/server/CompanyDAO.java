@@ -23,11 +23,11 @@ import org.jboss.errai.demo.client.shared.userEntity.User;
 public class CompanyDAO{
 
   @Inject
-  private UsersDAO usersDAO;
+  private UserServicesImpl userService;
 
   //TODO dodělat napojeni na DB a plnění z DB
   public List<Company> fillCompanies(){
-    List<User> userList = this.usersDAO.getListOfUsersNP();
+    List<User> userList = this.userService.getListOfUsersNP();
 
     //fill dummy company method
     List<Company> companies = new ArrayList<Company>();

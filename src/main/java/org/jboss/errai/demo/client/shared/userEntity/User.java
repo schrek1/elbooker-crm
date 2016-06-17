@@ -7,12 +7,18 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Default;
 import org.jboss.errai.common.client.api.annotations.MapsTo;
 import org.jboss.errai.common.client.api.annotations.Portable;
+import org.jboss.errai.databinding.client.api.Bindable;
 import org.jboss.errai.security.shared.api.Group;
 import org.jboss.errai.security.shared.api.Role;
 import org.jboss.errai.security.shared.api.identity.UserImpl;
 
 @Portable
+@Bindable
 public class User extends UserImpl{
+
+  public User(){
+    super("");
+  }
 
   public User(String name, Collection<? extends Role> roles){
     super(name, roles);

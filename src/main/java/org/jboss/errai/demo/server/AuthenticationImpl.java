@@ -15,14 +15,17 @@ import org.slf4j.Logger;
 public class AuthenticationImpl implements AuthenticationService{
 
   @Inject
-  private UsersDAO userDAO;
+  private UserServicesImpl userService;
+
 
   @Override
   public User login(String username, String password){
+
+
     UserWithPass recieveUWP;
 
     try{//null pointer
-      recieveUWP = this.userDAO.getUserWPByLogin(username);
+      recieveUWP = this.userService.getUserWPByLogin(username);
     }catch(Exception ex){
       throw new AuthenticationException();
     }

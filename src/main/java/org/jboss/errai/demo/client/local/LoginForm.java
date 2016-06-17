@@ -1,5 +1,6 @@
 package org.jboss.errai.demo.client.local;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import org.jboss.errai.demo.client.local.pageStruct.NavBar;
@@ -113,23 +114,28 @@ public class LoginForm extends Composite{
     this.login.setFocus(false);
 
     if(this.isFormFilled()){
-      this.authCaller.call(new RemoteCallback<User>(){
-        @Override
-        public void callback(User response){
-          loginWarn.setVisible(false);
-          anchorDashboard.go();
-        }
-      }, new ErrorCallback<Message>(){
-        @Override
-        public boolean error(Message message, Throwable t){
-          if(t instanceof AuthenticationException){
-            loginWarn.setVisible(true);
-          }
-          return true;
-        }
-      }).login(this.username.getText(), this.password.getText());
+      this.callLogin();
     }
     this.updateFormStyle();
+  }
+
+  private void callLogin(){
+
+    this.authCaller.call(new RemoteCallback<User>(){
+      @Override
+      public void callback(User response){
+        loginWarn.setVisible(false);
+        anchorDashboard.go();
+      }
+    }, new ErrorCallback<Message>(){
+      @Override
+      public boolean error(Message message, Throwable t){
+        if(t instanceof AuthenticationException){
+          loginWarn.setVisible(true);
+        }
+        return true;
+      }
+    }).login(this.username.getText(), this.password.getText());
   }
 
   private void updateFormStyle(){
