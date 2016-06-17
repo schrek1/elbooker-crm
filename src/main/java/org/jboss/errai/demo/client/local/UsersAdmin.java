@@ -1,6 +1,8 @@
 package org.jboss.errai.demo.client.local;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
@@ -27,6 +29,8 @@ import org.jboss.errai.security.shared.api.Role;
 import org.jboss.errai.security.shared.api.annotation.RestrictedAccess;
 import org.jboss.errai.ui.client.widget.HasModel;
 import org.jboss.errai.ui.nav.client.local.Page;
+import org.jboss.errai.ui.nav.client.local.PageShowing;
+import org.jboss.errai.ui.nav.client.local.PageShown;
 import org.jboss.errai.ui.shared.api.annotations.AutoBound;
 import org.jboss.errai.ui.shared.api.annotations.Bound;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
@@ -46,6 +50,16 @@ public class UsersAdmin extends Composite implements HasModel<User>{
   @Inject
   @DataField
   private TextBox username;
+
+  @Inject
+  @DataField
+  private TextBox password;
+
+  @Inject
+  @DataField
+  private TextBox checkPass;
+
+  private boolean modelUpdate;
 
   @DataField
   private ValueListBox roles = new ValueListBox(new Renderer<String>(){
@@ -82,6 +96,14 @@ public class UsersAdmin extends Composite implements HasModel<User>{
   private AddUserPopup addPop;
 
   @Inject
+  @DataField
+  private Button removeButton;
+
+  @Inject
+  @DataField
+  private Button editButton;
+
+  @Inject
   private Caller<UserServices> userCaller;
 
   @EventHandler("addButton")
@@ -92,6 +114,7 @@ public class UsersAdmin extends Composite implements HasModel<User>{
 
   @PostConstruct
   private void init(){
+    this.addTextBoxChangeHandlers();
     this.fillListBox();
     this.fillRoles();
     this.addHandlerToListBox();
@@ -101,11 +124,16 @@ public class UsersAdmin extends Composite implements HasModel<User>{
     listBox.addValueChangeHandler(new ValueChangeHandler(){
       @Override
       public void onValueChange(ValueChangeEvent event){
-        User user = (User)listBox.getValue();
-        setModel(user);
-        setElementsValue();
+        updateForm();
       }
     });
+  }
+
+  private void updateForm(){
+    User user = (User)listBox.getValue();
+    setModel(user);
+    setElementsValue();
+    modelUpdate = false;
   }
 
   private void setElementsValue(){
@@ -129,6 +157,8 @@ public class UsersAdmin extends Composite implements HasModel<User>{
     this.userCaller.call(new RemoteCallback<List<User>>(){
       @Override
       public void callback(List<User> users){
+        listBox.setValue(users.get(0));
+        updateForm();
         listBox.setAcceptableValues(users);
       }
     }).getListOfUsersNP();
@@ -148,6 +178,41 @@ public class UsersAdmin extends Composite implements HasModel<User>{
     List<String> roles = UsersRole.getAllRoles();
     this.roles.setValue(roles.get(0));
     this.roles.setAcceptableValues(roles);
+  }
+
+  private void addTextBoxChangeHandlers(){
+    this.username.addChangeHandler(new ChangeHandler(){
+      @Override
+      public void onChange(ChangeEvent event){
+        User user = (User)listBox.getValue();
+        if(!username.getText().equals(user.getIdentifier())){
+          username.getElement().getParentElement().addClassName("has-warning");
+        }else{
+          username.getElement().getParentElement().removeClassName("has-warning");
+        }
+      }
+    });
+
+    this.checkPass.addChangeHandler(new ChangeHandler(){
+      @Override
+      public void onChange(ChangeEvent event){
+        if(!checkPass.getText().isEmpty()){
+          checkPass.getElement().getParentElement().addClassName("has-warning");
+        }else{
+          checkPass.getElement().getParentElement().removeClassName("has-warning");
+        }
+      }
+    });
+    this.password.addChangeHandler(new ChangeHandler(){
+      @Override
+      public void onChange(ChangeEvent event){
+        if(!password.getText().isEmpty()){
+          password.getElement().getParentElement().addClassName("has-warning");
+        }else{
+          password.getElement().getParentElement().removeClassName("has-warning");
+        }
+      }
+    });
   }
 
 }

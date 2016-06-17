@@ -61,4 +61,10 @@ public class UserServicesImpl implements UserServices{
     System.err.println("add new user(" + username + ") with pass(" + password + ") in role>" + role);
     return false;
   }
+
+  @Override
+  public boolean changeUsername(String username, String newname){
+    System.err.println("rename user(" + username + ") to >" + newname);
+    return false;
+  }
 }

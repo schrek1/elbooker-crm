@@ -13,4 +13,6 @@ public interface UserServices {
   public boolean deleteUserAccount(String username);
 
   public boolean addNewUser(String username, String password, String role);
+
+  public boolean changeUsername(String username, String newname);
 }
