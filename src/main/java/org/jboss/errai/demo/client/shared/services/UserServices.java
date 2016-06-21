@@ -15,4 +15,6 @@ public interface UserServices {
   public boolean addNewUser(String username, String password, String role);
 
   public boolean changeUsername(String username, String newname);
+
+  public List<User> getListOfCompanyUsers();
 }

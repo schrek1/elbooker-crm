@@ -1,18 +1,16 @@
 package org.jboss.errai.demo.server;
 
+import com.google.common.collect.Iterables;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.function.Predicate;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import org.jboss.errai.bus.server.annotations.Service;
 import org.jboss.errai.demo.client.shared.services.UserServices;
-import org.jboss.errai.demo.client.shared.userEntity.Role;
 import org.jboss.errai.demo.client.shared.userEntity.User;
 import org.jboss.errai.demo.client.shared.userEntity.UserWithPass;
 import org.jboss.errai.demo.client.shared.userEntity.UsersRole;
-import org.slf4j.Logger;
+import org.jboss.errai.security.shared.api.Role;
 
 @ApplicationScoped
 @Service
@@ -66,5 +64,17 @@ public class UserServicesImpl implements UserServices{
   public boolean changeUsername(String username, String newname){
     System.err.println("rename user(" + username + ") to >" + newname);
     return false;
+  }
+
+  public List<User> getListOfCompanyUsers(){
+    List<UserWithPass> users = this.usersDAO.getUserList();
+    List<User> companies = new ArrayList<User>();
+    for(UserWithPass user : users){
+      Role role = Iterables.get(user.getRoles(), 0);
+      if(role != null && role.getName().equals(UsersRole.COMPANY.name())){
+        companies.add(user.makeUserWithoutPassword());
+      }
+    }
+    return companies;
   }
 }

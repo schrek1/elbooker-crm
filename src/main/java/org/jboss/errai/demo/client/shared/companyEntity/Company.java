@@ -110,6 +110,10 @@ public class Company{
     return false;
   }
 
+  public List<User> getAuthorizedUsers(){
+    return this.authorizedUsers;
+  }
+
   @Override
   public String toString(){
     return "Company{" + "id=" + id + ", name=" + name + ", web=" + web + ", contactPerson=" + contactPerson + ", phone=" + phone + ", address=" + address + ", billingInfo=" + billingInfo + ", authorizedUsers=" + authorizedUsers + '}';

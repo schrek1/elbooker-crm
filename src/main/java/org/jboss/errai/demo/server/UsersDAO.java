@@ -24,7 +24,7 @@ import org.slf4j.Logger;
 @ApplicationScoped
 public class UsersDAO{
 
-  List<UserWithPass> dataSource = new ArrayList<UserWithPass>();
+  private List<UserWithPass> dataSource = new ArrayList<UserWithPass>();
 
   public List<UserWithPass> getUserList(){
     if(this.dataSource.isEmpty()){
