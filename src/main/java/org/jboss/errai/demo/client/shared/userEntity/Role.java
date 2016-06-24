@@ -10,7 +10,7 @@ import org.jboss.errai.security.shared.api.RoleImpl;
 @Portable
 public class Role extends RoleImpl{
 
-  public Role(@MapsTo("name") UsersRole name){
+  public Role(@MapsTo("name") UsersRoles name){
     super(name.toString());
   }
 

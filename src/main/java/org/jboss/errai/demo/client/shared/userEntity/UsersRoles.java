@@ -8,12 +8,12 @@ import java.util.List;
 import org.jboss.errai.common.client.api.annotations.Portable;
 
 @Portable
-public enum UsersRole{
+public enum UsersRoles{
  ADMIN("administrátor"), COMPANY("firma");
 
   private String nameOfRole;
 
-  private UsersRole(String nameOfRole){
+  private UsersRoles(String nameOfRole){
     this.nameOfRole = nameOfRole;
   }
 

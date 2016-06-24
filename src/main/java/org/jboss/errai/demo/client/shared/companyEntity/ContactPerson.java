@@ -1,15 +1,25 @@
 package org.jboss.errai.demo.client.shared.companyEntity;
 
 import java.util.HashMap;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import org.jboss.errai.common.client.api.annotations.Portable;
 import org.jboss.errai.databinding.client.api.Bindable;
 
 @Portable
 @Bindable
-public class ContactPerson {
+@Entity
+public class ContactPerson{
+
+  @Id
+  @GeneratedValue
+  private int id;
 
   private String firstname;
   private String surename;
+  @OneToOne
   private PhoneNumber phone;
   private HashMap<String, String> comments;
 
