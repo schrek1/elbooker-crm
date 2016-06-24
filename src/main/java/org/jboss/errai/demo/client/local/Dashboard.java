@@ -79,6 +79,7 @@ public class Dashboard extends Composite{
 
   @PostConstruct
   private void init(){
+
   }
 
   @PageShowing
@@ -87,7 +88,7 @@ public class Dashboard extends Composite{
       @Override
       public void callback(List<Company> response){
         companyTable.setItems(response);
-        removeNotAccessible();
+        removeNotAccessibleForCompany();
       }
     }).getListOfCompanies();
     this.editPopUp.setVisible(false);
@@ -100,23 +101,29 @@ public class Dashboard extends Composite{
     this.addPopUp.removeFromParent();
   }
 
-  public void removeNotAccessible(){
+  public void removeNotAccessibleForCompany(){
     authCaller.call(new RemoteCallback<User>(){
       @Override
       public void callback(User user){
         Role companyRole = new Role(UsersRole.COMPANY);
         if(user.getRoles().contains(companyRole)){
-          int i = companyTable.getWidgetCount();
-          while(i-- > 0){
-            CompanyItemWidget item = companyTable.getWidget(i);
-            item.removeRemoveBut();
-            if(!item.getModel().haveAccess(user)){
-              item.removeFromParent();
-            }
-          }
+          removeElements(user);
         }
       }
     }).getUser();
+  }
+
+  private void removeElements(User user){
+    int i = companyTable.getWidgetCount();
+    while(i-- > 0){
+      CompanyItemWidget item = companyTable.getWidget(i);
+      item.removeRemoveBut(); //remove removeBut from every line
+      if(!item.getModel().haveAccess(user)){//if company haven't access remove line
+        item.removeFromParent();
+      }
+    }
+    addButton.getElement().removeFromParent(); //remove add company button
+    this.addPopUp.removeFromParent(); //remove add popup
   }
 
 }
