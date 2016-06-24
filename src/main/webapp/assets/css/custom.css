@@ -21,6 +21,11 @@ body {
 
 }
 
+#addPopUp  .input-group{
+  margin-bottom: 5px;
+
+}
+
 .v-align {
     float: none;
     display: inline-block;

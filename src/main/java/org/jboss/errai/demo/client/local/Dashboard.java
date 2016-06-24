@@ -55,6 +55,14 @@ public class Dashboard extends Composite{
   @Inject
   private EditCompanyPopup editPopUp;
 
+  @DataField
+  @Inject
+  private AddCompanyPopup addPopUp;
+
+  @DataField
+  @Inject
+  private Button addButton;
+
   @Inject
   private Caller<AuthenticationService> authCaller;
 
@@ -62,6 +70,12 @@ public class Dashboard extends Composite{
   @DataField
   @Table(root = "tbody")
   private ListWidget<Company, CompanyItemWidget> companyTable;
+
+  @EventHandler("addButton")
+  private void addButClick(ClickEvent ce){
+    this.addPopUp.setVisible(true);
+    this.addButton.setFocus(false);
+  }
 
   @PostConstruct
   private void init(){
@@ -77,11 +91,13 @@ public class Dashboard extends Composite{
       }
     }).getListOfCompanies();
     this.editPopUp.setVisible(false);
+    this.addPopUp.setVisible(false);
   }
 
   @PageHiding
   private void hide(){
     this.editPopUp.removeFromParent();
+    this.addPopUp.removeFromParent();
   }
 
   public void removeNotAccessible(){
