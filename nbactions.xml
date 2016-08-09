@@ -5,11 +5,15 @@
             <displayName>Host Mode</displayName>
             <goals>
                 <goal>gwt:run</goal>
+                <goal>-Dgwt.logLevel=DEBUG</goal>
+                
+                
                 
                 
             </goals>
             <properties>
                 <runTarget>index.html</runTarget>
+                
                 
                 
             </properties>

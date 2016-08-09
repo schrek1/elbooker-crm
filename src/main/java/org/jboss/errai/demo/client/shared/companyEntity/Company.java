@@ -27,7 +27,7 @@ public class Company{
 
   @Id
   @GeneratedValue
-  private int id;
+  private int idCompany;
   private String name;
   private String web;
 
@@ -47,7 +47,7 @@ public class Company{
   }
 
   public int getId(){
-    return id;
+    return idCompany;
   }
 
   public String getName(){
@@ -59,7 +59,7 @@ public class Company{
   }
 
   public void setId(int id){
-    this.id = id;
+    this.idCompany = id;
   }
 
   public void setName(String name){
@@ -131,7 +131,7 @@ public class Company{
 
   @Override
   public String toString(){
-    return "Company{" + "id=" + id + ", name=" + name + ", web=" + web + ", contactPerson=" + contactPerson + ", phone=" + phone + ", address=" + address + ", billingInfo=" + billingInfo + ", authorizedUsers=" + authorizedUsers + '}';
+    return "Company{" + "id=" + idCompany + ", name=" + name + ", web=" + web + ", contactPerson=" + contactPerson + ", phone=" + phone + ", address=" + address + ", billingInfo=" + billingInfo + ", authorizedUsers=" + authorizedUsers + '}';
   }
 
 }

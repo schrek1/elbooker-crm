@@ -22,8 +22,8 @@ public class User extends UserImpl{
 
   @Id
   @GeneratedValue
-  private int id;
-  
+  private int idUser;
+
   private String email;
 
   public User(){

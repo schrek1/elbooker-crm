@@ -13,12 +13,11 @@ public class BillingInfo{
 
   @Id
   @GeneratedValue
-  private int id;
+  private int idBillingInfo;
   private String idNum;
   private String vatNum;
 
   public BillingInfo(){
-
   }
 
   public String getIdNum(){

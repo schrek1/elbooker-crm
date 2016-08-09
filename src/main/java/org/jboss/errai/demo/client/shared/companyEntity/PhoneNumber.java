@@ -13,13 +13,12 @@ public class PhoneNumber{
 
   @Id
   @GeneratedValue
-  private int id;
+  private int idPhoneNumber;
 
   private String countryPrefix;
   private String number;
 
   public PhoneNumber(){
-
   }
 
   public String getCountryPrefix(){

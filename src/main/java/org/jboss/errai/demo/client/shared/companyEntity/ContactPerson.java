@@ -15,7 +15,7 @@ public class ContactPerson{
 
   @Id
   @GeneratedValue
-  private int id;
+  private int idContactPerson;
 
   private String firstname;
   private String surename;

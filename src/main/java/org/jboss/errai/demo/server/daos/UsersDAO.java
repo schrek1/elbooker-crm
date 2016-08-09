@@ -1,18 +1,19 @@
 package org.jboss.errai.demo.server.daos;
 
-import com.google.gwt.thirdparty.common.css.compiler.passes.CollectConstantDefinitions;
+import com.google.gwt.core.shared.GWT;
 import org.jboss.errai.demo.client.shared.userEntity.UserWithPass;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import javassist.NotFoundException;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import org.jboss.errai.bus.server.annotations.Service;
-import org.jboss.errai.demo.client.shared.services.UserServices;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import org.jboss.errai.demo.client.shared.userEntity.Role;
-import org.jboss.errai.demo.client.shared.userEntity.User;
 import org.jboss.errai.demo.client.shared.userEntity.UsersRoles;
 import org.slf4j.Logger;
 
@@ -24,7 +25,13 @@ import org.slf4j.Logger;
 @ApplicationScoped
 public class UsersDAO{
 
+  @Inject
+  Logger logger;
+
   private List<UserWithPass> dataSource = new ArrayList<UserWithPass>();
+
+  @PersistenceContext(unitName = "jpa-example")
+  private EntityManager entitymanager;
 
   public List<UserWithPass> getUserList(){
     if(this.dataSource.isEmpty()){
@@ -33,6 +40,26 @@ public class UsersDAO{
       this.dataSource.add(new UserWithPass("company", Arrays.asList(new Role(UsersRoles.COMPANY)), "3"));
       this.dataSource.add(new UserWithPass("sekretarka", Arrays.asList(new Role(UsersRoles.ADMIN)), "4"));
     }
+
+
+//    EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-example");
+//    EntityManager manager = factory.createEntityManager();
+
+    this.logger.error(this.entitymanager.toString() + "");
+
+
+//    GWT.log(">>>>>>>>>>>>>>>>>>");
+    UserWithPass uwp = new UserWithPass("admin", Arrays.asList(new Role(UsersRoles.ADMIN)), "1");
+    entitymanager.persist(uwp);
+    entitymanager.flush();
+//    Query query = entitymanager.createQuery("SELECT u FROM UserWithPass u");
+//    uwp = null;
+//    try{
+//      uwp = (UserWithPass)query.getSingleResult();
+//    }catch(NoResultException ex){
+//      ex.printStackTrace();
+//    }
+//    System.err.println(uwp);
     return this.dataSource;
   }
 
