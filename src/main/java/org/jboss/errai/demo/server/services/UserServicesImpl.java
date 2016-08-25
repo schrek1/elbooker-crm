@@ -1,5 +1,6 @@
-package org.jboss.errai.demo.server;
+package org.jboss.errai.demo.server.services;
 
+import org.jboss.errai.demo.server.daos.UsersDAO;
 import com.google.common.collect.Iterables;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,7 @@ import org.jboss.errai.bus.server.annotations.Service;
 import org.jboss.errai.demo.client.shared.services.UserServices;
 import org.jboss.errai.demo.client.shared.userEntity.User;
 import org.jboss.errai.demo.client.shared.userEntity.UserWithPass;
-import org.jboss.errai.demo.client.shared.userEntity.UsersRole;
+import org.jboss.errai.demo.client.shared.userEntity.UsersRoles;
 import org.jboss.errai.security.shared.api.Role;
 
 @ApplicationScoped
@@ -19,6 +20,8 @@ public class UserServicesImpl implements UserServices{
   @Inject
   private UsersDAO usersDAO;
 
+
+  //TODO presunout do DAO
   public UserWithPass getUserWPByLogin(String login) throws Exception{
     List<UserWithPass> users = this.usersDAO.getUserList();
 
@@ -30,6 +33,7 @@ public class UserServicesImpl implements UserServices{
     throw new Exception("user not found");
   }
 
+  //TODO presunout do DAO
   @Override
   public List<User> getListOfUsersNP(){
     List<User> nopassUsers = new ArrayList<User>();
@@ -66,12 +70,14 @@ public class UserServicesImpl implements UserServices{
     return false;
   }
 
+
+  //TODO presunout do DAO
   public List<User> getListOfCompanyUsers(){
     List<UserWithPass> users = this.usersDAO.getUserList();
     List<User> companies = new ArrayList<User>();
     for(UserWithPass user : users){
       Role role = Iterables.get(user.getRoles(), 0);
-      if(role != null && role.getName().equals(UsersRole.COMPANY.name())){
+      if(role != null && role.getName().equals(UsersRoles.COMPANY.name())){
         companies.add(user.makeUserWithoutPassword());
       }
     }

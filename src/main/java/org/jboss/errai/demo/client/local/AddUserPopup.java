@@ -14,7 +14,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.jboss.errai.demo.client.shared.userEntity.User;
-import org.jboss.errai.demo.client.shared.userEntity.UsersRole;
+import org.jboss.errai.demo.client.shared.userEntity.UsersRoles;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
@@ -35,14 +35,14 @@ public class AddUserPopup extends Composite{
   private TextBox checkPass;
 
   @DataField
-  private ValueListBox roles = new ValueListBox(new Renderer<UsersRole>(){
+  private ValueListBox roles = new ValueListBox(new Renderer<UsersRoles>(){
     @Override
-    public String render(UsersRole role){
+    public String render(UsersRoles role){
       return role.getNameOfRole();
     }
 
     @Override
-    public void render(UsersRole role, Appendable appendable) throws IOException{
+    public void render(UsersRoles role, Appendable appendable) throws IOException{
       appendable.append(render(role));
     }
   });
@@ -63,13 +63,13 @@ public class AddUserPopup extends Composite{
   @EventHandler("createButton")
   private void createButtClick(ClickEvent ce){
     this.setVisible(false);
-    UsersRole role = (UsersRole)this.roles.getValue();
+    UsersRoles role = (UsersRoles)this.roles.getValue();
     Window.alert(role.toString());
   }
 
   @PostConstruct
   private void init(){
-    List<UsersRole> roles = Arrays.asList(UsersRole.values());
+    List<UsersRoles> roles = Arrays.asList(UsersRoles.values());
     this.roles.setValue(roles.get(1));
     this.roles.setAcceptableValues(roles);
   }

@@ -32,7 +32,7 @@ import org.jboss.errai.ui.shared.api.annotations.Templated;
 import org.jboss.errai.demo.client.shared.services.CompanyServices;
 import org.jboss.errai.demo.client.shared.userEntity.Role;
 import org.jboss.errai.demo.client.shared.userEntity.User;
-import org.jboss.errai.demo.client.shared.userEntity.UsersRole;
+import org.jboss.errai.demo.client.shared.userEntity.UsersRoles;
 import org.jboss.errai.security.shared.api.annotation.RestrictedAccess;
 import org.jboss.errai.security.shared.service.AuthenticationService;
 import org.jboss.errai.ui.nav.client.local.PageHiding;
@@ -105,7 +105,7 @@ public class Dashboard extends Composite{
     authCaller.call(new RemoteCallback<User>(){
       @Override
       public void callback(User user){
-        Role companyRole = new Role(UsersRole.COMPANY);
+        Role companyRole = new Role(UsersRoles.COMPANY);
         if(user.getRoles().contains(companyRole)){
           removeElements(user);
         }

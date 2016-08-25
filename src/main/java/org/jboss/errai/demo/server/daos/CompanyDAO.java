@@ -1,7 +1,8 @@
-package org.jboss.errai.demo.server;
+package org.jboss.errai.demo.server.daos;
 
 import com.google.gwt.core.shared.GWT;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
@@ -9,6 +10,9 @@ import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import org.hibernate.mapping.Collection;
 import org.jboss.errai.bus.server.annotations.Service;
 import org.jboss.errai.demo.client.shared.companyEntity.Address;
@@ -17,7 +21,11 @@ import org.jboss.errai.demo.client.shared.companyEntity.Company;
 import org.jboss.errai.demo.client.shared.companyEntity.ContactPerson;
 import org.jboss.errai.demo.client.shared.companyEntity.PhoneNumber;
 import org.jboss.errai.demo.client.shared.services.CompanyServices;
+import org.jboss.errai.demo.client.shared.userEntity.Role;
 import org.jboss.errai.demo.client.shared.userEntity.User;
+import org.jboss.errai.demo.client.shared.userEntity.UserWithPass;
+import org.jboss.errai.demo.client.shared.userEntity.UsersRoles;
+import org.jboss.errai.demo.server.services.UserServicesImpl;
 
 @ApplicationScoped
 public class CompanyDAO{
@@ -25,8 +33,11 @@ public class CompanyDAO{
   @Inject
   private UserServicesImpl userService;
 
+  @PersistenceContext
+  private EntityManager em;
+
   //TODO dodělat napojeni na DB a plnění z DB
-  public List<Company> fillCompanies(){
+  public List<Company> getAllCompanies(){
     List<User> userList = this.userService.getListOfUsersNP();
 
     //fill dummy company method
@@ -196,6 +207,11 @@ public class CompanyDAO{
 
   //TODO dodelat update Company
   public boolean updateCompany(Company editCompany, int id){
+    return false;
+  }
+
+  //TODO dodelat update Company
+  public boolean addCompany(Company addCompany){
     return false;
   }
 

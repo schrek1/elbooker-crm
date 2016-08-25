@@ -5,6 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import org.jboss.errai.common.client.api.annotations.Portable;
 import org.jboss.errai.databinding.client.api.Bindable;
 import org.jboss.errai.demo.client.shared.userEntity.User;
@@ -15,24 +22,32 @@ import org.jboss.errai.demo.client.shared.userEntity.User;
  */
 @Portable
 @Bindable
+@Entity
 public class Company{
 
-  private int id;
+  @Id
+  @GeneratedValue
+  private int idCompany;
   private String name;
   private String web;
 
+  @ManyToOne
   private ContactPerson contactPerson;
+  @ManyToOne
   private PhoneNumber phone;
+  @ManyToOne
   private Address address;
+  @OneToOne
   private BillingInfo billingInfo;
 
+  @ManyToMany
   private List<User> authorizedUsers = new ArrayList<User>();
 
   public Company(){
   }
 
   public int getId(){
-    return id;
+    return idCompany;
   }
 
   public String getName(){
@@ -44,7 +59,7 @@ public class Company{
   }
 
   public void setId(int id){
-    this.id = id;
+    this.idCompany = id;
   }
 
   public void setName(String name){
@@ -116,7 +131,7 @@ public class Company{
 
   @Override
   public String toString(){
-    return "Company{" + "id=" + id + ", name=" + name + ", web=" + web + ", contactPerson=" + contactPerson + ", phone=" + phone + ", address=" + address + ", billingInfo=" + billingInfo + ", authorizedUsers=" + authorizedUsers + '}';
+    return "Company{" + "id=" + idCompany + ", name=" + name + ", web=" + web + ", contactPerson=" + contactPerson + ", phone=" + phone + ", address=" + address + ", billingInfo=" + billingInfo + ", authorizedUsers=" + authorizedUsers + '}';
   }
 
 }

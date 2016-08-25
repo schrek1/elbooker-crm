@@ -1,4 +1,4 @@
-package org.jboss.errai.demo.server;
+package org.jboss.errai.demo.server.services;
 
 import org.jboss.errai.demo.client.shared.userEntity.UserWithPass;
 import com.google.gwt.core.shared.GWT;
