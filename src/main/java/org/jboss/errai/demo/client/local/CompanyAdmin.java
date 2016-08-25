@@ -7,7 +7,7 @@ import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.ValueListBox;
 import java.io.IOException;
-import org.jboss.errai.demo.client.shared.userEntity.UsersRoles;
+import org.jboss.errai.demo.client.shared.userEntity.UsersRole;
 import org.jboss.errai.security.shared.api.annotation.RestrictedAccess;
 import org.jboss.errai.ui.nav.client.local.Page;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
@@ -187,7 +187,7 @@ public class CompanyAdmin extends Composite{
 
   private void setUserBoxEmpty(ValueListBox listbox){
     listbox.setEnabled(false);
-    listbox.setValue(new User("prazdne", Arrays.asList(new Role(UsersRoles.COMPANY))));
+    listbox.setValue(new User("prazdne", Arrays.asList(new Role(UsersRole.COMPANY))));
     listbox.setAcceptableValues(new ArrayList<User>());
   }
 

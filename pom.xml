@@ -35,38 +35,6 @@
   </dependencyManagement>
 
   <dependencies>
-
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>5.1.33</version>
-    </dependency>
-
-    <!-- Hibernate c3p0 connection pool -->
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-c3p0</artifactId>
-      <version>3.6.3.Final</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.hibernate.javax.persistence</groupId>
-      <artifactId>hibernate-jpa-2.1-api</artifactId>
-      <version>1.0.0.Final</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jboss.errai</groupId>
-      <artifactId>errai-jpa-client</artifactId>
-      <version>${errai.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jboss.errai</groupId>
-      <artifactId>errai-jpa-datasync</artifactId>
-      <version>${errai.version}</version>
-    </dependency>
-
     <dependency>
       <groupId>com.google.gwt</groupId>
       <artifactId>gwt-user</artifactId>
@@ -148,33 +116,12 @@
       <version>4.0.0.Beta1</version>
       <type>jar</type>
     </dependency>
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-entitymanager</artifactId>
-      <version>4.3.1.Final</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>unknown.binary</groupId>
-      <artifactId>hibernate-jpamodelgen-4.3.1.Final</artifactId>
-      <version>SNAPSHOT</version>
-      <scope>provided</scope>
-    </dependency>
   </dependencies>
 
   <repositories>
     <repository>
       <id>JBOSS_NEXUS</id>
       <url>http://repository.jboss.org/nexus/content/groups/public</url>
-    </repository>
-    <repository>
-      <id>unknown-jars-temp-repo</id>
-      <name>A temporary repository created by NetBeans for libraries and jars it could not identify. Please replace the dependencies in this repository with correct ones and delete this repository.</name>
-      <url>file:${project.basedir}/lib</url>
-    </repository>
-    <repository>
-      <id>JBoss repository</id>
-      <url>http://repository.jboss.org/nexus/content/groups/public/</url>
     </repository>
   </repositories>
 
@@ -241,7 +188,7 @@
           </execution>
         </executions>
         <configuration>
-          <!--<logLevel>ALL</logLevel>-->
+          <logLevel>INFO</logLevel>
           <noServer>false</noServer>
           <!--extraJvmArgs>-Xmx2048m -XX:CompileThreshold=7000 -XX:MaxPermSize=256M -Derrai.jboss.home=${errai.jboss.home} -Derrai.dev.context=${errai.dev.context} -Derrai.jboss.javaopts="-XX:MaxPermSize=256m" -Derrai.jboss.javaagent.path=${settings.localRepository}/org/jboss/errai/errai-client-local-class-hider/${errai.version}/errai-client-local-class-hider-${errai.version}.jar</extraJvmArgs>
           <server>org.jboss.errai.cdi.server.gwt.JBossLauncher</server-->

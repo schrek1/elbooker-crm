@@ -1,15 +1,11 @@
-package org.jboss.errai.demo.server.services;
+package org.jboss.errai.demo.server;
 
-import java.util.Collections;
-import org.jboss.errai.demo.server.daos.CompanyDAO;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import org.hibernate.mapping.Collection;
 import org.jboss.errai.bus.server.annotations.Service;
 import org.jboss.errai.demo.client.shared.companyEntity.Company;
 import org.jboss.errai.demo.client.shared.services.CompanyServices;
-import org.jboss.errai.demo.client.shared.userEntity.User;
 
 @ApplicationScoped
 @Service
@@ -20,18 +16,12 @@ public class CompanyServicesImpl implements CompanyServices{
 
   @Override
   public List<Company> getListOfCompanies(){
-    return this.companyDAO.getAllCompanies();
+    return this.companyDAO.fillCompanies();
   }
 
-  //TODO dodelat vraceni listu pro konkretniho uzivatele
-  public List<Company> getAccessibleCompanies(User user){
-    return Collections.EMPTY_LIST;
-  }
-
-  //TODO presunout implementaci do DAO
   @Override
   public Company getCompanyById(int id){
-    List<Company> listOfCompany = this.companyDAO.getAllCompanies();
+    List<Company> listOfCompany = this.companyDAO.fillCompanies();
     for(Company company : listOfCompany){
       if(company.getId() == id){
         return company;

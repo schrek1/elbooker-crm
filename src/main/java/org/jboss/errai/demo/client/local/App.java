@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.jboss.errai.demo.client.local;
 
 import org.jboss.errai.demo.client.local.pageStruct.PageWrapper;
@@ -34,9 +35,6 @@ import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-import javax.enterprise.inject.Produces;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 
 /**
@@ -44,19 +42,18 @@ import org.jboss.errai.ui.shared.api.annotations.DataField;
  * compile time, Errai finds the {@code @EntryPoint} annotation on this class
  * and generates bootstrap code that creates an instance of this class when the
  * page loads. This client-side bootstrap code will also call the
- * {@link #init()} method because it is annotated with the {@link PostConstruct}
- * annotation.
+ * {@link #init()} method because it is annotated with the
+ * {@link PostConstruct} annotation.
  */
 @EntryPoint
-public class App{
+public class App {
 
   @Inject
   private PageWrapper pageWrapper;
 
   @PostConstruct
-  public void init(){
+  public void init() {
     RootPanel.get().add(this.pageWrapper);
   }
-
 
 }

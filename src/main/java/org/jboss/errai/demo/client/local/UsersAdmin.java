@@ -25,7 +25,7 @@ import org.jboss.errai.databinding.client.api.DataBinder;
 import org.jboss.errai.demo.client.shared.companyEntity.Company;
 import org.jboss.errai.demo.client.shared.services.UserServices;
 import org.jboss.errai.demo.client.shared.userEntity.User;
-import org.jboss.errai.demo.client.shared.userEntity.UsersRoles;
+import org.jboss.errai.demo.client.shared.userEntity.UsersRole;
 import org.jboss.errai.security.shared.api.Role;
 import org.jboss.errai.security.shared.api.annotation.RestrictedAccess;
 import org.jboss.errai.security.shared.service.AuthenticationService;
@@ -64,14 +64,14 @@ public class UsersAdmin extends Composite implements HasModel<User>{
   private boolean modelUpdate;
 
   @DataField
-  private ValueListBox roles = new ValueListBox(new Renderer<UsersRoles>(){
+  private ValueListBox roles = new ValueListBox(new Renderer<UsersRole>(){
     @Override
-    public String render(UsersRoles role){
+    public String render(UsersRole role){
       return role.getNameOfRole();
     }
 
     @Override
-    public void render(UsersRoles role, Appendable appendable) throws IOException{
+    public void render(UsersRole role, Appendable appendable) throws IOException{
       appendable.append(render(role));
     }
   });
@@ -155,7 +155,7 @@ public class UsersAdmin extends Composite implements HasModel<User>{
     Object roleArray[] = this.userBinder.getModel().getRoles().toArray();
     if(roleArray.length != 0){
       Role role = (Role)roleArray[0];
-      UsersRoles enumRole = UsersRoles.valueOf(role.getName());
+      UsersRole enumRole = UsersRole.valueOf(role.getName());
       return enumRole;
     }else{
       return null;
@@ -198,7 +198,7 @@ public class UsersAdmin extends Composite implements HasModel<User>{
   }
 
   private void fillRoles(){
-    List<UsersRoles> roles = Arrays.asList(UsersRoles.values());
+    List<UsersRole> roles = Arrays.asList(UsersRole.values());
     this.roles.setValue(roles.get(0));
     this.roles.setAcceptableValues(roles);
   }
@@ -236,11 +236,11 @@ public class UsersAdmin extends Composite implements HasModel<User>{
         }
       }
     });
-    this.roles.addValueChangeHandler(new ValueChangeHandler<UsersRoles>(){
+    this.roles.addValueChangeHandler(new ValueChangeHandler<UsersRole>(){
       @Override
-      public void onValueChange(ValueChangeEvent<UsersRoles> event){
-        UsersRoles newVal = event.getValue();
-        UsersRoles modelVal = (UsersRoles)parseEnumFromModel();
+      public void onValueChange(ValueChangeEvent<UsersRole> event){
+        UsersRole newVal = event.getValue();
+        UsersRole modelVal = (UsersRole)parseEnumFromModel();
 
         if(newVal != modelVal){
           roles.getElement().getParentElement().addClassName("has-warning");

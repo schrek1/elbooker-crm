@@ -1,28 +1,17 @@
 package org.jboss.errai.demo.client.shared.companyEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import org.jboss.errai.common.client.api.annotations.Portable;
 import org.jboss.errai.databinding.client.api.Bindable;
 
 @Portable
 @Bindable
-@Entity
-public class Address{
-
-  @Id
-  @GeneratedValue
-  private int idAddress;
+public class Address {
 
   private String country;
   private String street;
   private String postalCode;
   private String town;
 
-  public Address(){
-  }
 
   public String getCountry(){
     return country;
@@ -60,5 +49,7 @@ public class Address{
   public String toString(){
     return "Address{" + "country=" + country + ", street=" + street + ", postalCode=" + postalCode + ", town=" + town + '}';
   }
+
+  
 
 }
